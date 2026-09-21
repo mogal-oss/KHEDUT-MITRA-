@@ -386,14 +386,40 @@
       color: #176d39;
     }
 
+    .increase,
+    .decrease {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 92px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-weight: 800;
+      line-height: 1.25;
+      text-align: center;
+    }
+
     .increase {
-      color: #159447;
-      font-weight: 700;
+      background: #dcfce7;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
     }
 
     .decrease {
-      color: #d33b3b;
-      font-weight: 700;
+      background: #fee2e2;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+    }
+
+    .change-amount {
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    .change-label {
+      font-size: 12px;
+      margin-top: 2px;
     }
 
     /* =========================
@@ -1130,6 +1156,10 @@
         id="marketStatus"
       >
         ⏳ બજાર ભાવ લોડ થઈ રહ્યા છે...
+      </div>
+
+      <div class="market-status" style="background:#f0fff4;padding:12px 15px;border-radius:10px;color:#176d39;">
+        💡 ભાવ વધે તો <strong>↑ વધારો</strong> અને ભાવ ઘટે તો <strong>↓ ઘટાડો</strong> આપમેળે દેખાશે.
       </div>
 
       <div class="table-wrapper">
@@ -2939,247 +2969,163 @@
         marketStatus.innerHTML =
           "⏳ Firebase માંથી બજાર ભાવ લોડ થઈ રહ્યા છે...";
 
-
         const snapshot =
           await getDocs(
-            collection(
-              db,
-              "marketPrices"
-            )
+            collection(db, "marketPrices")
           );
 
-
-        if (
-          snapshot.empty
-        ) {
+        if (snapshot.empty) {
 
           marketTableBody.innerHTML = `
-
             <tr>
-
-              <td
-                colspan="7"
-                style="text-align:center;"
-              >
+              <td colspan="7" style="text-align:center;">
                 હાલમાં કોઈ બજાર ભાવ ઉપલબ્ધ નથી.
               </td>
-
             </tr>
-
           `;
-
 
           marketStatus.innerHTML =
             "ℹ️ Firebaseમાં marketPrices collection ખાલી છે.";
-
           return;
-
         }
-
 
         let html = "";
 
+        snapshot.forEach(docSnap => {
 
-        snapshot.forEach(
-          docSnap => {
+          const data = docSnap.data();
 
-            const data =
-              docSnap.data();
+          console.log("Market document:", docSnap.id, data);
 
+          const crop = getValue(data, [
+            "crop", "Crop", "પાક"
+          ]);
 
-            console.log(
-              "Market document:",
-              docSnap.id,
-              data
-            );
+          const market = getValue(data, [
+            "market", "Market", "bazaar", "bajar", "બજાર"
+          ]);
 
+          const minPrice = getValue(data, [
+            "minPrice", "minimumPrice", "minprice",
+            "min_price", "minimum_price", "MinPrice", "ન્યૂનતમ ભાવ"
+          ]);
 
-            const crop =
-              getValue(
-                data,
-                [
-                  "crop",
-                  "Crop",
-                  "પાક"
-                ]
-              );
+          const maxPrice = getValue(data, [
+            "maxPrice", "maximumPrice", "maxprice",
+            "max_price", "maximum_price", "MaxPrice", "મહત્તમ ભાવ"
+          ]);
 
+          const avgPrice = getValue(data, [
+            "avgPrice", "averagePrice", "avgprice",
+            "avg_price", "AveragePrice", "સરેરાશ ભાવ"
+          ]);
 
-            const market =
-              getValue(
-                data,
-                [
-                  "market",
-                  "Market",
-                  "bazaar",
-                  "bajar",
-                  "બજાર"
-                ]
-              );
+          /*
+           * Firebaseમાં આ fieldમાં અગાઉનો સરેરાશ ભાવ રાખવો.
+           * ઉદાહરણ: avgPrice = 1900, previousAvgPrice = 1850
+           * પરિણામ: ↑ ₹50 (વધારો)
+           */
+          const previousAvgPrice = getValue(data, [
+            "previousAvgPrice",
+            "previousAvgprice",
+            "previousavgprice",
+            "previous_avg_price",
+            "oldAvgPrice",
+            "oldavgprice",
+            "old_avg_price",
+            "previousPrice",
+            "previousprice",
+            "પાછલો સરેરાશ ભાવ"
+          ], null);
 
+          const arrival = getValue(data, [
+            "arrival", "arrivals", "આવક"
+          ]);
 
-            const minPrice =
-              getValue(
-                data,
-                [
-                  "minPrice",
-                  "minimumPrice",
-                  "min_price",
-                  "minimum_price",
-                  "MinPrice",
-                  "ન્યૂનતમ ભાવ"
-                ]
-              );
+          const current = Number(avgPrice);
+          const previous = Number(previousAvgPrice);
 
+          let statusHTML = "<span class=\"increase\">↑ વધારો</span>";
 
-            const maxPrice =
-              getValue(
-                data,
-                [
-                  "maxPrice",
-                  "maximumPrice",
-                  "max_price",
-                  "maximum_price",
-                  "MaxPrice",
-                  "મહત્તમ ભાવ"
-                ]
-              );
+          if (
+            previousAvgPrice !== null &&
+            previousAvgPrice !== "" &&
+            Number.isFinite(current) &&
+            Number.isFinite(previous) &&
+            previous > 0
+          ) {
 
+            const difference = Math.abs(current - previous);
+            const formattedDifference =
+              "₹" + difference.toLocaleString("en-IN");
 
-            const avgPrice =
-              getValue(
-                data,
-                [
-                  "avgPrice",
-                  "averagePrice",
-                  "avgprice",
-                  "avg_price",
-                  "AveragePrice",
-                  "સરેરાશ ભાવ"
-                ]
-              );
+            if (current > previous) {
 
+              statusHTML = `
+                <span class="increase">
+                  <span class="change-amount">↑ ${formattedDifference}</span>
+                  <span class="change-label">વધારો</span>
+                </span>
+              `;
 
-            const arrival =
-              getValue(
-                data,
-                [
-                  "arrival",
-                  "arrivals",
-                  "આવક"
-                ]
-              );
+            } else if (current < previous) {
 
+              statusHTML = `
+                <span class="decrease">
+                  <span class="change-amount">↓ ${formattedDifference}</span>
+                  <span class="change-label">ઘટાડો</span>
+                </span>
+              `;
 
-            let status =
-              "↑ વધારો";
+            } else {
 
-            let statusClass =
-              "increase";
-
-
-            if (
-              Number(minPrice) >
-              Number(maxPrice)
-            ) {
-
-              status =
-                "↓ ઘટાડો";
-
-              statusClass =
-                "decrease";
-
+              /* Userની માંગ પ્રમાણે 'સ્થિર' નહીં,
+                 સમાન ભાવ હોય તો પણ કોઈ ખોટો ઘટાડો બતાવશો નહીં. */
+              statusHTML = `
+                <span class="increase">
+                  <span class="change-amount">↑ ₹0</span>
+                  <span class="change-label">વધારો</span>
+                </span>
+              `;
             }
-
-
-            html += `
-
-              <tr>
-
-                <td>
-                  <strong>
-                    ${crop}
-                  </strong>
-                </td>
-
-                <td>
-                  ${market}
-                </td>
-
-                <td class="price">
-                  ${formatPrice(minPrice)}
-                </td>
-
-                <td class="price">
-                  ${formatPrice(maxPrice)}
-                </td>
-
-                <td class="price">
-                  ${formatPrice(avgPrice)}
-                </td>
-
-                <td>
-                  ${arrival}
-                </td>
-
-                <td class="${statusClass}">
-                  ${status}
-                </td>
-
-              </tr>
-
-            `;
-
           }
-        );
 
+          html += `
+            <tr>
+              <td><strong>${crop}</strong></td>
+              <td>${market}</td>
+              <td class="price">${formatPrice(minPrice)}</td>
+              <td class="price">${formatPrice(maxPrice)}</td>
+              <td class="price">${formatPrice(avgPrice)}</td>
+              <td>${arrival}</td>
+              <td>${statusHTML}</td>
+            </tr>
+          `;
 
-        marketTableBody.innerHTML =
-          html;
+        });
 
+        marketTableBody.innerHTML = html;
 
         marketStatus.innerHTML =
           `✅ Firebaseમાંથી ${snapshot.size} બજાર ભાવ લોડ થયા.`;
 
-      }
+      } catch (error) {
 
-
-      catch (error) {
-
-        console.error(
-          "Firebase market error:",
-          error
-        );
-
+        console.error("Firebase market error:", error);
 
         marketTableBody.innerHTML = `
-
           <tr>
-
-            <td
-              colspan="7"
-              style="
-                text-align:center;
-                color:#c62828;
-              "
-            >
-              ❌ બજાર ભાવ લોડ થઈ શક્યા નથી.
-              <br>
+            <td colspan="7" style="text-align:center;color:#c62828;">
+              ❌ બજાર ભાવ લોડ થઈ શક્યા નથી.<br>
               Firebase Rules અને marketPrices collection તપાસો.
             </td>
-
           </tr>
-
         `;
-
 
         marketStatus.innerHTML =
           "❌ Firebaseમાંથી ભાવ લોડ થઈ શક્યા નથી.";
-
       }
-
     }
-
 
     loadMarketPrices();
 
