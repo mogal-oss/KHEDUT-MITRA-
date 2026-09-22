@@ -4,46 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>ખેડૂત મિત્ર | ગુજરાતના ખેડૂતો માટે બજાર ભાવ, હવામાન અને યોજનાઓ</title>
+  <title>ખેડૂત મિત્ર | ખેડૂતોનું ડિજિટલ સાથી</title>
 
   <meta
     name="description"
-    content="ખેડૂત મિત્ર એ ગુજરાતના ખેડૂતો માટેનું ડિજિટલ પ્લેટફોર્મ છે. અહીં હવામાન, ખેતીના બજાર ભાવ, બોટાદ માર્કેટ ભાવ, પાક માર્ગદર્શન, સરકારી યોજનાઓ અને ખેતી સાધનોની માહિતી મેળવો."
+    content="ખેડૂત મિત્ર - હવામાન, બજાર ભાવ, પાક માર્ગદર્શન, સરકારી યોજનાઓ અને ખેતી સાધનોની માહિતી."
   >
-
-  <meta name="robots" content="index, follow, max-image-preview:large">
-  <meta name="author" content="ખેડૂત મિત્ર">
-  <meta name="theme-color" content="#18753c">
-  <link rel="canonical" href="https://mogal-oss.github.io/KHEDUT-MITRA-/">
-
-  <!-- Google / Search appearance -->
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="gu_IN">
-  <meta property="og:site_name" content="ખેડૂત મિત્ર">
-  <meta property="og:title" content="ખેડૂત મિત્ર | ગુજરાતના ખેડૂતો માટે બજાર ભાવ, હવામાન અને યોજનાઓ">
-  <meta property="og:description" content="ગુજરાતના ખેડૂતો માટે હવામાન, ખેતીના બજાર ભાવ, બોટાદ માર્કેટ ભાવ, પાક માર્ગદર્શન અને સરકારી યોજનાઓની માહિતી એક જ જગ્યાએ.">
-  <meta property="og:url" content="https://mogal-oss.github.io/KHEDUT-MITRA-/">
-
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="ખેડૂત મિત્ર | ખેડૂતોનું ડિજિટલ સાથી">
-  <meta name="twitter:description" content="હવામાન, બજાર ભાવ, પાક માર્ગદર્શન, સરકારી યોજનાઓ અને ખેતી સાધનોની માહિતી.">
-
-  <!-- Structured data: helps Google understand the website -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "ખેડૂત મિત્ર",
-    "alternateName": "Khedut Mitra",
-    "url": "https://mogal-oss.github.io/KHEDUT-MITRA-/",
-    "description": "ગુજરાતના ખેડૂતો માટે હવામાન, ખેતીના બજાર ભાવ, પાક માર્ગદર્શન, સરકારી યોજનાઓ અને ખેતી સાધનોની માહિતી આપતું ડિજિટલ પ્લેટફોર્મ.",
-    "inLanguage": "gu-IN",
-    "publisher": {
-      "@type": "Organization",
-      "name": "ખેડૂત મિત્ર"
-    }
-  }
-  </script>
 
   <style>
     *{
@@ -506,60 +472,6 @@
     }
 
     /* =========================
-       NOTICES
-    ========================== */
-
-    .notices-section{
-      background:#f5f8f4;
-    }
-
-    .notice-grid{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:18px;
-    }
-
-    .notice-card{
-      background:#fff;
-      border:1px solid #e2ece4;
-      border-radius:17px;
-      padding:20px;
-      box-shadow:0 4px 18px rgba(0,0,0,.04);
-    }
-
-    .notice-badge{
-      display:inline-block;
-      padding:5px 10px;
-      border-radius:999px;
-      background:#eaf7ed;
-      color:#176d39;
-      font-size:12px;
-      font-weight:800;
-      margin-bottom:10px;
-    }
-
-    .notice-card h3{
-      color:#176d39;
-      font-size:19px;
-      margin-bottom:7px;
-    }
-
-    .notice-card p{
-      color:#637067;
-      font-size:14px;
-      white-space:pre-line;
-    }
-
-    .notice-empty{
-      background:#fff;
-      border:1px solid #e2ece4;
-      border-radius:17px;
-      padding:24px;
-      text-align:center;
-      color:#637067;
-    }
-
-    /* =========================
        SCHEMES
     ========================== */
 
@@ -857,8 +769,7 @@
       }
 
       .cards,
-      .scheme-grid,
-      .notice-grid{
+      .scheme-grid{
         grid-template-columns:repeat(2,1fr);
       }
 
@@ -938,7 +849,6 @@
 
       .cards,
       .scheme-grid,
-      .notice-grid,
       .contact-grid,
       .footer-container{
         grid-template-columns:1fr;
@@ -952,6 +862,47 @@
         font-size:40px;
       }
     }
+  
+
+    /* =========================
+       AD SYSTEM
+    ========================== */
+
+    .ads-section{
+      padding:70px 20px;
+      background:#f8fafc;
+    }
+    .ads-grid{
+      max-width:1200px;
+      margin:30px auto 0;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:22px;
+    }
+    .ad-card{
+      background:#fff;
+      border-radius:22px;
+      overflow:hidden;
+      box-shadow:0 10px 30px rgba(15,23,42,.10);
+      border:1px solid #e2e8f0;
+      transition:.25s;
+    }
+    .ad-card:hover{transform:translateY(-4px);box-shadow:0 16px 35px rgba(15,23,42,.15)}
+    .ad-image{width:100%;height:190px;object-fit:cover;display:block;background:#e2e8f0}
+    .ad-content{padding:22px}
+    .ad-badge{display:inline-block;background:#dcfce7;color:#166534;padding:5px 10px;border-radius:999px;font-size:12px;font-weight:800;margin-bottom:10px}
+    .ad-card h3{font-size:22px;margin-bottom:9px;color:#0f172a}
+    .ad-card p{color:#475569;line-height:1.7;margin-bottom:12px}
+    .ad-button{display:inline-block;padding:11px 18px;border-radius:12px;background:#19763d;color:#fff;text-decoration:none;font-weight:800;margin-top:8px}
+    .ad-button:hover{opacity:.9}
+    .ad-empty{text-align:center;color:#64748b;padding:20px;grid-column:1/-1}
+    .ad-description{white-space:pre-line;color:#64748b;line-height:1.7;margin-top:8px}
+
+  
+    .live-content-grid{max-width:1200px;margin:30px auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+    .live-card{background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:22px;box-shadow:0 8px 24px rgba(15,23,42,.08)}
+    .live-card h3{margin:10px 0;color:#0f172a}.live-card p{color:#475569;line-height:1.7;white-space:pre-line}.live-badge{display:inline-block;padding:5px 10px;border-radius:999px;background:#eff6ff;color:#1d4ed8;font-size:12px;font-weight:800}
+
   </style>
 </head>
 
@@ -975,8 +926,8 @@
         <a href="#home">હોમ</a>
         <a href="#weather">હવામાન</a>
         <a href="#market">બજાર ભાવ</a>
+        <a href="#ads">📣 જાહેરાતો</a>
         <a href="#guidance">પાક માર્ગદર્શન</a>
-        <a href="#notices">નોટિસ</a>
         <a href="#schemes">સરકારી યોજનાઓ</a>
         <a href="#equipment">ખેતી સાધનો</a>
         <a href="#contact">સંપર્ક</a>
@@ -1328,34 +1279,6 @@
 
 
   <!-- =========================
-       NOTICES
-  ========================== -->
-
-  <section
-    class="notices-section"
-    id="notices"
-  >
-
-    <div class="section-container">
-
-      <div class="section-title">
-        <h2>📢 મહત્વની નોટિસ</h2>
-        <p>Admin Panel માંથી મુકવામાં આવેલી લાઈવ જાહેરાતો</p>
-      </div>
-
-      <div
-        class="notice-grid"
-        id="noticeGrid"
-      >
-        <div class="notice-empty">⏳ નોટિસ લોડ થઈ રહી છે...</div>
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =========================
        GOVERNMENT SCHEMES
   ========================== -->
 
@@ -1370,15 +1293,202 @@
 
         <h2>🏛️ સરકારી યોજનાઓ</h2>
 
-        <p>Admin Panel માંથી મેનેજ થતી ખેડૂત યોજનાઓ</p>
+        <p>
+          ખેડૂતો માટે ઉપયોગી સરકારી યોજનાઓ
+        </p>
 
       </div>
 
-      <div
-        class="scheme-grid"
-        id="schemeGrid"
-      >
-        <div class="notice-empty">⏳ યોજનાઓ લોડ થઈ રહી છે...</div>
+      <div class="scheme-grid">
+
+        <div class="scheme-card">
+
+          <div class="scheme-icon">
+            🌾
+          </div>
+
+          <h3>
+            i-Khedut
+          </h3>
+
+          <p>
+            ગુજરાત સરકારની વિવિધ કૃષિ,
+            બાગાયત, પશુપાલન અને અન્ય
+            ખેડૂતલક્ષી યોજનાઓ માટે માહિતી.
+          </p>
+
+          <div class="scheme-buttons">
+
+            <a
+              class="scheme-btn"
+              href="https://ikhedut.gujarat.gov.in/"
+              target="_blank"
+              rel="noopener"
+            >
+              વેબસાઇટ
+            </a>
+
+          </div>
+
+        </div>
+
+
+        <div class="scheme-card">
+
+          <div class="scheme-icon">
+            💰
+          </div>
+
+          <h3>
+            PM-KISAN
+          </h3>
+
+          <p>
+            પ્રધાનમંત્રી કિસાન સન્માન નિધિ
+            સંબંધિત માહિતી અને સત્તાવાર
+            પોર્ટલની મુલાકાત લો.
+          </p>
+
+          <div class="scheme-buttons">
+
+            <a
+              class="scheme-btn"
+              href="https://pmkisan.gov.in/"
+              target="_blank"
+              rel="noopener"
+            >
+              વેબસાઇટ
+            </a>
+
+          </div>
+
+        </div>
+
+
+        <div class="scheme-card">
+
+          <div class="scheme-icon">
+            🛡️
+          </div>
+
+          <h3>
+            PMFBY
+          </h3>
+
+          <p>
+            પ્રધાનમંત્રી ફસલ બીમા યોજના
+            અંગેની સત્તાવાર માહિતી.
+          </p>
+
+          <div class="scheme-buttons">
+
+            <a
+              class="scheme-btn"
+              href="https://pmfby.gov.in/guidelines"
+              target="_blank"
+              rel="noopener"
+            >
+              માહિતી
+            </a>
+
+          </div>
+
+        </div>
+
+
+        <div class="scheme-card">
+
+          <div class="scheme-icon">
+            🚜
+          </div>
+
+          <h3>
+            કૃષિ યાંત્રિકીકરણ
+          </h3>
+
+          <p>
+            ખેતી સાધનો અને કૃષિ યંત્રો
+            સંબંધિત સરકારી સહાય વિશે
+            માહિતી મેળવો.
+          </p>
+
+          <div class="scheme-buttons">
+
+            <a
+              class="scheme-btn"
+              href="https://ikhedut.gujarat.gov.in/"
+              target="_blank"
+              rel="noopener"
+            >
+              i-Khedut
+            </a>
+
+          </div>
+
+        </div>
+
+
+        <div class="scheme-card">
+
+          <div class="scheme-icon">
+            💧
+          </div>
+
+          <h3>
+            સિંચાઈ અને પાણી
+          </h3>
+
+          <p>
+            સિંચાઈ અને પાણી સંરક્ષણ સંબંધિત
+            ઉપલબ્ધ સરકારી સહાય વિશે માહિતી.
+          </p>
+
+          <div class="scheme-buttons">
+
+            <a
+              class="scheme-btn"
+              href="https://ikhedut.gujarat.gov.in/"
+              target="_blank"
+              rel="noopener"
+            >
+              i-Khedut
+            </a>
+
+          </div>
+
+        </div>
+
+
+        <div class="scheme-card">
+
+          <div class="scheme-icon">
+            🐄
+          </div>
+
+          <h3>
+            પશુપાલન
+          </h3>
+
+          <p>
+            પશુપાલન અને ડેરી સંબંધિત
+            સરકારી યોજનાઓ વિશે માહિતી.
+          </p>
+
+          <div class="scheme-buttons">
+
+            <a
+              class="scheme-btn"
+              href="https://ikhedut.gujarat.gov.in/"
+              target="_blank"
+              rel="noopener"
+            >
+              i-Khedut
+            </a>
+
+          </div>
+
+        </div>
+
       </div>
 
     </div>
@@ -1468,6 +1578,39 @@
 
     </div>
 
+  </section>
+
+
+
+
+
+  <section class="ads-section" id="notices">
+    <div class="section-container">
+      <div class="section-title"><h2>📢 ખેડૂત મિત્ર સૂચનાઓ</h2><p>એડમિન દ્વારા મૂકવામાં આવેલી નવી સૂચનાઓ</p></div>
+      <div class="live-content-grid" id="noticeGrid"><div class="ad-empty">⏳ સૂચનાઓ લોડ થઈ રહી છે...</div></div>
+    </div>
+  </section>
+
+  <section class="ads-section" id="schemes">
+    <div class="section-container">
+      <div class="section-title"><h2>📋 સરકારી યોજનાઓ</h2><p>ખેડૂતો માટેની ઉપયોગી યોજનાઓની માહિતી</p></div>
+      <div class="live-content-grid" id="schemeGrid"><div class="ad-empty">⏳ યોજનાઓ લોડ થઈ રહી છે...</div></div>
+    </div>
+  </section>
+
+  <!-- =========================
+       LIVE ADS
+  ========================== -->
+  <section class="ads-section" id="ads">
+    <div class="section-container">
+      <div class="section-title">
+        <h2>📣 જાહેરાતો</h2>
+        <p>ખેડૂત મિત્ર પર ઉપલબ્ધ નવી જાહેરાતો અને ઓફર્સ</p>
+      </div>
+      <div class="ads-grid" id="adsGrid">
+        <div class="ad-empty">⏳ જાહેરાતો લોડ થઈ રહી છે...</div>
+      </div>
+    </div>
   </section>
 
 
@@ -3093,124 +3236,80 @@
     );
 
 
-    /* =========================
-       FIRESTORE NOTICES
-       Admin Panel → notices → Website
-       Real-time with onSnapshot
-    ========================== */
 
-    const noticeGrid =
-      document.getElementById("noticeGrid");
-
-    const schemeGrid =
-      document.getElementById("schemeGrid");
-
-    function safeText(value){
-      return escapeHtml(value ?? "");
-    }
-
-    function getTimeValue(data){
-      const t = data?.createdAt || data?.updatedAt;
-      if(t && typeof t.toMillis === "function") return t.toMillis();
-      if(typeof t === "number") return t;
-      return 0;
-    }
-
-    onSnapshot(
-      collection(db,"notices"),
-      snapshot => {
-        const notices = snapshot.docs
-          .map(d => ({id:d.id,...d.data()}))
-          .sort((a,b) => getTimeValue(b)-getTimeValue(a));
-
-        if(!notices.length){
-          noticeGrid.innerHTML = `
-            <div class="notice-empty">
-              હાલમાં કોઈ નવી નોટિસ ઉપલબ્ધ નથી.
-            </div>
-          `;
-          return;
-        }
-
-        noticeGrid.innerHTML = notices.map(n => `
-          <article class="notice-card">
-            <span class="notice-badge">📢 ${safeText(n.type || "માહિતી")}</span>
-            <h3>${safeText(n.title || "મહત્વની નોટિસ")}</h3>
-            <p>${safeText(n.message || "")}</p>
-          </article>
-        `).join("");
-      },
-      error => {
-        console.error("Firebase notices listener error:",error);
-        noticeGrid.innerHTML = `
-          <div class="notice-empty">
-            ❌ નોટિસ લોડ થઈ શકી નથી.
-          </div>
-        `;
-      }
-    );
 
 
     /* =========================
-       FIRESTORE GOVERNMENT SCHEMES
-       Admin Panel → schemes → Website
-       Real-time with onSnapshot
+       LIVE NOTICES + SCHEMES
+    ========================== */
+    const noticeGrid=document.getElementById("noticeGrid");
+    const schemeGrid=document.getElementById("schemeGrid");
+    function esc(value){return String(value??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/'/g,"&#039;");}
+    onSnapshot(collection(db,"notices"),snapshot=>{
+      const items=[]; snapshot.forEach(d=>items.push(d.data()||{}));
+      if(!items.length){noticeGrid.innerHTML='<div class="ad-empty">હાલમાં કોઈ નવી સૂચના નથી.</div>';return;}
+      noticeGrid.innerHTML=items.map(x=>`<article class="live-card"><span class="live-badge">${esc(x.type||"સૂચના")}</span><h3>${esc(x.title||"સૂચના")}</h3><p>${esc(x.message||"")}</p></article>`).join("");
+    },()=>{noticeGrid.innerHTML='<div class="ad-empty">સૂચનાઓ હાલમાં ઉપલબ્ધ નથી.</div>';});
+    onSnapshot(collection(db,"schemes"),snapshot=>{
+      const items=[]; snapshot.forEach(d=>{const x=d.data()||{};if(String(x.status||"active").toLowerCase()!=="inactive")items.push(x);});
+      if(!items.length){schemeGrid.innerHTML='<div class="ad-empty">હાલમાં કોઈ યોજના ઉપલબ્ધ નથી.</div>';return;}
+      schemeGrid.innerHTML=items.map(x=>`<article class="live-card"><span class="live-badge">${esc(x.category||"યોજના")}</span><h3>${esc(x.name||"સરકારી યોજના")}</h3><p>${esc(x.description||"")}</p>${x.link?`<a class="ad-button" href="${esc(x.link)}" target="_blank" rel="noopener noreferrer">વધુ માહિતી</a>`:""}</article>`).join("");
+    },()=>{schemeGrid.innerHTML='<div class="ad-empty">યોજનાઓ હાલમાં ઉપલબ્ધ નથી.</div>';});
 
-       If Firebase has no scheme documents yet,
-       the original built-in scheme cards remain visible.
+    /* =========================
+       LIVE AD SYSTEM
+       Admin Panel → ads collection → All Visitors
     ========================== */
 
-    const defaultSchemes = [
-      {icon:"🌾",name:"i-Khedut",category:"ગુજરાત સરકાર",description:"ગુજરાત સરકારની વિવિધ કૃષિ, બાગાયત, પશુપાલન અને અન્ય ખેડૂતલક્ષી યોજનાઓ માટે માહિતી.",link:"https://ikhedut.gujarat.gov.in/",status:"active"},
-      {icon:"💰",name:"PM-KISAN",category:"કેન્દ્ર સરકાર",description:"પ્રધાનમંત્રી કિસાન સન્માન નિધિ સંબંધિત માહિતી અને સત્તાવાર પોર્ટલની મુલાકાત લો.",link:"https://pmkisan.gov.in/",status:"active"},
-      {icon:"🛡️",name:"PMFBY",category:"પાક વીમો",description:"પ્રધાનમંત્રી ફસલ બીમા યોજના અંગેની સત્તાવાર માહિતી.",link:"https://pmfby.gov.in/guidelines",status:"active"},
-      {icon:"🚜",name:"કૃષિ યાંત્રિકીકરણ",category:"ખેતી સાધનો",description:"ખેતી સાધનો અને કૃષિ યંત્રો સંબંધિત સરકારી સહાય વિશે માહિતી મેળવો.",link:"https://ikhedut.gujarat.gov.in/",status:"active"},
-      {icon:"💧",name:"સિંચાઈ અને પાણી",category:"સિંચાઈ",description:"સિંચાઈ અને પાણી સંરક્ષણ સંબંધિત ઉપલબ્ધ સરકારી સહાય વિશે માહિતી.",link:"https://ikhedut.gujarat.gov.in/",status:"active"},
-      {icon:"🐄",name:"પશુપાલન",category:"પશુપાલન",description:"પશુપાલન અને ડેરી સંબંધિત સરકારી યોજનાઓ વિશે માહિતી.",link:"https://ikhedut.gujarat.gov.in/",status:"active"}
-    ];
+    const adsGrid = document.getElementById("adsGrid");
 
-    function renderSchemes(items){
-      const active = items.filter(s => (s.status || "active") !== "closed");
-      if(!active.length){
-        schemeGrid.innerHTML = `
-          <div class="notice-empty">હાલમાં કોઈ સરકારી યોજના ઉપલબ્ધ નથી.</div>
-        `;
+    function escapeAdHtml(value){
+      return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/\"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+    }
+
+    function renderAds(snapshot){
+      const ads=[];
+      snapshot.forEach(docSnap=>{
+        const data=docSnap.data() || {};
+        const status=String(data.status ?? "active").toLowerCase();
+        if(status === "active") ads.push({id:docSnap.id,data});
+      });
+
+      if(!ads.length){
+        adsGrid.innerHTML='<div class="ad-empty">હાલમાં કોઈ જાહેરાત ઉપલબ્ધ નથી.</div>';
         return;
       }
 
-      schemeGrid.innerHTML = active.map((s,index) => `
-        <article class="scheme-card">
-          <div class="scheme-icon">${safeText(s.icon || defaultSchemes[index % defaultSchemes.length]?.icon || "🌾")}</div>
-          <h3>${safeText(s.name || "સરકારી યોજના")}</h3>
-          ${s.category ? `<div class="notice-badge">${safeText(s.category)}</div>` : ""}
-          <p>${safeText(s.description || "")}</p>
-          ${s.link ? `
-            <div class="scheme-buttons">
-              <a class="scheme-btn" href="${safeText(s.link)}" target="_blank" rel="noopener noreferrer">
-                સત્તાવાર માહિતી
-              </a>
-            </div>
-          ` : ""}
-        </article>
-      `).join("");
+      adsGrid.innerHTML=ads.map(({data})=>{
+        const title=escapeAdHtml(data.title || "જાહેરાત");
+        const text=escapeAdHtml(data.text || "");
+        const description=escapeAdHtml(data.description || "");
+        const image=String(data.imageUrl || "").trim();
+        const buttonText=escapeAdHtml(data.buttonText || "વધુ માહિતી");
+        const link=String(data.link || "").trim();
+        const imageHtml=image ? `<img class="ad-image" src="${escapeAdHtml(image)}" alt="${title}" loading="lazy" onerror="this.style.display='none'">` : "";
+        const buttonHtml=link ? `<a class="ad-button" href="${escapeAdHtml(link)}" target="_blank" rel="noopener noreferrer">${buttonText}</a>` : "";
+        return `<article class="ad-card">${imageHtml}<div class="ad-content"><span class="ad-badge">📣 જાહેરાત</span><h3>${title}</h3>${text ? `<p>${text}</p>` : ""}${description ? `<div class="ad-description">${description}</div>` : ""}${buttonHtml}</div></article>`;
+      }).join("");
     }
 
-    renderSchemes(defaultSchemes);
-
     onSnapshot(
-      collection(db,"schemes"),
-      snapshot => {
-        const schemes = snapshot.docs
-          .map(d => ({id:d.id,...d.data()}))
-          .sort((a,b) => getTimeValue(b)-getTimeValue(a));
-
-        // Firebase schemes replace the fallback as soon as Admin Panel has data.
-        renderSchemes(schemes.length ? schemes : defaultSchemes);
+      collection(db,"ads"),
+      snapshot=>{
+        try{ renderAds(snapshot); }
+        catch(error){
+          console.error("Ads render error:",error);
+          adsGrid.innerHTML='<div class="ad-empty">❌ જાહેરાતો લોડ થઈ શકી નથી.</div>';
+        }
       },
-      error => {
-        console.error("Firebase schemes listener error:",error);
-        // Keep the original built-in scheme cards visible if Firebase fails.
-        renderSchemes(defaultSchemes);
+      error=>{
+        console.error("Firebase ads listener error:",error);
+        adsGrid.innerHTML='<div class="ad-empty">❌ જાહેરાતો લોડ થઈ શકી નથી. Firebase Rules માં ads માટે public read ચાલુ છે કે નહીં તપાસો.</div>';
       }
     );
 
