@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="site-version" content="2026-09-22-01">
 
   <title>ખેડૂત મિત્ર | ખેડૂતોનું ડિજિટલ સાથી</title>
 
@@ -473,6 +472,24 @@
     }
 
     /* =========================
+       LIVE NOTICES
+    ========================== */
+    .notice-section{background:#fffdf5;}
+    .notice-list{max-width:1000px;margin:auto;display:grid;gap:14px;}
+    .notice-card{background:#fff;border:1px solid #ece7d7;border-left:5px solid #176d39;border-radius:14px;padding:18px 20px;box-shadow:0 6px 20px rgba(0,0,0,.05);}
+    .notice-card.important{border-left-color:#dc2626;}
+    .notice-card.warning{border-left-color:#f59e0b;}
+    .notice-card.offer{border-left-color:#7c3aed;}
+    .notice-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:7px;}
+    .notice-card h3{color:#176d39;font-size:19px;}
+    .notice-badge{padding:5px 10px;border-radius:20px;font-size:12px;font-weight:800;background:#e8f4eb;color:#176d39;}
+    .notice-badge.important{background:#fee2e2;color:#b91c1c;}
+    .notice-badge.warning{background:#fef3c7;color:#92400e;}
+    .notice-badge.offer{background:#ede9fe;color:#6d28d9;}
+    .notice-message{color:#536159;white-space:pre-line;}
+    .dynamic-empty{text-align:center;padding:25px;color:#718078;background:#fff;border-radius:14px;}
+
+    /* =========================
        SCHEMES
     ========================== */
 
@@ -864,48 +881,6 @@
       }
     }
   </style>
-
-  <script>
-    /* =====================================================
-       Khedut Mitra - automatic website version check
-       This helps visitors escape an old cached index.html.
-       ===================================================== */
-    (function(){
-      const SITE_VERSION = "2026-09-22-01";
-      const VERSION_KEY = "khedut_mitra_site_version";
-      const params = new URLSearchParams(location.search);
-
-      async function checkLatestVersion(){
-        try {
-          const url = location.pathname + "?__site_version_check=" + Date.now();
-          const response = await fetch(url, {
-            cache: "no-store",
-            headers: { "Cache-Control": "no-cache" }
-          });
-
-          if (!response.ok) return;
-
-          const html = await response.text();
-          const match = html.match(/<meta[^>]+name=["']site-version["'][^>]+content=["']([^"']+)["']/i);
-          const latestVersion = match ? match[1] : SITE_VERSION;
-
-          if (latestVersion !== SITE_VERSION) {
-            sessionStorage.setItem(VERSION_KEY, latestVersion);
-            location.replace(location.pathname + "?__fresh=" + encodeURIComponent(latestVersion));
-          } else if (params.has("__fresh")) {
-            params.delete("__fresh");
-            const clean = params.toString();
-            history.replaceState(null, "", location.pathname + (clean ? "?" + clean : "") + location.hash);
-          }
-        } catch (error) {
-          console.warn("Khedut Mitra version check skipped:", error);
-        }
-      }
-
-      checkLatestVersion();
-    })();
-  </script>
-
 </head>
 
 <body>
@@ -928,6 +903,7 @@
         <a href="#home">હોમ</a>
         <a href="#weather">હવામાન</a>
         <a href="#market">બજાર ભાવ</a>
+        <a href="#notices">નોટિસ</a>
         <a href="#guidance">પાક માર્ગદર્શન</a>
         <a href="#schemes">સરકારી યોજનાઓ</a>
         <a href="#equipment">ખેતી સાધનો</a>
@@ -1137,6 +1113,22 @@
 
 
   <!-- =========================
+       LIVE NOTICES
+  ========================== -->
+  <section class="notice-section" id="notices">
+    <div class="section-container">
+      <div class="section-title">
+        <h2>📢 મહત્વની નોટિસ</h2>
+        <p>Admin Panel માંથી મુકવામાં આવેલી લાઈવ જાહેરાતો</p>
+      </div>
+      <div class="notice-list" id="noticeList">
+        <div class="dynamic-empty">⏳ નોટિસ લોડ થઈ રહી છે...</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================
        CROP GUIDANCE
   ========================== -->
 
@@ -1300,196 +1292,8 @@
 
       </div>
 
-      <div class="scheme-grid">
-
-        <div class="scheme-card">
-
-          <div class="scheme-icon">
-            🌾
-          </div>
-
-          <h3>
-            i-Khedut
-          </h3>
-
-          <p>
-            ગુજરાત સરકારની વિવિધ કૃષિ,
-            બાગાયત, પશુપાલન અને અન્ય
-            ખેડૂતલક્ષી યોજનાઓ માટે માહિતી.
-          </p>
-
-          <div class="scheme-buttons">
-
-            <a
-              class="scheme-btn"
-              href="https://ikhedut.gujarat.gov.in/"
-              target="_blank"
-              rel="noopener"
-            >
-              વેબસાઇટ
-            </a>
-
-          </div>
-
-        </div>
-
-
-        <div class="scheme-card">
-
-          <div class="scheme-icon">
-            💰
-          </div>
-
-          <h3>
-            PM-KISAN
-          </h3>
-
-          <p>
-            પ્રધાનમંત્રી કિસાન સન્માન નિધિ
-            સંબંધિત માહિતી અને સત્તાવાર
-            પોર્ટલની મુલાકાત લો.
-          </p>
-
-          <div class="scheme-buttons">
-
-            <a
-              class="scheme-btn"
-              href="https://pmkisan.gov.in/"
-              target="_blank"
-              rel="noopener"
-            >
-              વેબસાઇટ
-            </a>
-
-          </div>
-
-        </div>
-
-
-        <div class="scheme-card">
-
-          <div class="scheme-icon">
-            🛡️
-          </div>
-
-          <h3>
-            PMFBY
-          </h3>
-
-          <p>
-            પ્રધાનમંત્રી ફસલ બીમા યોજના
-            અંગેની સત્તાવાર માહિતી.
-          </p>
-
-          <div class="scheme-buttons">
-
-            <a
-              class="scheme-btn"
-              href="https://pmfby.gov.in/guidelines"
-              target="_blank"
-              rel="noopener"
-            >
-              માહિતી
-            </a>
-
-          </div>
-
-        </div>
-
-
-        <div class="scheme-card">
-
-          <div class="scheme-icon">
-            🚜
-          </div>
-
-          <h3>
-            કૃષિ યાંત્રિકીકરણ
-          </h3>
-
-          <p>
-            ખેતી સાધનો અને કૃષિ યંત્રો
-            સંબંધિત સરકારી સહાય વિશે
-            માહિતી મેળવો.
-          </p>
-
-          <div class="scheme-buttons">
-
-            <a
-              class="scheme-btn"
-              href="https://ikhedut.gujarat.gov.in/"
-              target="_blank"
-              rel="noopener"
-            >
-              i-Khedut
-            </a>
-
-          </div>
-
-        </div>
-
-
-        <div class="scheme-card">
-
-          <div class="scheme-icon">
-            💧
-          </div>
-
-          <h3>
-            સિંચાઈ અને પાણી
-          </h3>
-
-          <p>
-            સિંચાઈ અને પાણી સંરક્ષણ સંબંધિત
-            ઉપલબ્ધ સરકારી સહાય વિશે માહિતી.
-          </p>
-
-          <div class="scheme-buttons">
-
-            <a
-              class="scheme-btn"
-              href="https://ikhedut.gujarat.gov.in/"
-              target="_blank"
-              rel="noopener"
-            >
-              i-Khedut
-            </a>
-
-          </div>
-
-        </div>
-
-
-        <div class="scheme-card">
-
-          <div class="scheme-icon">
-            🐄
-          </div>
-
-          <h3>
-            પશુપાલન
-          </h3>
-
-          <p>
-            પશુપાલન અને ડેરી સંબંધિત
-            સરકારી યોજનાઓ વિશે માહિતી.
-          </p>
-
-          <div class="scheme-buttons">
-
-            <a
-              class="scheme-btn"
-              href="https://ikhedut.gujarat.gov.in/"
-              target="_blank"
-              rel="noopener"
-            >
-              i-Khedut
-            </a>
-
-          </div>
-
-        </div>
-
+      <div class="scheme-grid" id="schemeGrid">
+        <div class="dynamic-empty">⏳ યોજનાઓ લોડ થઈ રહી છે...</div>
       </div>
 
     </div>
@@ -1707,6 +1511,10 @@
 
         <a href="#market">
           બજાર ભાવ
+        </a>
+
+        <a href="#notices">
+          નોટિસ
         </a>
 
         <a href="#schemes">
@@ -3203,6 +3011,90 @@
 
     );
 
+
+    /* =========================
+       LIVE NOTICES
+       Admin Panel → Firebase → Website
+    ========================== */
+    const noticeList = document.getElementById("noticeList");
+
+    function noticeTypeLabel(type){
+      const map={info:"માહિતી",important:"મહત્વપૂર્ણ",offer:"ઓફર",warning:"ચેતવણી"};
+      return map[type] || "માહિતી";
+    }
+    function timestampMillis(value){
+      if(!value) return 0;
+      if(typeof value.toMillis === "function") return value.toMillis();
+      if(value.seconds) return Number(value.seconds)*1000;
+      const parsed=Date.parse(value);
+      return Number.isNaN(parsed)?0:parsed;
+    }
+
+    onSnapshot(collection(db,"notices"), snapshot=>{
+      try{
+        if(snapshot.empty){
+          noticeList.innerHTML='<div class="dynamic-empty">હાલમાં કોઈ નવી નોટિસ નથી.</div>';
+          return;
+        }
+        const notices=snapshot.docs.map(d=>({id:d.id,...d.data()}))
+          .sort((a,b)=>timestampMillis(b.createdAt||b.updatedAt)-timestampMillis(a.createdAt||a.updatedAt));
+        noticeList.innerHTML=notices.map(n=>{
+          const type=["info","important","offer","warning"].includes(n.type)?n.type:"info";
+          return `<article class="notice-card ${type}">
+            <div class="notice-head">
+              <h3>📢 ${escapeHtml(n.title||"નોટિસ")}</h3>
+              <span class="notice-badge ${type}">${noticeTypeLabel(type)}</span>
+            </div>
+            <div class="notice-message">${escapeHtml(n.message||"")}</div>
+          </article>`;
+        }).join("");
+      }catch(error){
+        console.error("Notice render error:",error);
+        noticeList.innerHTML='<div class="dynamic-empty">❌ નોટિસ બતાવવામાં સમસ્યા આવી.</div>';
+      }
+    },error=>{
+      console.error("Firebase notices listener error:",error);
+      noticeList.innerHTML='<div class="dynamic-empty">❌ નોટિસ લોડ થઈ શકી નથી.</div>';
+    });
+
+    /* =========================
+       LIVE GOVERNMENT SCHEMES
+       Admin Panel → Firebase → Website
+    ========================== */
+    const schemeGrid=document.getElementById("schemeGrid");
+    function schemeStatusLabel(status){return status==="closed"?"બંધ":"ચાલુ";}
+
+    onSnapshot(collection(db,"schemes"),snapshot=>{
+      try{
+        if(snapshot.empty){
+          schemeGrid.innerHTML='<div class="dynamic-empty">હાલમાં કોઈ સરકારી યોજના ઉપલબ્ધ નથી.</div>';
+          return;
+        }
+        const schemes=snapshot.docs.map(d=>({id:d.id,...d.data()}))
+          .sort((a,b)=>String(a.name||"").localeCompare(String(b.name||""),"gu"));
+        schemeGrid.innerHTML=schemes.map(s=>{
+          const status=s.status==="closed"?"closed":"active";
+          const link=String(s.link||"").trim();
+          const safeLink=/^https?:\/\//i.test(link)?link:"";
+          return `<div class="scheme-card">
+            <div class="scheme-icon">🏛️</div>
+            <h3>${escapeHtml(s.name||"સરકારી યોજના")}</h3>
+            ${s.category?`<p><strong>કેટેગરી:</strong> ${escapeHtml(s.category)}</p>`:""}
+            <p>${escapeHtml(s.description||"")}</p>
+            <div class="scheme-buttons">
+              <span class="scheme-btn secondary">${schemeStatusLabel(status)}</span>
+              ${safeLink?`<a class="scheme-btn" href="${escapeHtml(safeLink)}" target="_blank" rel="noopener noreferrer">વેબસાઇટ</a>`:""}
+            </div>
+          </div>`;
+        }).join("");
+      }catch(error){
+        console.error("Scheme render error:",error);
+        schemeGrid.innerHTML='<div class="dynamic-empty">❌ યોજનાઓ બતાવવામાં સમસ્યા આવી.</div>';
+      }
+    },error=>{
+      console.error("Firebase schemes listener error:",error);
+      schemeGrid.innerHTML='<div class="dynamic-empty">❌ યોજનાઓ લોડ થઈ શકી નથી.</div>';
+    });
 
     /* =========================
        AUTH MODAL
