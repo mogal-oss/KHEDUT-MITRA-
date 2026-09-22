@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="site-version" content="2026-09-22-01">
 
   <title>ખેડૂત મિત્ર | ખેડૂતોનું ડિજિટલ સાથી</title>
 
@@ -863,6 +864,48 @@
       }
     }
   </style>
+
+  <script>
+    /* =====================================================
+       Khedut Mitra - automatic website version check
+       This helps visitors escape an old cached index.html.
+       ===================================================== */
+    (function(){
+      const SITE_VERSION = "2026-09-22-01";
+      const VERSION_KEY = "khedut_mitra_site_version";
+      const params = new URLSearchParams(location.search);
+
+      async function checkLatestVersion(){
+        try {
+          const url = location.pathname + "?__site_version_check=" + Date.now();
+          const response = await fetch(url, {
+            cache: "no-store",
+            headers: { "Cache-Control": "no-cache" }
+          });
+
+          if (!response.ok) return;
+
+          const html = await response.text();
+          const match = html.match(/<meta[^>]+name=["']site-version["'][^>]+content=["']([^"']+)["']/i);
+          const latestVersion = match ? match[1] : SITE_VERSION;
+
+          if (latestVersion !== SITE_VERSION) {
+            sessionStorage.setItem(VERSION_KEY, latestVersion);
+            location.replace(location.pathname + "?__fresh=" + encodeURIComponent(latestVersion));
+          } else if (params.has("__fresh")) {
+            params.delete("__fresh");
+            const clean = params.toString();
+            history.replaceState(null, "", location.pathname + (clean ? "?" + clean : "") + location.hash);
+          }
+        } catch (error) {
+          console.warn("Khedut Mitra version check skipped:", error);
+        }
+      }
+
+      checkLatestVersion();
+    })();
+  </script>
+
 </head>
 
 <body>
