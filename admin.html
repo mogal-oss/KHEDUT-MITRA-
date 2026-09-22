@@ -5,402 +5,1914 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ખેડૂત મિત્ર - Admin Panel</title>
 <meta name="theme-color" content="#0f7a3a">
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Arial,"Noto Sans Gujarati",sans-serif;background:#f4f7f5;color:#17251c}
-button,input,textarea,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}
-#loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,#0b5d2a,#159447)}
-.login-card{width:100%;max-width:430px;background:#fff;border-radius:24px;padding:32px;box-shadow:0 25px 70px rgba(0,0,0,.22)}
-.logo{width:68px;height:68px;border-radius:20px;background:#e9f8ee;display:flex;align-items:center;justify-content:center;font-size:34px;margin-bottom:16px}
-.login-card h1{font-size:28px;margin-bottom:7px}.login-card p{color:#65746b;margin-bottom:24px}
-.field{margin-bottom:15px}.field label{display:block;font-weight:700;font-size:14px;margin-bottom:7px}
-.field input,.field textarea,.field select{width:100%;border:1px solid #d5dfd8;border-radius:12px;padding:12px 13px;outline:none;background:#fff}
-.field textarea{min-height:110px;resize:vertical}.field input:focus,.field textarea:focus,.field select:focus{border-color:#159447;box-shadow:0 0 0 3px rgba(21,148,71,.1)}
-.btn{border:0;border-radius:12px;padding:11px 16px;font-weight:700;transition:.2s}.btn:hover{transform:translateY(-1px)}
-.btn-primary{background:#0f7a3a;color:#fff}.btn-secondary{background:#eaf4ed;color:#0f6a32}.btn-danger{background:#feecec;color:#b42318}.btn-dark{background:#17251c;color:#fff}.btn-full{width:100%;padding:13px}
-.login-msg{margin-top:13px;font-size:14px;color:#b42318;min-height:20px}
-#app{min-height:100vh}.topbar{height:70px;background:#fff;border-bottom:1px solid #e1e8e3;display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:20}
-.brand{display:flex;align-items:center;gap:11px;font-weight:800}.brand-icon{width:42px;height:42px;border-radius:13px;background:#e9f8ee;display:flex;align-items:center;justify-content:center;font-size:22px}
-.top-actions{display:flex;align-items:center;gap:10px}.admin-email{font-size:13px;color:#66736b;max-width:250px;overflow:hidden;text-overflow:ellipsis}
-.layout{display:flex;min-height:calc(100vh - 70px)}.sidebar{width:240px;background:#123d25;color:#fff;padding:18px 13px;flex-shrink:0}
-.side-title{font-size:11px;opacity:.65;padding:8px 12px;text-transform:uppercase;letter-spacing:1px}.nav-btn{width:100%;border:0;background:transparent;color:#e8f5ec;text-align:left;padding:12px 13px;border-radius:11px;margin-bottom:5px;font-weight:700}
-.nav-btn:hover,.nav-btn.active{background:rgba(255,255,255,.13)}.main{flex:1;padding:25px;min-width:0}.page{display:none}.page.active{display:block}
-.page-head{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:20px;flex-wrap:wrap}.page-head h2{font-size:26px}.page-head p{color:#6b776f;margin-top:4px;font-size:14px}
-.head-actions{display:flex;gap:8px;flex-wrap:wrap}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin-bottom:20px}
-.stat{background:#fff;border:1px solid #e1e8e3;border-radius:17px;padding:18px;box-shadow:0 4px 15px rgba(20,50,30,.04)}.stat-label{font-size:13px;color:#6b776f;margin-bottom:8px}.stat-value{font-size:28px;font-weight:800}.stat-icon{float:right;font-size:26px}
-.card{background:#fff;border:1px solid #e1e8e3;border-radius:17px;padding:20px;box-shadow:0 4px 15px rgba(20,50,30,.04);margin-bottom:18px}.card-title{font-size:18px;font-weight:800;margin-bottom:15px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:15px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
-.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:760px}th,td{text-align:left;padding:13px 12px;border-bottom:1px solid #edf1ee;font-size:14px}th{background:#f7faf8;color:#5d6a62;font-size:12px;text-transform:uppercase}.crop-name{font-weight:800}.muted{color:#7a867e}
-.status{display:inline-flex;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:800}.up{background:#e9f8ee;color:#087a36}.down{background:#ffeded;color:#bd251b}.same{background:#f0f2f1;color:#66716a}
-.actions{display:flex;gap:6px;flex-wrap:wrap}.mini{padding:7px 10px;font-size:12px;border-radius:9px}.form-actions{display:flex;gap:8px;margin-top:5px;flex-wrap:wrap}
-.help{padding:12px 14px;background:#f1f8f3;border-left:4px solid #159447;border-radius:8px;color:#385444;font-size:13px;margin-bottom:15px}
-#toast{position:fixed;right:20px;bottom:20px;z-index:100;background:#17251c;color:#fff;padding:13px 16px;border-radius:12px;box-shadow:0 12px 35px rgba(0,0,0,.2);display:none;max-width:390px}
-#toast.show{display:block}#toast.ok{background:#087a36}#toast.err{background:#b42318}.empty{padding:35px;text-align:center;color:#7b877f}.loading{padding:20px;text-align:center;color:#66736b}
-@media(max-width:1000px){.stats{grid-template-columns:repeat(2,1fr)}}@media(max-width:760px){.sidebar{width:70px;padding:12px 8px}.side-title,.nav-text{display:none}.nav-btn{text-align:center;font-size:20px;padding:12px 5px}.main{padding:15px}.topbar{padding:0 13px}.admin-email{display:none}.stats{grid-template-columns:1fr 1fr}.grid2,.grid3{grid-template-columns:1fr}.page-head h2{font-size:22px}}@media(max-width:450px){.stats{grid-template-columns:1fr}.login-card{padding:24px}}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+
+#loginScreen{
+ min-height:100vh;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ padding:20px;
+ background:linear-gradient(135deg,#0b5d2a,#159447)
+}
+
+.login-card{
+ width:100%;
+ max-width:430px;
+ background:#fff;
+ border-radius:24px;
+ padding:32px;
+ box-shadow:0 25px 70px rgba(0,0,0,.22)
+}
+
+.logo{
+ width:68px;height:68px;border-radius:20px;
+ background:#e9f8ee;
+ display:flex;align-items:center;
+ justify-content:center;
+ font-size:34px;
+ margin-bottom:16px
+}
+
+.login-card h1{font-size:28px;margin-bottom:7px}
+.login-card p{color:#65746b;margin-bottom:24px}
+
+.field{margin-bottom:15px}
+.field label{
+ display:block;
+ font-weight:700;
+ font-size:14px;
+ margin-bottom:7px
+}
+
+.field input,.field textarea,.field select{
+ width:100%;
+ border:1px solid #d5dfd8;
+ border-radius:12px;
+ padding:12px 13px;
+ outline:none;
+ background:#fff
+}
+
+.field textarea{
+ min-height:110px;
+ resize:vertical
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus{
+ border-color:#159447;
+ box-shadow:0 0 0 3px rgba(21,148,71,.1)
+}
+
+.btn{
+ border:0;
+ border-radius:12px;
+ padding:11px 16px;
+ font-weight:700;
+ transition:.2s
+}
+
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:#0f7a3a;color:#fff}
+.btn-secondary{background:#eaf4ed;color:#0f6a32}
+.btn-danger{background:#feecec;color:#b42318}
+.btn-dark{background:#17251c;color:#fff}
+.btn-full{width:100%;padding:13px}
+
+.login-msg{
+ margin-top:13px;
+ font-size:14px;
+ color:#b42318;
+ min-height:20px
+}
+
+#app{min-height:100vh}
+
+.topbar{
+ height:70px;
+ background:#fff;
+ border-bottom:1px solid #e1e8e3;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:0 24px;
+ position:sticky;
+ top:0;
+ z-index:20
+}
+
+.brand{
+ display:flex;
+ align-items:center;
+ gap:11px;
+ font-weight:800
+}
+
+.brand-icon{
+ width:42px;height:42px;
+ border-radius:13px;
+ background:#e9f8ee;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:22px
+}
+
+.top-actions{
+ display:flex;
+ align-items:center;
+ gap:10px
+}
+
+.admin-email{
+ font-size:13px;
+ color:#66736b;
+ max-width:250px;
+ overflow:hidden;
+ text-overflow:ellipsis
+}
+
+.layout{
+ display:flex;
+ min-height:calc(100vh - 70px)
+}
+
+.sidebar{
+ width:240px;
+ background:#123d25;
+ color:#fff;
+ padding:18px 13px;
+ flex-shrink:0
+}
+
+.side-title{
+ font-size:11px;
+ opacity:.65;
+ padding:8px 12px;
+ text-transform:uppercase;
+ letter-spacing:1px
+}
+
+.nav-btn{
+ width:100%;
+ border:0;
+ background:transparent;
+ color:#e8f5ec;
+ text-align:left;
+ padding:12px 13px;
+ border-radius:11px;
+ margin-bottom:5px;
+ font-weight:700
+}
+
+.nav-btn:hover,
+.nav-btn.active{
+ background:rgba(255,255,255,.13)
+}
+
+.main{
+ flex:1;
+ padding:25px;
+ min-width:0
+}
+
+.page{display:none}
+.page.active{display:block}
+
+.page-head{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:15px;
+ margin-bottom:20px;
+ flex-wrap:wrap
+}
+
+.page-head h2{font-size:26px}
+.page-head p{
+ color:#6b776f;
+ margin-top:4px;
+ font-size:14px
+}
+
+.head-actions{
+ display:flex;
+ gap:8px;
+ flex-wrap:wrap
+}
+
+.stats{
+ display:grid;
+ grid-template-columns:repeat(4,minmax(0,1fr));
+ gap:15px;
+ margin-bottom:20px
+}
+
+.stat{
+ background:#fff;
+ border:1px solid #e1e8e3;
+ border-radius:17px;
+ padding:18px;
+ box-shadow:0 4px 15px rgba(20,50,30,.04)
+}
+
+.stat-label{
+ font-size:13px;
+ color:#6b776f;
+ margin-bottom:8px
+}
+
+.stat-value{
+ font-size:28px;
+ font-weight:800
+}
+
+.stat-icon{
+ float:right;
+ font-size:26px
+}
+
+.card{
+ background:#fff;
+ border:1px solid #e1e8e3;
+ border-radius:17px;
+ padding:20px;
+ box-shadow:0 4px 15px rgba(20,50,30,.04);
+ margin-bottom:18px
+}
+
+.card-title{
+ font-size:18px;
+ font-weight:800;
+ margin-bottom:15px
+}
+
+.grid2{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:15px
+}
+
+.grid3{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:15px
+}
+
+.table-wrap{overflow:auto}
+
+table{
+ width:100%;
+ border-collapse:collapse;
+ min-width:760px
+}
+
+th,td{
+ text-align:left;
+ padding:13px 12px;
+ border-bottom:1px solid #edf1ee;
+ font-size:14px
+}
+
+th{
+ background:#f7faf8;
+ color:#5d6a62;
+ font-size:12px;
+ text-transform:uppercase
+}
+
+.crop-name{font-weight:800}
+.muted{color:#7a867e}
+
+.status{
+ display:inline-flex;
+ padding:6px 10px;
+ border-radius:999px;
+ font-size:12px;
+ font-weight:800
+}
+
+.up{background:#e9f8ee;color:#087a36}
+.down{background:#ffeded;color:#bd251b}
+.same{background:#f0f2f1;color:#66716a}
+
+.actions{
+ display:flex;
+ gap:6px;
+ flex-wrap:wrap
+}
+
+.mini{
+ padding:7px 10px;
+ font-size:12px;
+ border-radius:9px
+}
+
+.form-actions{
+ display:flex;
+ gap:8px;
+ margin-top:5px;
+ flex-wrap:wrap
+}
+
+.help{
+ padding:12px 14px;
+ background:#f1f8f3;
+ border-left:4px solid #159447;
+ border-radius:8px;
+ color:#385444;
+ font-size:13px;
+ margin-bottom:15px
+}
+
+#toast{
+ position:fixed;
+ right:20px;
+ bottom:20px;
+ z-index:100;
+ background:#17251c;
+ color:#fff;
+ padding:13px 16px;
+ border-radius:12px;
+ box-shadow:0 12px 35px rgba(0,0,0,.2);
+ display:none;
+ max-width:390px
+}
+
+#toast.show{display:block}
+#toast.ok{background:#087a36}
+#toast.err{background:#b42318}
+
+.empty{
+ padding:35px;
+ text-align:center;
+ color:#7b877f
+}
+
+.loading{
+ padding:20px;
+ text-align:center;
+ color:#66736b
+}
+
+/* Advertisement preview */
+
+.ad-preview{
+ border:1px solid #dce7df;
+ border-radius:15px;
+ overflow:hidden;
+ background:#fff;
+ max-width:500px;
+ margin-top:10px
+}
+
+.ad-preview img{
+ width:100%;
+ max-height:260px;
+ object-fit:cover;
+ display:block
+}
+
+.ad-preview-content{
+ padding:15px
+}
+
+.ad-preview-title{
+ font-size:18px;
+ font-weight:800;
+ margin-bottom:6px
+}
+
+.ad-preview-description{
+ color:#66736b;
+ font-size:14px;
+ margin-bottom:12px
+}
+
+.ad-preview-button{
+ display:inline-block;
+ background:#0f7a3a;
+ color:#fff;
+ padding:8px 13px;
+ border-radius:8px;
+ font-size:13px;
+ font-weight:700
+}
+
+.ad-thumb{
+ width:90px;
+ height:60px;
+ object-fit:cover;
+ border-radius:8px;
+ border:1px solid #dce7df;
+ background:#f3f6f4
+}
+
+@media(max-width:1000px){
+ .stats{grid-template-columns:repeat(2,1fr)}
+}
+
+@media(max-width:760px){
+
+ .sidebar{
+  width:70px;
+  padding:12px 8px
+ }
+
+ .side-title,
+ .nav-text{
+  display:none
+ }
+
+ .nav-btn{
+  text-align:center;
+  font-size:20px;
+  padding:12px 5px
+ }
+
+ .main{padding:15px}
+
+ .topbar{padding:0 13px}
+
+ .admin-email{display:none}
+
+ .stats{grid-template-columns:1fr 1fr}
+
+ .grid2,
+ .grid3{
+  grid-template-columns:1fr
+ }
+
+ .page-head h2{font-size:22px}
+}
+
+@media(max-width:450px){
+ .stats{grid-template-columns:1fr}
+ .login-card{padding:24px}
+}
 </style>
 </head>
+
 <body>
+
+<!-- ================= LOGIN ================= -->
+
 <section id="loginScreen">
+
 <div class="login-card">
-<div class="logo">🌾</div><h1>ખેડૂત મિત્ર</h1>
-<p>Admin Panel માં પ્રવેશ કરવા Admin Email અને Password દાખલ કરો.</p>
-<div class="field"><label>Email</label><input id="loginEmail" type="email" placeholder="admin@example.com" autocomplete="username"></div>
-<div class="field"><label>Password</label><input id="loginPassword" type="password" placeholder="Password" autocomplete="current-password"></div>
-<button id="loginBtn" class="btn btn-primary btn-full">🔐 Admin Login</button><div id="loginMsg" class="login-msg"></div>
+
+<div class="logo">🌾</div>
+
+<h1>ખેડૂત મિત્ર</h1>
+
+<p>
+Admin Panel માં પ્રવેશ કરવા Admin Email અને Password દાખલ કરો.
+</p>
+
+<div class="field">
+<label>Email</label>
+<input
+ id="loginEmail"
+ type="email"
+ placeholder="admin@example.com"
+ autocomplete="username">
 </div>
+
+<div class="field">
+<label>Password</label>
+<input
+ id="loginPassword"
+ type="password"
+ placeholder="Password"
+ autocomplete="current-password">
+</div>
+
+<button id="loginBtn" class="btn btn-primary btn-full">
+🔐 Admin Login
+</button>
+
+<div id="loginMsg" class="login-msg"></div>
+
+</div>
+
 </section>
 
+
+<!-- ================= APP ================= -->
+
 <section id="app" class="hidden">
+
 <header class="topbar">
-<div class="brand"><div class="brand-icon">🌾</div><div><div>ખેડૂત મિત્ર</div><small style="color:#6b776f;font-weight:500">Admin Panel</small></div></div>
-<div class="top-actions"><span id="adminEmail" class="admin-email"></span><button id="logoutBtn" class="btn btn-danger">Logout</button></div>
+
+<div class="brand">
+
+<div class="brand-icon">🌾</div>
+
+<div>
+<div>ખેડૂત મિત્ર</div>
+<small style="color:#6b776f;font-weight:500">
+Admin Panel
+</small>
+</div>
+
+</div>
+
+<div class="top-actions">
+
+<span id="adminEmail" class="admin-email"></span>
+
+<button id="logoutBtn" class="btn btn-danger">
+Logout
+</button>
+
+</div>
+
 </header>
+
+
 <div class="layout">
+
+
+<!-- ================= SIDEBAR ================= -->
+
 <aside class="sidebar">
-<div class="side-title">Management</div>
-<button class="nav-btn active" data-page="dashboard">📊 <span class="nav-text">Dashboard</span></button>
-<button class="nav-btn" data-page="market">💰 <span class="nav-text">Market Prices</span></button>
-<button class="nav-btn" data-page="notices">📢 <span class="nav-text">Notices</span></button>
-<button class="nav-btn" data-page="schemes">🏛️ <span class="nav-text">Schemes</span></button>
+
+<div class="side-title">
+Management
+</div>
+
+<button
+ class="nav-btn active"
+ data-page="dashboard">
+📊 <span class="nav-text">Dashboard</span>
+</button>
+
+<button
+ class="nav-btn"
+ data-page="market">
+💰 <span class="nav-text">Market Prices</span>
+</button>
+
+<button
+ class="nav-btn"
+ data-page="notices">
+📢 <span class="nav-text">Notices</span>
+</button>
+
+<button
+ class="nav-btn"
+ data-page="schemes">
+🏛️ <span class="nav-text">Schemes</span>
+</button>
+
+<button
+ class="nav-btn"
+ data-page="ads">
+📣 <span class="nav-text">Advertisements</span>
+</button>
+
 </aside>
+
+
 <main class="main">
 
+
+<!-- ================= DASHBOARD ================= -->
+
 <div id="page-dashboard" class="page active">
-<div class="page-head"><div><h2>Dashboard</h2><p>ખેડૂત મિત્ર Admin Panel માં આપનું સ્વાગત છે.</p></div><button class="btn btn-secondary" id="refreshAll">🔄 Refresh</button></div>
+
+<div class="page-head">
+
+<div>
+<h2>Dashboard</h2>
+
+<p>
+ખેડૂત મિત્ર Admin Panel માં આપનું સ્વાગત છે.
+</p>
+</div>
+
+<button class="btn btn-secondary" id="refreshAll">
+🔄 Refresh
+</button>
+
+</div>
+
+
 <div class="stats">
-<div class="stat"><span class="stat-icon">💰</span><div class="stat-label">Market Prices</div><div id="statMarket" class="stat-value">0</div></div>
-<div class="stat"><span class="stat-icon">📢</span><div class="stat-label">Notices</div><div id="statNotices" class="stat-value">0</div></div>
-<div class="stat"><span class="stat-icon">🏛️</span><div class="stat-label">Schemes</div><div id="statSchemes" class="stat-value">0</div></div>
-<div class="stat"><span class="stat-icon">👤</span><div class="stat-label">Admin</div><div id="statAdmin" class="stat-value">✓</div></div>
+
+<div class="stat">
+<span class="stat-icon">💰</span>
+<div class="stat-label">Market Prices</div>
+<div id="statMarket" class="stat-value">0</div>
 </div>
-<div class="card"><div class="card-title">⚡ Quick Actions</div><div class="grid3">
-<button class="btn btn-secondary" onclick="showPage('market');openNewMarket()">➕ Market Price ઉમેરો</button>
-<button class="btn btn-secondary" onclick="showPage('notices');resetNoticeForm()">📢 Notice ઉમેરો</button>
-<button class="btn btn-secondary" onclick="showPage('schemes');resetSchemeForm()">🏛️ Scheme ઉમેરો</button>
-</div></div>
-<div class="card"><div class="card-title">ℹ️ Automatic Price Status</div>
-<div class="help">Market Price નું <b>avgPrice</b> બદલશો ત્યારે જૂનો avgPrice આપમેળે <b>previousAvgPrice</b> માં સાચવાશે. Website પર દરેક visitor ને ↑ વધારો અથવા ↓ ઘટાડો દેખાશે.</div>
-<div id="dashboardRecent" class="loading">Market data લોડ થઈ રહ્યું છે...</div>
+
+<div class="stat">
+<span class="stat-icon">📢</span>
+<div class="stat-label">Notices</div>
+<div id="statNotices" class="stat-value">0</div>
 </div>
+
+<div class="stat">
+<span class="stat-icon">🏛️</span>
+<div class="stat-label">Schemes</div>
+<div id="statSchemes" class="stat-value">0</div>
 </div>
+
+<div class="stat">
+<span class="stat-icon">📣</span>
+<div class="stat-label">Advertisements</div>
+<div id="statAds" class="stat-value">0</div>
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-title">
+⚡ Quick Actions
+</div>
+
+<div class="grid3">
+
+<button
+ class="btn btn-secondary"
+ onclick="showPage('market');openNewMarket()">
+➕ Market Price ઉમેરો
+</button>
+
+<button
+ class="btn btn-secondary"
+ onclick="showPage('notices');resetNoticeForm()">
+📢 Notice ઉમેરો
+</button>
+
+<button
+ class="btn btn-secondary"
+ onclick="showPage('schemes');resetSchemeForm()">
+🏛️ Scheme ઉમેરો
+</button>
+
+</div>
+
+<br>
+
+<button
+ class="btn btn-primary"
+ onclick="showPage('ads');openNewAd()">
+📣 Advertisement ઉમેરો
+</button>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-title">
+ℹ️ Automatic Price Status
+</div>
+
+<div class="help">
+
+Market Price નું <b>avgPrice</b> બદલશો ત્યારે જૂનો
+avgPrice આપમેળે <b>previousAvgPrice</b> માં સાચવાશે.
+
+</div>
+
+<div id="dashboardRecent" class="loading">
+Market data લોડ થઈ રહ્યું છે...
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= MARKET ================= -->
 
 <div id="page-market" class="page">
-<div class="page-head"><div><h2>💰 Market Prices</h2><p>બજાર ભાવ ઉમેરો, સુધારો અને મેનેજ કરો.</p></div>
-<div class="head-actions"><button class="btn btn-secondary" id="reloadMarket">🔄 Refresh</button><button class="btn btn-primary" id="newMarketBtn">➕ New Price</button></div></div>
-<div class="card"><div class="help"><b>Automatic:</b> Avg Price બદલતાં જ જૂનો Avg Price <b>previousAvgPrice</b> માં જશે. ઉદાહરણ: ₹5800 → ₹6100 = ↑ ₹300 વધારો.</div><div id="marketTable" class="loading">Market Prices લોડ થઈ રહ્યા છે...</div></div>
+
+<div class="page-head">
+
+<div>
+<h2>💰 Market Prices</h2>
+<p>બજાર ભાવ ઉમેરો, સુધારો અને મેનેજ કરો.</p>
+</div>
+
+<div class="head-actions">
+
+<button
+ class="btn btn-secondary"
+ id="reloadMarket">
+🔄 Refresh
+</button>
+
+<button
+ class="btn btn-primary"
+ id="newMarketBtn">
+➕ New Price
+</button>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="help">
+
+<b>Automatic:</b>
+Avg Price બદલતાં જ જૂનો Avg Price
+<b>previousAvgPrice</b> માં જશે.
+
+</div>
+
+<div id="marketTable" class="loading">
+Market Prices લોડ થઈ રહ્યા છે...
+</div>
+
+</div>
+
+
 <div id="marketEditor" class="card hidden">
-<div class="card-title" id="marketEditorTitle">➕ New Market Price</div>
-<input id="marketId" type="hidden"><input id="marketOriginalCrop" type="hidden"><input id="marketOriginalMarket" type="hidden">
+
+<div class="card-title" id="marketEditorTitle">
+➕ New Market Price
+</div>
+
+<input id="marketId" type="hidden">
+<input id="marketOriginalCrop" type="hidden">
+<input id="marketOriginalMarket" type="hidden">
+
 <div class="grid2">
-<div class="field"><label>Crop / પાક *</label><input id="mCrop" placeholder="જેમ કે મગફળી"></div>
-<div class="field"><label>Market / બજાર *</label><input id="mMarket" placeholder="જેમ કે Botad Market"></div>
-<div class="field"><label>Minimum Price *</label><input id="mMin" type="number" min="0" placeholder="5200"></div>
-<div class="field"><label>Maximum Price *</label><input id="mMax" type="number" min="0" placeholder="6150"></div>
-<div class="field"><label>Average Price *</label><input id="mAvg" type="number" min="0" placeholder="5720"></div>
-<div class="field"><label>Arrival / આવક</label><input id="mArrival" placeholder="1250 ક્વિન્ટલ"></div>
+
+<div class="field">
+<label>Crop / પાક *</label>
+<input id="mCrop" placeholder="જેમ કે મગફળી">
 </div>
+
+<div class="field">
+<label>Market / બજાર *</label>
+<input id="mMarket" placeholder="જેમ કે Botad Market">
+</div>
+
+<div class="field">
+<label>Minimum Price *</label>
+<input id="mMin" type="number" min="0" placeholder="5200">
+</div>
+
+<div class="field">
+<label>Maximum Price *</label>
+<input id="mMax" type="number" min="0" placeholder="6150">
+</div>
+
+<div class="field">
+<label>Average Price *</label>
+<input id="mAvg" type="number" min="0" placeholder="5720">
+</div>
+
+<div class="field">
+<label>Arrival / આવક</label>
+<input id="mArrival" placeholder="1250 ક્વિન્ટલ">
+</div>
+
+</div>
+
 <div id="pricePreview" class="help hidden"></div>
-<div class="form-actions"><button id="saveMarketBtn" class="btn btn-primary">💾 Save Market Price</button><button id="cancelMarketBtn" class="btn btn-secondary">Cancel</button></div>
+
+<div class="form-actions">
+
+<button
+ id="saveMarketBtn"
+ class="btn btn-primary">
+💾 Save Market Price
+</button>
+
+<button
+ id="cancelMarketBtn"
+ class="btn btn-secondary">
+Cancel
+</button>
+
 </div>
+
 </div>
+
+</div>
+
+
+<!-- ================= NOTICES ================= -->
 
 <div id="page-notices" class="page">
-<div class="page-head"><div><h2>📢 Notices</h2><p>Website પર જાહેર જાહેરાત / માહિતી મેનેજ કરો.</p></div><button class="btn btn-primary" id="newNoticeBtn">➕ New Notice</button></div>
+
+<div class="page-head">
+
+<div>
+<h2>📢 Notices</h2>
+<p>Website પર જાહેર જાહેરાત / માહિતી મેનેજ કરો.</p>
+</div>
+
+<button
+ class="btn btn-primary"
+ id="newNoticeBtn">
+➕ New Notice
+</button>
+
+</div>
+
+
 <div id="noticeEditor" class="card">
-<div class="card-title" id="noticeEditorTitle">➕ Notice ઉમેરો</div><input id="noticeId" type="hidden">
-<div class="grid2"><div class="field"><label>Title *</label><input id="nTitle" placeholder="જેમ કે મહત્વની જાહેરાત"></div>
-<div class="field"><label>Type</label><select id="nType"><option value="info">માહિતી</option><option value="important">મહત્વપૂર્ણ</option><option value="offer">ઓફર</option><option value="warning">ચેતવણી</option></select></div></div>
-<div class="field"><label>Message *</label><textarea id="nMessage" placeholder="અહીં જાહેરાત લખો..."></textarea></div>
-<div class="form-actions"><button id="saveNoticeBtn" class="btn btn-primary">💾 Save Notice</button><button id="cancelNoticeBtn" class="btn btn-secondary">Clear</button></div>
+
+<div class="card-title" id="noticeEditorTitle">
+➕ Notice ઉમેરો
 </div>
-<div class="card"><div class="card-title">📋 Published Notices</div><div id="noticeList" class="loading">Notices લોડ થઈ રહ્યા છે...</div></div>
+
+<input id="noticeId" type="hidden">
+
+<div class="grid2">
+
+<div class="field">
+<label>Title *</label>
+<input id="nTitle" placeholder="જેમ કે મહત્વની જાહેરાત">
 </div>
+
+<div class="field">
+<label>Type</label>
+
+<select id="nType">
+
+<option value="info">માહિતી</option>
+<option value="important">મહત્વપૂર્ણ</option>
+<option value="offer">ઓફર</option>
+<option value="warning">ચેતવણી</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<div class="field">
+
+<label>Message *</label>
+
+<textarea
+ id="nMessage"
+ placeholder="અહીં જાહેરાત લખો...">
+</textarea>
+
+</div>
+
+
+<div class="form-actions">
+
+<button
+ id="saveNoticeBtn"
+ class="btn btn-primary">
+💾 Save Notice
+</button>
+
+<button
+ id="cancelNoticeBtn"
+ class="btn btn-secondary">
+Clear
+</button>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-title">
+📋 Published Notices
+</div>
+
+<div id="noticeList" class="loading">
+Notices લોડ થઈ રહ્યા છે...
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= SCHEMES ================= -->
 
 <div id="page-schemes" class="page">
-<div class="page-head"><div><h2>🏛️ Government Schemes</h2><p>ખેડૂત યોજનાઓની માહિતી મેનેજ કરો.</p></div><button class="btn btn-primary" id="newSchemeBtn">➕ New Scheme</button></div>
-<div id="schemeEditor" class="card">
-<div class="card-title" id="schemeEditorTitle">➕ Scheme ઉમેરો</div><input id="schemeId" type="hidden">
-<div class="grid2"><div class="field"><label>Scheme Name *</label><input id="sName" placeholder="જેમ કે PM-KISAN"></div>
-<div class="field"><label>Category</label><input id="sCategory" placeholder="જેમ કે ખેતીવાડી"></div>
-<div class="field"><label>Official Link</label><input id="sLink" type="url" placeholder="https://..."></div>
-<div class="field"><label>Status</label><select id="sStatus"><option value="active">Active</option><option value="closed">Closed</option></select></div></div>
-<div class="field"><label>Description *</label><textarea id="sDescription" placeholder="યોજનાની માહિતી..."></textarea></div>
-<div class="form-actions"><button id="saveSchemeBtn" class="btn btn-primary">💾 Save Scheme</button><button id="cancelSchemeBtn" class="btn btn-secondary">Clear</button></div>
-</div>
-<div class="card"><div class="card-title">📋 Schemes List</div><div id="schemeList" class="loading">Schemes લોડ થઈ રહી છે...</div></div>
+
+<div class="page-head">
+
+<div>
+<h2>🏛️ Government Schemes</h2>
+<p>ખેડૂત યોજનાઓની માહિતી મેનેજ કરો.</p>
 </div>
 
-</main></div></section>
+<button
+ class="btn btn-primary"
+ id="newSchemeBtn">
+➕ New Scheme
+</button>
+
+</div>
+
+
+<div id="schemeEditor" class="card">
+
+<div class="card-title" id="schemeEditorTitle">
+➕ Scheme ઉમેરો
+</div>
+
+<input id="schemeId" type="hidden">
+
+<div class="grid2">
+
+<div class="field">
+<label>Scheme Name *</label>
+<input id="sName" placeholder="જેમ કે PM-KISAN">
+</div>
+
+<div class="field">
+<label>Category</label>
+<input id="sCategory" placeholder="જેમ કે ખેતીવાડી">
+</div>
+
+<div class="field">
+<label>Official Link</label>
+<input id="sLink" type="url" placeholder="https://...">
+</div>
+
+<div class="field">
+<label>Status</label>
+
+<select id="sStatus">
+
+<option value="active">Active</option>
+<option value="closed">Closed</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<div class="field">
+
+<label>Description *</label>
+
+<textarea
+ id="sDescription"
+ placeholder="યોજનાની માહિતી...">
+</textarea>
+
+</div>
+
+
+<div class="form-actions">
+
+<button
+ id="saveSchemeBtn"
+ class="btn btn-primary">
+💾 Save Scheme
+</button>
+
+<button
+ id="cancelSchemeBtn"
+ class="btn btn-secondary">
+Clear
+</button>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-title">
+📋 Schemes List
+</div>
+
+<div id="schemeList" class="loading">
+Schemes લોડ થઈ રહી છે...
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= ADVERTISEMENTS ================= -->
+
+<div id="page-ads" class="page">
+
+<div class="page-head">
+
+<div>
+
+<h2>📣 Advertisements</h2>
+
+<p>
+Website પર બતાવવાની જાહેરાતો અહીંથી મેનેજ કરો.
+</p>
+
+</div>
+
+<button
+ class="btn btn-primary"
+ id="newAdBtn">
+➕ New Advertisement
+</button>
+
+</div>
+
+
+<!-- AD EDITOR -->
+
+<div id="adEditor" class="card hidden">
+
+<div class="card-title" id="adEditorTitle">
+➕ Advertisement ઉમેરો
+</div>
+
+<input id="adId" type="hidden">
+
+
+<div class="grid2">
+
+<div class="field">
+
+<label>Advertisement Title *</label>
+
+<input
+ id="adTitle"
+ placeholder="જેમ કે કૃષિ સાધનો પર ખાસ ઓફર">
+
+</div>
+
+
+<div class="field">
+
+<label>Status</label>
+
+<select id="adStatus">
+
+<option value="active">
+Active
+</option>
+
+<option value="inactive">
+Inactive
+</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>Image URL *</label>
+
+<input
+ id="adImage"
+ type="url"
+ placeholder="https://example.com/photo.jpg">
+
+</div>
+
+
+<div class="field">
+
+<label>Button Text</label>
+
+<input
+ id="adButtonText"
+ placeholder="વધુ માહિતી">
+
+</div>
+
+
+<div class="field">
+
+<label>Button Link</label>
+
+<input
+ id="adLink"
+ type="url"
+ placeholder="https://example.com">
+
+</div>
+
+</div>
+
+
+<div class="field">
+
+<label>Description</label>
+
+<textarea
+ id="adDescription"
+ placeholder="જાહેરાતની માહિતી અહીં લખો...">
+</textarea>
+
+</div>
+
+
+<div id="adPreview" class="ad-preview hidden">
+
+<img id="adPreviewImage" alt="Advertisement">
+
+<div class="ad-preview-content">
+
+<div id="adPreviewTitle" class="ad-preview-title">
+Advertisement
+</div>
+
+<div
+ id="adPreviewDescription"
+ class="ad-preview-description">
+</div>
+
+<span
+ id="adPreviewButton"
+ class="ad-preview-button">
+વધુ માહિતી
+</span>
+
+</div>
+
+</div>
+
+
+<br>
+
+
+<div class="form-actions">
+
+<button
+ id="saveAdBtn"
+ class="btn btn-primary">
+💾 Save Advertisement
+</button>
+
+<button
+ id="cancelAdBtn"
+ class="btn btn-secondary">
+Clear
+</button>
+
+</div>
+
+</div>
+
+
+<!-- AD LIST -->
+
+<div class="card">
+
+<div class="card-title">
+📋 Advertisements List
+</div>
+
+<div id="adList" class="loading">
+Advertisements લોડ થઈ રહી છે...
+</div>
+
+</div>
+
+</div>
+
+
+</main>
+
+</div>
+
+</section>
+
+
 <div id="toast"></div>
 
+
+<!-- ================= FIREBASE ================= -->
+
 <script type="module">
-import {initializeApp} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-import {getAuth,onAuthStateChanged,signInWithEmailAndPassword,signOut} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-import {getFirestore,collection,getDocs,getDoc,doc,setDoc,deleteDoc,serverTimestamp} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+import {
+ initializeApp
+} from
+"https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
+import {
+ getAuth,
+ onAuthStateChanged,
+ signInWithEmailAndPassword,
+ signOut
+} from
+"https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+import {
+ getFirestore,
+ collection,
+ getDocs,
+ getDoc,
+ doc,
+ setDoc,
+ deleteDoc,
+ serverTimestamp
+} from
+"https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+
+/* ================= FIREBASE CONFIG ================= */
 
 const firebaseConfig={
+
 apiKey:"AIzaSyCoRcAEmMV0i-WVgnA5uzZjcDzBGtsqcDE",
+
 authDomain:"khedut-mitra-d6808.firebaseapp.com",
+
 projectId:"khedut-mitra-d6808",
+
 storageBucket:"khedut-mitra-d6808.firebasestorage.app",
+
 messagingSenderId:"368250177516",
+
 appId:"1:368250177516:web:d23db936f7c5a4e53c62c9",
+
 measurementId:"G-RZC2MFE0BW"
+
 };
-const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
-let currentUser=null,marketCache=[],noticeCache=[],schemeCache=[];
+
+
+const app=initializeApp(firebaseConfig);
+
+const auth=getAuth(app);
+
+const db=getFirestore(app);
+
+
+let currentUser=null;
+
+let marketCache=[];
+
+let noticeCache=[];
+
+let schemeCache=[];
+
+let adCache=[];
+
+
+/* ================= HELPERS ================= */
 
 const $=id=>document.getElementById(id);
-function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));}
-function money(v){const n=Number(v||0);return "₹"+n.toLocaleString("en-IN");}
-function toast(msg,type="ok"){const t=$("toast");t.textContent=msg;t.className="show "+type;clearTimeout(window.__toast);window.__toast=setTimeout(()=>t.className="",4000);}
-function statusHtml(avg,prev){
-const a=Number(avg||0),p=Number(prev||0);
-if(!p)return '<span class="status same">— પ્રથમ ભાવ</span>';
-if(a>p)return `<span class="status up">↑ ${money(a-p)} વધારો</span>`;
-if(a<p)return `<span class="status down">↓ ${money(p-a)} ઘટાડો</span>`;
-return '<span class="status same">— સ્થિર</span>';
+
+
+function escapeHtml(v){
+
+return String(v??"").replace(
+
+/[&<>"']/g,
+
+m=>({
+
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
+
+}[m])
+
+);
+
 }
+
+
+function money(v){
+
+const n=Number(v||0);
+
+return "₹"+n.toLocaleString("en-IN");
+
+}
+
+
+function toast(msg,type="ok"){
+
+const t=$("toast");
+
+t.textContent=msg;
+
+t.className="show "+type;
+
+clearTimeout(window.__toast);
+
+window.__toast=setTimeout(
+()=>t.className="",
+4000
+);
+
+}
+
+
+/* ================= PAGE ================= */
+
 function showPage(name){
-document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));
+
+document
+.querySelectorAll(".page")
+.forEach(p=>p.classList.remove("active"));
+
+document
+.querySelectorAll(".nav-btn")
+.forEach(b=>b.classList.remove("active"));
+
 $("page-"+name)?.classList.add("active");
-document.querySelector(`.nav-btn[data-page="${name}"]`)?.classList.add("active");
-if(name==="market")loadMarketPrices();
-if(name==="notices")loadNotices();
-if(name==="schemes")loadSchemes();
+
+document
+.querySelector(`.nav-btn[data-page="${name}"]`)
+?.classList.add("active");
+
+
+if(name==="market")
+loadMarketPrices();
+
+if(name==="notices")
+loadNotices();
+
+if(name==="schemes")
+loadSchemes();
+
+if(name==="ads")
+loadAds();
+
 }
+
 window.showPage=showPage;
 
-document.querySelectorAll(".nav-btn").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
 
-$("loginBtn").addEventListener("click",login);
-$("loginPassword").addEventListener("keydown",e=>{if(e.key==="Enter")login();});
-async function login(){
-const email=$("loginEmail").value.trim(),pass=$("loginPassword").value;
-$("loginMsg").textContent="";
-if(!email||!pass){$("loginMsg").textContent="Email અને Password દાખલ કરો.";return;}
-$("loginBtn").disabled=true;$("loginBtn").textContent="Login...";
-try{await signInWithEmailAndPassword(auth,email,pass);}
-catch(e){console.error(e);$("loginMsg").textContent="Login failed: "+(e.code||e.message);}
-finally{$("loginBtn").disabled=false;$("loginBtn").textContent="🔐 Admin Login";}
-}
-$("logoutBtn").addEventListener("click",()=>signOut(auth));
+document
+.querySelectorAll(".nav-btn")
+.forEach(b=>{
 
-onAuthStateChanged(auth,async user=>{
-if(!user){currentUser=null;$("app").classList.add("hidden");$("loginScreen").classList.remove("hidden");return;}
-try{
-const adminSnap=await getDoc(doc(db,"admins",user.uid));
-if(!adminSnap.exists()){await signOut(auth);$("loginMsg").textContent="આ Email Admin નથી. Firestore > admins માં આ User UID નો document બનાવો.";return;}
-currentUser=user;$("adminEmail").textContent=user.email||"";$("app").classList.remove("hidden");$("loginScreen").classList.add("hidden");
-await refreshAllData();
-}catch(e){console.error(e);await signOut(auth);$("loginMsg").textContent="Admin verification failed: "+(e.message||e);}
+b.addEventListener(
+"click",
+()=>showPage(b.dataset.page)
+);
+
 });
+
+
+/* ================= LOGIN ================= */
+
+$("loginBtn")
+.addEventListener("click",login);
+
+
+$("loginPassword")
+.addEventListener(
+"keydown",
+e=>{
+if(e.key==="Enter")login();
+}
+);
+
+
+async function login(){
+
+const email=
+$("loginEmail").value.trim();
+
+const pass=
+$("loginPassword").value;
+
+$("loginMsg").textContent="";
+
+
+if(!email||!pass){
+
+$("loginMsg").textContent=
+"Email અને Password દાખલ કરો.";
+
+return;
+
+}
+
+
+$("loginBtn").disabled=true;
+
+$("loginBtn").textContent="Login...";
+
+
+try{
+
+await signInWithEmailAndPassword(
+auth,
+email,
+pass
+);
+
+}catch(e){
+
+console.error(e);
+
+$("loginMsg").textContent=
+"Login failed: "
++(e.code||e.message);
+
+}
+
+finally{
+
+$("loginBtn").disabled=false;
+
+$("loginBtn").textContent=
+"🔐 Admin Login";
+
+}
+
+}
+
+
+$("logoutBtn")
+.addEventListener(
+"click",
+()=>signOut(auth)
+);
+
+
+/* ================= AUTH CHECK ================= */
+
+onAuthStateChanged(
+auth,
+async user=>{
+
+if(!user){
+
+currentUser=null;
+
+$("app").classList.add("hidden");
+
+$("loginScreen").classList.remove("hidden");
+
+return;
+
+}
+
+
+try{
+
+const adminSnap=
+await getDoc(
+doc(db,"admins",user.uid)
+);
+
+
+if(!adminSnap.exists()){
+
+await signOut(auth);
+
+$("loginMsg").textContent=
+"આ Email Admin નથી. Firestore > admins માં આ User UID નો document બનાવો.";
+
+return;
+
+}
+
+
+currentUser=user;
+
+$("adminEmail").textContent=
+user.email||"";
+
+$("app").classList.remove("hidden");
+
+$("loginScreen").classList.add("hidden");
+
+
+await refreshAllData();
+
+
+}catch(e){
+
+console.error(e);
+
+await signOut(auth);
+
+$("loginMsg").textContent=
+"Admin verification failed: "
++(e.message||e);
+
+}
+
+}
+);
+
+
+/* ================= REFRESH ================= */
 
 async function refreshAllData(){
-await Promise.all([loadMarketPrices(),loadNotices(),loadSchemes()]);
-updateStats();renderDashboardRecent();
-}
-$("refreshAll").addEventListener("click",async()=>{await refreshAllData();toast("બધી માહિતી refresh થઈ. ✅");});
 
-function updateStats(){$("statMarket").textContent=marketCache.length;$("statNotices").textContent=noticeCache.length;$("statSchemes").textContent=schemeCache.length;}
+await Promise.all([
+
+loadMarketPrices(),
+
+loadNotices(),
+
+loadSchemes(),
+
+loadAds()
+
+]);
+
+updateStats();
+
+renderDashboardRecent();
+
+}
+
+
+$("refreshAll")
+.addEventListener(
+"click",
+async()=>{
+
+await refreshAllData();
+
+toast(
+"બધી માહિતી refresh થઈ. ✅"
+);
+
+}
+);
+
+
+function updateStats(){
+
+$("statMarket").textContent=
+marketCache.length;
+
+$("statNotices").textContent=
+noticeCache.length;
+
+$("statSchemes").textContent=
+schemeCache.length;
+
+$("statAds").textContent=
+adCache.length;
+
+}
+
+
+/* ================= MARKET ================= */
+
+function statusHtml(avg,prev){
+
+const a=Number(avg||0);
+
+const p=Number(prev||0);
+
+if(!p)
+return '<span class="status same">— પ્રથમ ભાવ</span>';
+
+if(a>p)
+return `<span class="status up">
+↑ ${money(a-p)} વધારો
+</span>`;
+
+if(a<p)
+return `<span class="status down">
+↓ ${money(p-a)} ઘટાડો
+</span>`;
+
+return '<span class="status same">
+— સ્થિર
+</span>';
+
+}
+
 
 async function loadMarketPrices(){
-$("marketTable").innerHTML='<div class="loading">Market Prices લોડ થઈ રહ્યા છે...</div>';
+
+$("marketTable").innerHTML=
+'<div class="loading">Market Prices લોડ થઈ રહ્યા છે...</div>';
+
 try{
-const snap=await getDocs(collection(db,"marketPrices"));
-marketCache=snap.docs.map(d=>({id:d.id,...d.data()}));
-marketCache.sort((a,b)=>String(a.crop||"").localeCompare(String(b.crop||""),"gu"));
+
+const snap=
+await getDocs(
+collection(db,"marketPrices")
+);
+
+marketCache=
+snap.docs.map(
+d=>({id:d.id,...d.data()})
+);
+
+marketCache.sort(
+(a,b)=>
+String(a.crop||"")
+.localeCompare(
+String(b.crop||""),
+"gu"
+)
+);
+
 renderMarket();
+
 renderDashboardRecent();
+
 updateStats();
-}catch(e){console.error(e);$("marketTable").innerHTML='<div class="empty">Market Prices લોડ થઈ શક્યા નથી: '+escapeHtml(e.message||e)+'</div>';}
+
+}catch(e){
+
+console.error(e);
+
+$("marketTable").innerHTML=
+'<div class="empty">Market Prices લોડ થઈ શક્યા નથી: '
++escapeHtml(e.message||e)+
+'</div>';
+
 }
+
+}
+
 
 function renderMarket(){
-if(!marketCache.length){$("marketTable").innerHTML='<div class="empty">હજુ કોઈ Market Price નથી.</div>';return;}
-let html='<div class="table-wrap"><table><thead><tr><th>પાક</th><th>બજાર</th><th>Min</th><th>Max</th><th>Avg</th><th>Previous</th><th>Status</th><th>આવક</th><th>Action</th></tr></thead><tbody>';
+
+if(!marketCache.length){
+
+$("marketTable").innerHTML=
+'<div class="empty">
+હજુ કોઈ Market Price નથી.
+</div>';
+
+return;
+
+}
+
+
+let html=`
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+<th>પાક</th>
+<th>બજાર</th>
+<th>Min</th>
+<th>Max</th>
+<th>Avg</th>
+<th>Previous</th>
+<th>Status</th>
+<th>આવક</th>
+<th>Action</th>
+</tr>
+
+</thead>
+
+<tbody>
+`;
+
+
 for(const x of marketCache){
-html+=`<tr><td class="crop-name">${escapeHtml(x.crop||"-")}</td><td>${escapeHtml(x.market||"-")}</td><td>${money(x.minPrice)}</td><td>${money(x.maxPrice)}</td><td><b>${money(x.avgPrice)}</b></td><td>${Number(x.previousAvgPrice||0)?money(x.previousAvgPrice):'<span class="muted">—</span>'}</td><td>${statusHtml(x.avgPrice,x.previousAvgPrice)}</td><td>${escapeHtml(x.arrival||"-")}</td><td><div class="actions"><button class="btn btn-secondary mini" data-edit-market="${escapeHtml(x.id)}">✏️ Edit</button><button class="btn btn-danger mini" data-delete-market="${escapeHtml(x.id)}">🗑️ Delete</button></div></td></tr>`;
+
+html+=`
+
+<tr>
+
+<td class="crop-name">
+${escapeHtml(x.crop||"-")}
+</td>
+
+<td>
+${escapeHtml(x.market||"-")}
+</td>
+
+<td>
+${money(x.minPrice)}
+</td>
+
+<td>
+${money(x.maxPrice)}
+</td>
+
+<td>
+<b>${money(x.avgPrice)}</b>
+</td>
+
+<td>
+${
+Number(x.previousAvgPrice||0)
+?
+money(x.previousAvgPrice)
+:
+'<span class="muted">—</span>'
 }
-html+='</tbody></table></div>';$("marketTable").innerHTML=html;
-document.querySelectorAll("[data-edit-market]").forEach(b=>b.addEventListener("click",()=>editMarket(b.dataset.editMarket)));
-document.querySelectorAll("[data-delete-market]").forEach(b=>b.addEventListener("click",()=>deleteMarket(b.dataset.deleteMarket)));
+</td>
+
+<td>
+${statusHtml(
+x.avgPrice,
+x.previousAvgPrice
+)}
+</td>
+
+<td>
+${escapeHtml(x.arrival||"-")}
+</td>
+
+<td>
+
+<div class="actions">
+
+<button
+class="btn btn-secondary mini"
+data-edit-market="${escapeHtml(x.id)}">
+✏️ Edit
+</button>
+
+<button
+class="btn btn-danger mini"
+data-delete-market="${escapeHtml(x.id)}">
+🗑️ Delete
+</button>
+
+</div>
+
+</td>
+
+</tr>
+
+`;
+
 }
+
+
+html+=`
+</tbody>
+</table>
+</div>
+`;
+
+$("marketTable").innerHTML=html;
+
+
+document
+.querySelectorAll("[data-edit-market]")
+.forEach(b=>
+b.addEventListener(
+"click",
+()=>editMarket(b.dataset.editMarket)
+)
+);
+
+
+document
+.querySelectorAll("[data-delete-market]")
+.forEach(b=>
+b.addEventListener(
+"click",
+()=>deleteMarket(b.dataset.deleteMarket)
+)
+);
+
+}
+
 
 function openNewMarket(){
-$("marketEditor").classList.remove("hidden");$("marketEditorTitle").textContent="➕ New Market Price";
-["marketId","marketOriginalCrop","marketOriginalMarket","mCrop","mMarket","mMin","mMax","mAvg","mArrival"].forEach(id=>$(id).value="");
-$("pricePreview").classList.add("hidden");$("marketEditor").scrollIntoView({behavior:"smooth",block:"start"});
+
+$("marketEditor").classList.remove("hidden");
+
+$("marketEditorTitle").textContent=
+"➕ New Market Price";
+
+[
+"marketId",
+"marketOriginalCrop",
+"marketOriginalMarket",
+"mCrop",
+"mMarket",
+"mMin",
+"mMax",
+"mAvg",
+"mArrival"
+]
+.forEach(id=>$(id).value="");
+
+$("pricePreview")
+.classList.add("hidden");
+
+$("marketEditor")
+.scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
+
 }
+
 window.openNewMarket=openNewMarket;
-$("newMarketBtn").addEventListener("click",openNewMarket);
-$("cancelMarketBtn").addEventListener("click",()=>$("marketEditor").classList.add("hidden"));
-$("reloadMarket").addEventListener("click",loadMarketPrices);
+
+
+$("newMarketBtn")
+.addEventListener(
+"click",
+openNewMarket
+);
+
+
+$("cancelMarketBtn")
+.addEventListener(
+"click",
+()=>$("marketEditor")
+.classList.add("hidden")
+);
+
+
+$("reloadMarket")
+.addEventListener(
+"click",
+loadMarketPrices
+);
+
 
 function editMarket(id){
-const item=marketCache.find(x=>x.id===id);if(!item){toast("આ Market Price cache માં મળ્યો નથી. Refresh કરો.","err");return;}
-$("marketEditor").classList.remove("hidden");$("marketEditorTitle").textContent="✏️ Market Price Edit";
+
+const item=
+marketCache.find(x=>x.id===id);
+
+if(!item){
+
+toast(
+"આ Market Price cache માં મળ્યો નથી. Refresh કરો.",
+"err"
+);
+
+return;
+
+}
+
+
+$("marketEditor")
+.classList.remove("hidden");
+
+$("marketEditorTitle").textContent=
+"✏️ Market Price Edit";
+
 $("marketId").value=id;
-$("marketOriginalCrop").value=item.crop||"";
-$("marketOriginalMarket").value=item.market||"";
-$("mCrop").value=item.crop||"";
-$("mMarket").value=item.market||"";
-$("mMin").value=item.minPrice??"";
-$("mMax").value=item.maxPrice??"";
-$("mAvg").value=item.avgPrice??"";
-$("mArrival").value=item.arrival||"";
-updatePricePreview(item.avgPrice,item.previousAvgPrice);
-$("marketEditor").scrollIntoView({behavior:"smooth",block:"start"});
+
+$("marketOriginalCrop").value=
+item.crop||"";
+
+$("marketOriginalMarket").value=
+item.market||"";
+
+$("mCrop").value=
+item.crop||"";
+
+$("mMarket").value=
+item.market||"";
+
+$("mMin").value=
+item.minPrice??"";
+
+$("mMax").value=
+item.maxPrice??"";
+
+$("mAvg").value=
+item.avgPrice??"";
+
+$("mArrival").value=
+item.arrival||"";
+
+updatePricePreview(
+item.avgPrice,
+item.previousAvgPrice
+);
+
+$("marketEditor")
+.scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
+
 }
+
+
 function updatePricePreview(avg,prev){
-const a=Number(avg||0),p=Number(prev||0),box=$("pricePreview");
-if(!p)box.innerHTML="ℹ️ આ પાક માટે અગાઉનો Avg Price ઉપલબ્ધ નથી.";
-else if(a>p)box.innerHTML=`📈 Current ${money(a)} | Previous ${money(p)} → <b>${money(a-p)} વધારો</b>`;
-else if(a<p)box.innerHTML=`📉 Current ${money(a)} | Previous ${money(p)} → <b>${money(p-a)} ઘટાડો</b>`;
-else box.innerHTML=`➖ Current ${money(a)} | Previous ${money(p)} → <b>સ્થિર</b>`;
-box.classList.remove("hidden");
-}
-$("mAvg").addEventListener("input",()=>{
-const item=marketCache.find(x=>x.id===$("marketId").value);
-updatePricePreview($("mAvg").value,item?.avgPrice||0);
-});
-
-/*
-  IMPORTANT FIX:
-  Existing documents are updated using their real Firestore ID.
-  If an old/stale ID is missing, we find the document using the ORIGINAL
-  crop + market saved when Edit was opened, NOT the possibly edited values.
-  This prevents "Market document મળ્યો નથી" after changing crop/market.
-*/
-async function findExistingMarket(id,originalCrop,originalMarket){
-if(id){
-const byId=await getDoc(doc(db,"marketPrices",id));
-if(byId.exists())return {ref:doc(db,"marketPrices",id),data:byId.data(),id};
-}
-const snap=await getDocs(collection(db,"marketPrices"));
-const all=snap.docs.map(d=>({id:d.id,data:d.data()}));
-let found=all.find(x=>String(x.data.crop||"").trim()===String(originalCrop||"").trim()&&String(x.data.market||"").trim()===String(originalMarket||"").trim());
-if(!found){
-found=all.find(x=>String(x.data.crop||"").trim()===String(originalCrop||"").trim());
-}
-if(!found)return null;
-return {ref:doc(db,"marketPrices",found.id),data:found.data,id:found.id};
-}
-
-$("saveMarketBtn").addEventListener("click",async()=>{
-const id=$("marketId").value.trim(),originalCrop=$("marketOriginalCrop").value.trim(),originalMarket=$("marketOriginalMarket").value.trim();
-const crop=$("mCrop").value.trim(),market=$("mMarket").value.trim();
-const minPrice=Number($("mMin").value),maxPrice=Number($("mMax").value),newAvg=Number($("mAvg").value),arrival=$("mArrival").value.trim();
-if(!crop||!market||!Number.isFinite(minPrice)||!Number.isFinite(maxPrice)||!Number.isFinite(newAvg)){toast("Crop, Market, Min, Max અને Avg Price યોગ્ય રીતે भरो.","err");return;}
-if(minPrice>maxPrice){toast("Minimum Price, Maximum Price કરતાં વધારે ન હોઈ શકે.","err");return;}
-$("saveMarketBtn").disabled=true;$("saveMarketBtn").textContent="Saving...";
-try{
-if(id){
-const found=await findExistingMarket(id,originalCrop,originalMarket);
-if(!found){
-throw new Error("Market document મળ્યો નથી. Market Prices ને Refresh કરો અને પછી ફરી Edit કરો.");
-}
-const oldAvg=Number(found.data.avgPrice||0);
-const payload={crop,market,minPrice,maxPrice,avgPrice:newAvg,arrival,updatedAt:serverTimestamp()};
-if(oldAvg!==newAvg){
-payload.previousAvgPrice=oldAvg;
-}else{
-payload.previousAvgPrice=Number(found.data.previousAvgPrice||0);
-}
-await setDoc(found.ref,payload,{merge:true});
-toast("Market Price update થઈ ગયો. Previous Avg આપમેળે સાચવાયો. ✅");
-}else{
-const newRef=doc(collection(db,"marketPrices"));
-await setDoc(newRef,{crop,market,minPrice,maxPrice,avgPrice:newAvg,previousAvgPrice:0,arrival,createdAt:serverTimestamp(),updatedAt:serverTimestamp()});
-toast("નવો Market Price ઉમેરાયો. હવે website પર દેખાશે. ✅");
-}
-$("marketEditor").classList.add("hidden");
-await loadMarketPrices();
-}catch(e){console.error(e);toast("Save failed: "+(e.message||e),"err");}
-finally{$("saveMarketBtn").disabled=false;$("saveMarketBtn").textContent="💾 Save Market Price";}
-});
-
-async function deleteMarket(id){
-const item=marketCache.find(x=>x.id===id);if(!item)return;
-if(!confirm(`"${item.crop||"આ પાક"}" નો Market Price delete કરવો છે?`))return;
-try{await deleteDoc(doc(db,"marketPrices",id));toast("Market Price delete થયો.");await loadMarketPrices();}
-catch(e){console.error(e);toast("Delete failed: "+(e.message||e),"err");}
-}
-
-function renderDashboardRecent(){
-if(!marketCache.length){$("dashboardRecent").innerHTML='<div class="empty">Market data ઉપલબ્ધ નથી.</div>';return;}
-let html='<div class="table-wrap"><table><thead><tr><th>પાક</th><th>Avg Price</th><th>Previous</th><th>Status</th></tr></thead><tbody>';
-for(const x of marketCache.slice(0,8))html+=`<tr><td><b>${escapeHtml(x.crop||"-")}</b></td><td>${money(x.avgPrice)}</td><td>${Number(x.previousAvgPrice||0)?money(x.previousAvgPrice):"—"}</td><td>${statusHtml(x.avgPrice,x.previousAvgPrice)}</td></tr>`;
-html+='</tbody></table></div>';$("dashboardRecent").innerHTML=html;
-}
-
-/* Notices */
-function resetNoticeForm(){
-$("noticeId").value="";$("nTitle").value="";$("nMessage").value="";$("nType").value="info";$("noticeEditorTitle").textContent="➕ Notice ઉમેરો";
-}
-window.resetNoticeForm=resetNoticeForm;
-$("newNoticeBtn").addEventListener("click",()=>{resetNoticeForm();$("noticeEditor").scrollIntoView({behavior:"smooth"});});
-$("cancelNoticeBtn").addEventListener("click",resetNoticeForm);
-
-async function loadNotices(){
-$("noticeList").innerHTML='<div class="loading">Notices લોડ થઈ રહ્યા છે...</div>';
-try{
-const snap=await getDocs(collection(db,"notices"));noticeCache=snap.docs.map(d=>({id:d.id,...d.data()}));renderNotices();updateStats();
-}catch(e){console.error(e);$("noticeList").innerHTML='<div class="empty">Notices લોડ થઈ શક્યા નથી: '+escapeHtml(e.message||e)+'</div>';}
-}
-function renderNotices(){
-if(!noticeCache.length){$("noticeList").innerHTML='<div class="empty">હજુ કોઈ notice નથી.</div>';return;}
-let html='<div class="table-wrap"><table><thead><tr><th>Title</th><th>Type</th><th>Message</th><th>Action</th></tr></thead><tbody>';
-for(const n of noticeCache)html+=`<tr><td><b>${escapeHtml(n.title||"")}</b></td><td>${escapeHtml(n.type||"info")}</td><td>${escapeHtml(n.message||"")}</td><td><div class="actions"><button class="btn btn-secondary mini" data-edit-notice="${escapeHtml(n.id)}">✏️ Edit</button><button class="btn btn-danger mini" data-delete-notice="${escapeHtml(n.id)}">🗑️ Delete</button></div></td></tr>`;
-html+='</tbody></table></div>';$("noticeList").innerHTML=html;
-document.querySelectorAll("[data-edit-notice]").forEach(b=>b.addEventListener("click",()=>editNotice(b.dataset.editNotice)));
-document.querySelectorAll("[data-delete-notice]").forEach(b=>b.addEventListener("click",()=>deleteNotice(b.dataset.deleteNotice)));
-}
-$("saveNoticeBtn").addEventListener("click",async()=>{
-const id=$("noticeId").value.trim(),title=$("nTitle").value.trim(),message=$("nMessage").value.trim(),type=$("nType").value;
-if(!title||!message){toast("Notice Title અને Message જરૂરી છે.","err");return;}
-$("saveNoticeBtn").disabled=true;
-try{const ref=id?doc(db,"notices",id):doc(collection(db,"notices"));const data={title,message,type,updatedAt:serverTimestamp()};if(!id)data.createdAt=serverTimestamp();await setDoc(ref,data,{merge:true});toast(id?"Notice update થયો. ✅":"Notice publish થયો. ✅");resetNoticeForm();await loadNotices();}
-catch(e){console.error(e);toast("Notice save failed: "+(e.message||e),"err");}
-finally{$("saveNoticeBtn").disabled=false;}
-});
-function editNotice(id){const n=noticeCache.find(x=>x.id===id);if(!n)return;$("noticeId").value=id;$("nTitle").value=n.title||"";$("nMessage").value=n.message||"";$("nType").value=n.type||"info";$("noticeEditorTitle").textContent="✏️ Notice Edit";$("noticeEditor").scrollIntoView({behavior:"smooth"});}
-async function deleteNotice(id){if(!confirm("આ notice delete કરવી છે?"))return;try{await deleteDoc(doc(db,"notices",id));toast("Notice delete થયો.");await loadNotices();}catch(e){console.error(e);toast("Delete failed: "+(e.message||e),"err");}}
-
-/* Schemes */
-function resetSchemeForm(){
-$("schemeId").value="";$("sName").value="";$("sCategory").value="";$("sLink").value="";$("sDescription").value="";$("sStatus").value="active";$("schemeEditorTitle").textContent="➕ Scheme ઉમેરો";
-}
-window.resetSchemeForm=resetSchemeForm;
-$("newSchemeBtn").addEventListener("click",()=>{resetSchemeForm();$("schemeEditor").scrollIntoView({behavior:"smooth"});});
-$("cancelSchemeBtn").addEventListener("click",resetSchemeForm);
-
-async function loadSchemes(){
-$("schemeList").innerHTML='<div class="loading">Schemes લોડ થઈ રહી છે...</div>';
-try{const snap=await getDocs(collection(db,"schemes"));schemeCache=snap.docs.map(d=>({id:d.id,...d.data()}));renderSchemes();updateStats();}
-catch(e){console.error(e);$("schemeList").innerHTML='<div class="empty">Schemes લોડ થઈ શકી નથી: '+escapeHtml(e.message||e)+'</div>';}
-}
-function renderSchemes(){
-if(!schemeCache.length){$("schemeList").innerHTML='<div class="empty">હજુ કોઈ scheme નથી.</div>';return;}
-let html='<div class="table-wrap"><table><thead><tr><th>Scheme</th><th>Category</th><th>Description</th><th>Status</th><th>Action</th></tr></thead><tbody>';
-for(const s of schemeCache)html+=`<tr><td><b>${escapeHtml(s.name||"")}</b></td><td>${escapeHtml(s.category||"-")}</td><td>${escapeHtml(s.description||"")}</td><td>${escapeHtml(s.status||"active")}</td><td><div class="actions">${s.link?`<a class="btn btn-secondary mini" href="${escapeHtml(s.link)}" target="_blank" rel="noopener">🔗 Open</a>`:""}<button class="btn btn-secondary mini" data-edit-scheme="${escapeHtml(s.id)}">✏️ Edit</button><button class="btn btn-danger mini" data-delete-scheme="${escapeHtml(s.id)}">🗑️ Delete</button></div></td></tr>`;
-html+='</tbody></table></div>';$("schemeList").innerHTML=html;
-document.querySelectorAll("[data-edit-scheme]").forEach(b=>b.addEventListener("click",()=>editScheme(b.dataset.editScheme)));
-document.querySelectorAll("[data-delete-scheme]").forEach(b=>b.addEventListener("click",()=>deleteScheme(b.dataset.deleteScheme)));
-}
-$("saveSchemeBtn").addEventListener("click",async()=>{
-const id=$("schemeId").value.trim(),name=$("sName").value.trim(),category=$("sCategory").value.trim(),link=$("sLink").value.trim(),description=$("sDescription").value.trim(),status=$("sStatus").value;
-if(!name||!description){toast("Scheme Name અને Description જરૂરી છે.","err");return;}
-$("saveSchemeBtn").disabled=true;
-try{const ref=id?doc(db,"schemes",id):doc(collection(db,"schemes"));const data={name,category,link,description,status,updatedAt:serverTimestamp()};if(!id)data.createdAt=serverTimestamp();await setDoc(ref,data,{merge:true});toast(id?"Scheme update થઈ. ✅":"Scheme ઉમેરાઈ. ✅");resetSchemeForm();await loadSchemes();}
-catch(e){console.error(e);toast("Scheme save failed: "+(e.message||e),"err");}
-finally{$("saveSchemeBtn").disabled=false;}
-});
-function editScheme(id){const s=schemeCache.find(x=>x.id===id);if(!s)return;$("schemeId").value=id;$("sName").value=s.name||"";$("sCategory").value=s.category||"";$("sLink").value=s.link||"";$("sDescription").value=s.description||"";$("sStatus").value=s.status||"active";$("schemeEditorTitle").textContent="✏️ Scheme Edit";$("schemeEditor").scrollIntoView({behavior:"smooth"});}
-async function deleteScheme(id){if(!confirm("આ scheme delete કરવી છે?"))return;try{await deleteDoc(doc(db,"schemes",id));toast("Scheme delete થઈ.");await loadSchemes();}catch(e){console.error(e);toast("Delete failed: "+(e.message||e),"err");}}
-
-updateStats();
-</script>
-</body>
-</html>
