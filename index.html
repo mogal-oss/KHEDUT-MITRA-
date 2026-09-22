@@ -877,6 +877,7 @@
 
       .cards,
       .scheme-grid,
+      .live-grid,
       .contact-grid,
       .footer-container {
         grid-template-columns: 1fr;
@@ -916,6 +917,7 @@
         <a href="#weather">હવામાન</a>
         <a href="#market">બજાર ભાવ</a>
         <a href="#guidance">પાક માર્ગદર્શન</a>
+        <a href="#notices">📢 નોટિસ</a>
         <a href="#schemes">સરકારી યોજનાઓ</a>
         <a href="#equipment">ખેતી સાધનો</a>
         <a href="#contact">સંપર્ક</a>
@@ -1154,6 +1156,38 @@
 
   </section>
 
+
+
+
+  <!-- =========================
+       LIVE FIRESTORE NOTICES
+  ========================== -->
+  <section class="live-section" id="notices">
+    <div class="section-container">
+      <div class="section-title">
+        <h2>📢 મહત્વની નોટિસ</h2>
+        <p>એડમિન દ્વારા ઉમેરવામાં આવેલી નવીનતમ માહિતી</p>
+      </div>
+      <div class="live-grid" id="noticesList">
+        <div class="live-empty">⏳ નોટિસ લોડ થઈ રહી છે...</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================
+       LIVE FIRESTORE SCHEMES
+  ========================== -->
+  <section class="live-section" id="liveSchemes">
+    <div class="section-container">
+      <div class="section-title">
+        <h2>🏛️ નવી સરકારી યોજનાઓ</h2>
+        <p>એડમિન દ્વારા ઉમેરવામાં આવેલી યોજનાઓ</p>
+      </div>
+      <div class="live-grid" id="schemesList">
+        <div class="live-empty">⏳ યોજનાઓ લોડ થઈ રહી છે...</div>
+      </div>
+    </div>
+  </section>
 
   <!-- =========================
        GOVERNMENT SCHEMES
@@ -1884,6 +1918,10 @@
 
         <a href="#guidance">
           🌱 પાક માર્ગદર્શન
+        </a>
+
+        <a href="#notices">
+          📢 નોટિસ
         </a>
 
         <a href="#schemes">
@@ -3106,6 +3144,60 @@
 
     loadMarketPrices();
 
+
+
+
+    /* =========================
+       LIVE FIRESTORE NOTICES
+    ========================== */
+    const noticesList = document.getElementById("noticesList");
+    const schemesList = document.getElementById("schemesList");
+
+    function firstValue(data, keys, fallback = "") {
+      for (const key of keys) {
+        if (data[key] !== undefined && data[key] !== null && String(data[key]).trim() !== "") return data[key];
+      }
+      return fallback;
+    }
+
+    function safeText(value) {
+      return String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[ch]));
+    }
+
+    function renderLiveCollection(snapshot, container, type) {
+      if (snapshot.empty) {
+        container.innerHTML = `<div class="live-empty">ℹ️ હાલમાં કોઈ ${type === "notice" ? "નોટિસ" : "નવી યોજના"} ઉપલબ્ધ નથી.</div>`;
+        return;
+      }
+      let html = "";
+      snapshot.forEach(docSnap => {
+        const d = docSnap.data();
+        const title = firstValue(d, type === "notice" ? ["title","name","heading","subject"] : ["title","name","schemeName","scheme","heading"], type === "notice" ? "મહત્વની નોટિસ" : "સરકારી યોજના");
+        const description = firstValue(d, ["description","message","details","content","text"], "");
+        const date = firstValue(d, ["date","createdAt","updatedAt"], "");
+        const link = firstValue(d, ["link","url","website","applyUrl"], "");
+        let dateText = "";
+        if (date && typeof date === "object" && date.toDate) dateText = date.toDate().toLocaleDateString("gu-IN");
+        else if (date) dateText = safeText(date);
+        html += `<article class="live-card">
+          <h3>${safeText(title)}</h3>
+          ${dateText ? `<div class="live-date">📅 ${dateText}</div>` : ""}
+          <p>${safeText(description)}</p>
+          ${link ? `<a class="live-btn" href="${safeText(link)}" target="_blank" rel="noopener noreferrer">🔗 વધુ માહિતી</a>` : ""}
+        </article>`;
+      });
+      container.innerHTML = html;
+    }
+
+    onSnapshot(collection(db, "notices"),
+      snapshot => renderLiveCollection(snapshot, noticesList, "notice"),
+      error => { console.error("Notices error:", error); noticesList.innerHTML = `<div class="live-empty">❌ નોટિસ લોડ થઈ શકી નથી.</div>`; }
+    );
+
+    onSnapshot(collection(db, "schemes"),
+      snapshot => renderLiveCollection(snapshot, schemesList, "scheme"),
+      error => { console.error("Schemes error:", error); schemesList.innerHTML = `<div class="live-empty">❌ યોજનાઓ લોડ થઈ શકી નથી.</div>`; }
+    );
 
     /* =========================
        AUTH MODAL
