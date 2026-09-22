@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Khedut Mitra | Admin Panel</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,"Noto Sans Gujarati",sans-serif;background:#f1f5f9;color:#172033}
+header{background:linear-gradient(135deg,#087f3e,#12a05a);color:#fff;padding:22px 16px}
+.wrap{max-width:1050px;margin:auto}
+h1{margin:0 0 6px;font-size:28px}
+.sub{opacity:.9}
+.top{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+button{border:0;border-radius:10px;padding:12px 16px;font-weight:700;cursor:pointer}
+.logout{background:#fff;color:#087f3e}
+main{padding:25px 16px}
+.grid{display:grid;grid-template-columns:330px 1fr;gap:20px}
+.card{background:#fff;border-radius:16px;padding:20px;box-shadow:0 8px 25px #00000012}
+.card h2{margin-top:0}
+.list button{display:block;width:100%;text-align:left;margin:8px 0;background:#f1f5f9;color:#172033}
+.list button.active{background:#dff7e9;color:#087f3e}
+label{display:block;font-weight:700;margin:13px 0 6px}
+input{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:10px;font-size:16px}
+.save{margin-top:18px;background:#087f3e;color:#fff;width:100%;font-size:17px}
+.msg{margin-top:12px;padding:12px;border-radius:10px;background:#f1f5f9}
+.info{background:#eff6ff;border-left:4px solid #2563eb;padding:14px;border-radius:10px;line-height:1.6}
+.price-preview{margin-top:15px;padding:15px;border-radius:12px;background:#f8fafc}
+.increase{color:#087f3e;font-weight:800}
+.decrease{color:#c62828;font-weight:800}
+.same{color:#64748b;font-weight:800}
+.hidden{display:none}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap top">
+    <div>
+      <h1>🌾 ખેડૂત મિત્ર — Admin Panel</h1>
+      <div class="sub">બજાર ભાવ મેનેજમેન્ટ</div>
+    </div>
+    <button class="logout" id="logoutBtn">Logout</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="loading" class="card">⏳ Admin ચેક થઈ રહ્યું છે...</div>
+
+  <div id="adminArea" class="grid hidden">
+
+    <section class="card">
+      <h2>📋 પાક પસંદ કરો</h2>
+      <div id="marketList" class="list">⏳ ભાવ લોડ થઈ રહ્યા છે...</div>
+    </section>
+
+    <section class="card">
+      <h2>✏️ બજાર ભાવ બદલો</h2>
+
+      <div class="info">
+        <b>Automatic Previous Price</b><br>
+        તમે ફક્ત નવો <b>સરેરાશ ભાવ</b> નાખશો. Save કરતાં પહેલાંનો
+        <b>avgPrice</b> આપમેળે <b>previousAvgPrice</b> બની જશે.
+        એટલે website પર દરેક વ્યક્તિને સાચો વધારો/ઘટાડો દેખાશે.
+      </div>
+
+      <div id="selectedInfo" class="msg">પહેલા ડાબી બાજુથી પાક પસંદ કરો.</div>
+
+      <div id="editForm" class="hidden">
+        <label>પાક</label>
+        <input id="crop" readonly>
+
+        <label>બજાર</label>
+        <input id="market">
+
+        <label>ન્યૂનતમ ભાવ</label>
+        <input id="minPrice" type="number" min="0">
+
+        <label>મહત્તમ ભાવ</label>
+        <input id="maxPrice" type="number" min="0">
+
+        <label>સરેરાશ ભાવ (નવો ભાવ)</label>
+        <input id="avgPrice" type="number" min="0">
+
+        <label>આવક</label>
+        <input id="arrival">
+
+        <div id="preview" class="price-preview">નવો ભાવ નાખો.</div>
+
+        <button class="save" id="saveBtn">💾 ભાવ Save કરો</button>
+        <div id="saveMsg"></div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  doc,
+  getDoc,
+  runTransaction,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCoRcAEmMV0i-WVgnA5uzZjcDzBGtsqcDE",
+  authDomain: "khedut-mitra-d6808.firebaseapp.com",
+  projectId: "khedut-mitra-d6808",
+  storageBucket: "khedut-mitra-d6808.firebasestorage.app",
+  messagingSenderId: "368250177516",
+  appId: "1:368250177516:web:d23db936f7c5a4e53c62c9",
+  measurementId: "G-RZC2MFE0BW"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+
+const loading = document.getElementById("loading");
+const adminArea = document.getElementById("adminArea");
+const marketList = document.getElementById("marketList");
+const selectedInfo = document.getElementById("selectedInfo");
+const editForm = document.getElementById("editForm");
+const saveBtn = document.getElementById("saveBtn");
+const saveMsg = document.getElementById("saveMsg");
+const preview = document.getElementById("preview");
+
+let currentUser = null;
+let selectedId = null;
+let selectedButton = null;
+
+function money(v){
+  const n = Number(v || 0);
+  return "₹" + n.toLocaleString("en-IN");
+}
+
+function getStatus(current, previous){
+  current = Number(current || 0);
+  previous = Number(previous || 0);
+
+  if(!previous){
+    return {text:"ભાવ સરખામણી ઉપલબ્ધ નથી", cls:"same"};
+  }
+
+  if(current > previous){
+    return {
+      text:`↑ ${money(current-previous)} વધારો`,
+      cls:"increase"
+    };
+  }
+
+  if(current < previous){
+    return {
+      text:`↓ ${money(previous-current)} ઘટાડો`,
+      cls:"decrease"
+    };
+  }
+
+  return {text:"— સ્થિર", cls:"same"};
+}
+
+async function isAdmin(uid){
+  const snap = await getDoc(doc(db,"admins",uid));
+  return snap.exists();
+}
+
+async function loadMarkets(){
+  marketList.textContent = "⏳ ભાવ લોડ થઈ રહ્યા છે...";
+
+  try{
+    const snap = await getDocs(collection(db,"marketPrices"));
+
+    if(snap.empty){
+      marketList.textContent = "હજુ marketPrices માં કોઈ ભાવ નથી.";
+      return;
+    }
+
+    marketList.innerHTML = "";
+
+    snap.forEach(d => {
+      const data = d.data();
+
+      const button = document.createElement("button");
+      button.textContent =
+        `${data.crop || d.id} — ${data.market || "બજાર"}`;
+
+      button.addEventListener("click", () => selectMarket(d.id, data, button));
+      marketList.appendChild(button);
+    });
+
+  }catch(error){
+    console.error(error);
+    marketList.innerHTML =
+      "❌ ભાવ લોડ થયા નથી.<br><br>" + error.message;
+  }
+}
+
+function selectMarket(id,data,button){
+  selectedId = id;
+
+  if(selectedButton) selectedButton.classList.remove("active");
+  selectedButton = button;
+  selectedButton.classList.add("active");
+
+  document.getElementById("crop").value = data.crop || "";
+  document.getElementById("market").value = data.market || "";
+  document.getElementById("minPrice").value = data.minPrice ?? "";
+  document.getElementById("maxPrice").value = data.maxPrice ?? "";
+  document.getElementById("avgPrice").value = data.avgPrice ?? "";
+  document.getElementById("arrival").value = data.arrival || "";
+
+  const previous = Number(data.previousAvgPrice || 0);
+  const current = Number(data.avgPrice || 0);
+  const status = getStatus(current, previous);
+
+  selectedInfo.innerHTML =
+    `<b>${data.crop || id}</b><br>
+     હાલનો સરેરાશ ભાવ: ${money(current)}<br>
+     અગાઉનો સરેરાશ ભાવ: ${previous ? money(previous) : "હજુ નથી"}<br>
+     હાલનું status: <span class="${status.cls}">${status.text}</span>`;
+
+  editForm.classList.remove("hidden");
+  saveMsg.textContent = "";
+  updatePreview();
+}
+
+function updatePreview(){
+  const current = Number(document.getElementById("avgPrice").value || 0);
+  const previousText = selectedInfo.textContent.match(/અગાઉનો સરેરાશ ભાવ:\s*₹?([\d,]+)/);
+
+  let previous = 0;
+
+  if(previousText){
+    previous = Number(previousText[1].replace(/,/g,""));
+  }
+
+  const status = getStatus(current,previous);
+
+  preview.innerHTML =
+    `નવો સરેરાશ ભાવ: <b>${money(current)}</b><br>
+     અગાઉનો ભાવ: <b>${previous ? money(previous) : "હજુ નથી"}</b><br>
+     Result: <span class="${status.cls}">${status.text}</span>`;
+}
+
+document.getElementById("avgPrice").addEventListener("input", updatePreview);
+
+saveBtn.addEventListener("click", async () => {
+  if(!selectedId){
+    alert("પહેલા પાક પસંદ કરો.");
+    return;
+  }
+
+  const newAvg = Number(document.getElementById("avgPrice").value);
+
+  if(!Number.isFinite(newAvg) || newAvg < 0){
+    alert("સાચો સરેરાશ ભાવ નાખો.");
+    return;
+  }
+
+  saveBtn.disabled = true;
+  saveBtn.textContent = "⏳ Save થઈ રહ્યું છે...";
+  saveMsg.innerHTML = "";
+
+  try{
+    const ref = doc(db,"marketPrices",selectedId);
+
+    /*
+      IMPORTANT:
+      Transaction પહેલા Firebaseમાંથી current avgPrice વાંચે છે.
+      પછી એ current avgPrice ને previousAvgPrice તરીકે સાચવે છે.
+      ત્યારબાદ નવો avgPrice save કરે છે.
+
+      એટલે Admin Panelમાં previousAvgPrice જાતે નાખવાની જરૂર નથી.
+    */
+    await runTransaction(db, async (transaction) => {
+      const snap = await transaction.get(ref);
+
+      if(!snap.exists()){
+        throw new Error("આ market price document મળ્યું નથી.");
+      }
+
+      const oldData = snap.data();
+      const oldAvg = Number(oldData.avgPrice || 0);
+
+      const newData = {
+        crop: document.getElementById("crop").value.trim(),
+        market: document.getElementById("market").value.trim(),
+        minPrice: Number(document.getElementById("minPrice").value || 0),
+        maxPrice: Number(document.getElementById("maxPrice").value || 0),
+        avgPrice: newAvg,
+        arrival: document.getElementById("arrival").value.trim(),
+        updatedAt: serverTimestamp()
+      };
+
+      // ફક્ત સાચો ભાવ બદલાય ત્યારે previousAvgPrice update થશે.
+      if(oldAvg !== newAvg){
+        newData.previousAvgPrice = oldAvg;
+      }else{
+        newData.previousAvgPrice =
+          Number(oldData.previousAvgPrice || 0);
+      }
+
+      transaction.update(ref,newData);
+    });
+
+    const fresh = await getDoc(doc(db,"marketPrices",selectedId));
+    const data = fresh.data();
+
+    const status = getStatus(
+      data.avgPrice,
+      data.previousAvgPrice
+    );
+
+    selectedInfo.innerHTML =
+      `<b>${data.crop || selectedId}</b><br>
+       હાલનો સરેરાશ ભાવ: ${money(data.avgPrice)}<br>
+       અગાઉનો સરેરાશ ભાવ: ${data.previousAvgPrice ? money(data.previousAvgPrice) : "હજુ નથી"}<br>
+       હાલનું status: <span class="${status.cls}">${status.text}</span>`;
+
+    saveMsg.innerHTML =
+      `<div class="msg">
+        ✅ ભાવ સફળતાપૂર્વક Save થયો.<br>
+        હવે website પર બધાને:
+        <b>${status.text}</b>
+      </div>`;
+
+    await loadMarkets();
+
+  }catch(error){
+    console.error(error);
+
+    saveMsg.innerHTML =
+      `<div class="msg" style="color:#c62828">
+        ❌ Save થયું નથી.<br>${error.message}
+      </div>`;
+  }
+
+  saveBtn.disabled = false;
+  saveBtn.textContent = "💾 ભાવ Save કરો";
+});
+
+document.getElementById("logoutBtn").addEventListener("click", async () => {
+  await signOut(auth);
+  location.href = "index.html";
+});
+
+onAuthStateChanged(auth, async (user) => {
+  if(!user){
+    location.href = "index.html";
+    return;
+  }
+
+  currentUser = user;
+
+  try{
+    const admin = await isAdmin(user.uid);
+
+    if(!admin){
+      loading.innerHTML =
+        "❌ આ Account ને Admin permission નથી.<br><br>" +
+        "Firebase Firestore → admins → તમારા Firebase Auth UID નામે document બનાવો.";
+      return;
+    }
+
+    loading.classList.add("hidden");
+    adminArea.classList.remove("hidden");
+
+    await loadMarkets();
+
+  }catch(error){
+    console.error(error);
+    loading.innerHTML =
+      "❌ Admin permission check error:<br>" + error.message;
+  }
+});
+</script>
+
+</body>
+</html>
