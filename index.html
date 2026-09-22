@@ -388,12 +388,20 @@
 
     .increase {
       color: #159447;
+      background: #e9f8ef;
+      padding: 6px 10px;
+      border-radius: 18px;
       font-weight: 700;
+      display: inline-block;
     }
 
     .decrease {
       color: #d33b3b;
+      background: #fff0f0;
+      padding: 6px 10px;
+      border-radius: 18px;
       font-weight: 700;
+      display: inline-block;
     }
 
     .same {
@@ -445,6 +453,79 @@
     .card p {
       color: #637067;
       font-size: 14px;
+    }
+
+    /* =========================
+       LIVE NOTICES / SCHEMES
+    ========================== */
+
+    .live-section {
+      background: #f5faf4;
+    }
+
+    .live-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .live-card {
+      background: #ffffff;
+      border: 1px solid #e1ebe3;
+      border-radius: 17px;
+      padding: 24px;
+      box-shadow: 0 7px 22px rgba(0,0,0,0.07);
+      transition: 0.3s;
+    }
+
+    .live-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.10);
+    }
+
+    .live-card h3 {
+      color: #176d39;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .live-card p {
+      color: #637067;
+      font-size: 15px;
+      line-height: 1.7;
+      margin-bottom: 12px;
+      white-space: pre-line;
+    }
+
+    .live-date {
+      color: #777;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    .live-btn {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 9px 14px;
+      border-radius: 8px;
+      background: #176d39;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .live-btn:hover {
+      background: #10552c;
+    }
+
+    .live-empty {
+      grid-column: 1 / -1;
+      background: #ffffff;
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      color: #68756c;
+      box-shadow: 0 5px 18px rgba(0,0,0,0.06);
     }
 
     /* =========================
@@ -768,6 +849,7 @@
     ========================== */
 
     @media (max-width: 1000px) {
+
       .nav-links {
         display: none;
         position: absolute;
@@ -798,7 +880,8 @@
       }
 
       .cards,
-      .scheme-grid {
+      .scheme-grid,
+      .live-grid {
         grid-template-columns: repeat(2, 1fr);
       }
 
@@ -812,6 +895,7 @@
     }
 
     @media (max-width: 700px) {
+
       .navbar {
         padding: 10px 12px;
       }
@@ -905,6 +989,7 @@
   ========================== -->
 
   <header>
+
     <div class="navbar">
 
       <a href="#home" class="logo">
@@ -913,27 +998,47 @@
       </a>
 
       <nav class="nav-links" id="navLinks">
+
         <a href="#home">હોમ</a>
+
         <a href="#weather">હવામાન</a>
+
         <a href="#market">બજાર ભાવ</a>
+
         <a href="#guidance">પાક માર્ગદર્શન</a>
+
         <a href="#notices">📢 નોટિસ</a>
+
         <a href="#schemes">સરકારી યોજનાઓ</a>
+
         <a href="#equipment">ખેતી સાધનો</a>
+
         <a href="#contact">સંપર્ક</a>
+
       </nav>
 
       <div class="auth-area">
-        <button class="auth-btn" id="loginOpenBtn">
+
+        <button
+          class="auth-btn"
+          id="loginOpenBtn"
+          type="button"
+        >
           🔐 Login
         </button>
 
-        <button class="menu-btn" id="menuBtn">
+        <button
+          class="menu-btn"
+          id="menuBtn"
+          type="button"
+        >
           ☰
         </button>
+
       </div>
 
     </div>
+
   </header>
 
 
@@ -987,8 +1092,13 @@
     <div class="section-container">
 
       <div class="section-title">
+
         <h2>🌤️ લાઈવ હવામાન</h2>
-        <p>તમારા શહેરનું હાલનું હવામાન જુઓ</p>
+
+        <p>
+          તમારા શહેરનું હાલનું હવામાન જુઓ
+        </p>
+
       </div>
 
       <div class="weather-search">
@@ -1035,8 +1145,13 @@
     <div class="section-container">
 
       <div class="section-title">
+
         <h2>📈 આજના બજાર ભાવ</h2>
-        <p>Firebase માંથી લાઈવ ડેટા</p>
+
+        <p>
+          Firebase માંથી લાઈવ ડેટા
+        </p>
+
       </div>
 
       <div
@@ -1051,23 +1166,38 @@
         <table>
 
           <thead>
+
             <tr>
+
               <th>પાક</th>
+
               <th>બજાર</th>
+
               <th>ન્યૂનતમ ભાવ</th>
+
               <th>મહત્તમ ભાવ</th>
+
               <th>સરેરાશ ભાવ</th>
+
               <th>આવક</th>
+
               <th>સ્થિતિ</th>
+
             </tr>
+
           </thead>
 
           <tbody id="marketTableBody">
 
             <tr>
-              <td colspan="7" style="text-align:center;">
+
+              <td
+                colspan="7"
+                style="text-align:center;"
+              >
                 ⏳ ડેટા લોડ થઈ રહ્યો છે...
               </td>
+
             </tr>
 
           </tbody>
@@ -1085,69 +1215,101 @@
        GUIDANCE
   ========================== -->
 
-  <section class="guidance-section" id="guidance">
+  <section
+    class="guidance-section"
+    id="guidance"
+  >
 
     <div class="section-container">
 
       <div class="section-title">
+
         <h2>🌱 પાક માર્ગદર્શન</h2>
-        <p>મુખ્ય પાકો માટે ઉપયોગી માહિતી</p>
+
+        <p>
+          મુખ્ય પાકો માટે ઉપયોગી માહિતી
+        </p>
+
       </div>
 
       <div class="cards">
 
         <div class="card">
+
           <div class="card-icon">🥜</div>
+
           <h3>મગફળી</h3>
+
           <p>
             મગફળીના વાવેતર, પાણી વ્યવસ્થાપન,
             ખાતર અને રોગ નિયંત્રણ અંગેની મૂળભૂત માહિતી.
           </p>
+
         </div>
 
         <div class="card">
+
           <div class="card-icon">🌿</div>
+
           <h3>કપાસ</h3>
+
           <p>
             કપાસના પાકમાં વાવેતરથી લઈને જીવાત
             અને રોગ નિયંત્રણ સુધીની ઉપયોગી માહિતી.
           </p>
+
         </div>
 
         <div class="card">
+
           <div class="card-icon">🌾</div>
+
           <h3>ઘઉં</h3>
+
           <p>
             ઘઉંના પાક માટે જમીન તૈયારી,
             સિંચાઈ અને ખેતી વ્યવસ્થાપનની માહિતી.
           </p>
+
         </div>
 
         <div class="card">
+
           <div class="card-icon">🌿</div>
+
           <h3>જીરું</h3>
+
           <p>
             જીરું પાકમાં યોગ્ય વાવેતર,
             પાણી અને રોગ વ્યવસ્થાપન વિશે માહિતી.
           </p>
+
         </div>
 
         <div class="card">
+
           <div class="card-icon">🌽</div>
+
           <h3>મકાઈ</h3>
+
           <p>
             મકાઈ માટે વાવેતર, ખાતર, સિંચાઈ
             અને પાક સંભાળની માહિતી.
           </p>
+
         </div>
 
         <div class="card">
+
           <div class="card-icon">🧅</div>
+
           <h3>ડુંગળી</h3>
+
           <p>
             ડુંગળીના પાકમાં વાવેતર, પાણી,
             રોગ અને સંગ્રહ અંગેની માહિતી.
           </p>
+
         </div>
 
       </div>
@@ -1155,64 +1317,113 @@
     </div>
 
   </section>
-
-
 
 
   <!-- =========================
        LIVE FIRESTORE NOTICES
   ========================== -->
-  <section class="live-section" id="notices">
+
+  <section
+    class="live-section"
+    id="notices"
+  >
+
     <div class="section-container">
+
       <div class="section-title">
+
         <h2>📢 મહત્વની નોટિસ</h2>
-        <p>એડમિન દ્વારા ઉમેરવામાં આવેલી નવીનતમ માહિતી</p>
+
+        <p>
+          એડમિન દ્વારા ઉમેરવામાં આવેલી નવીનતમ માહિતી
+        </p>
+
       </div>
-      <div class="live-grid" id="noticesList">
-        <div class="live-empty">⏳ નોટિસ લોડ થઈ રહી છે...</div>
+
+      <div
+        class="live-grid"
+        id="noticesList"
+      >
+
+        <div class="live-empty">
+          ⏳ નોટિસ લોડ થઈ રહી છે...
+        </div>
+
       </div>
+
     </div>
+
   </section>
+
 
   <!-- =========================
        LIVE FIRESTORE SCHEMES
   ========================== -->
-  <section class="live-section" id="liveSchemes">
+
+  <section
+    class="live-section"
+    id="liveSchemes"
+  >
+
     <div class="section-container">
+
       <div class="section-title">
+
         <h2>🏛️ નવી સરકારી યોજનાઓ</h2>
-        <p>એડમિન દ્વારા ઉમેરવામાં આવેલી યોજનાઓ</p>
+
+        <p>
+          એડમિન દ્વારા ઉમેરવામાં આવેલી યોજનાઓ
+        </p>
+
       </div>
-      <div class="live-grid" id="schemesList">
-        <div class="live-empty">⏳ યોજનાઓ લોડ થઈ રહી છે...</div>
+
+      <div
+        class="live-grid"
+        id="schemesList"
+      >
+
+        <div class="live-empty">
+          ⏳ યોજનાઓ લોડ થઈ રહી છે...
+        </div>
+
       </div>
+
     </div>
+
   </section>
+
 
   <!-- =========================
        GOVERNMENT SCHEMES
   ========================== -->
 
-  <section class="schemes-section" id="schemes">
+  <section
+    class="schemes-section"
+    id="schemes"
+  >
 
     <div class="section-container">
 
       <div class="section-title">
+
         <h2>📋 સરકારી યોજનાઓ</h2>
+
         <p>
           ખેડૂતો માટે ઉપયોગી સરકારી યોજનાઓ અને અધિકૃત લિંક્સ
         </p>
+
       </div>
 
       <div class="scheme-grid">
 
 
-        <!-- 1 -->
         <div class="scheme-card">
 
           <div class="scheme-icon">🌾</div>
 
-          <h3>i-Khedut ખેતીવાડી યોજનાઓ</h3>
+          <h3>
+            i-Khedut ખેતીવાડી યોજનાઓ
+          </h3>
 
           <p>
             ગુજરાત સરકારની ખેતીવાડી વિભાગ હેઠળની
@@ -1244,12 +1455,13 @@
         </div>
 
 
-        <!-- 2 -->
         <div class="scheme-card">
 
           <div class="scheme-icon">🚜</div>
 
-          <h3>કૃષિ યાંત્રિકીકરણ</h3>
+          <h3>
+            કૃષિ યાંત્રિકીકરણ
+          </h3>
 
           <p>
             ટ્રેક્ટર, ખેતીના સાધનો અને મશીનરી માટે
@@ -1272,12 +1484,13 @@
         </div>
 
 
-        <!-- 3 -->
         <div class="scheme-card">
 
           <div class="scheme-icon">🌳</div>
 
-          <h3>બાગાયત યોજનાઓ</h3>
+          <h3>
+            બાગાયત યોજનાઓ
+          </h3>
 
           <p>
             ફળ, શાકભાજી, બાગાયત અને સંબંધિત ખેતી માટે
@@ -1300,12 +1513,13 @@
         </div>
 
 
-        <!-- 4 -->
         <div class="scheme-card">
 
           <div class="scheme-icon">🐄</div>
 
-          <h3>પશુપાલન યોજનાઓ</h3>
+          <h3>
+            પશુપાલન યોજનાઓ
+          </h3>
 
           <p>
             ગાય, ભેંસ અને અન્ય પશુપાલન માટે
@@ -1328,12 +1542,13 @@
         </div>
 
 
-        <!-- 5 -->
         <div class="scheme-card">
 
           <div class="scheme-icon">🐃</div>
 
-          <h3>ગૌસેવા / ગૌશાળા</h3>
+          <h3>
+            ગૌસેવા / ગૌશાળા
+          </h3>
 
           <p>
             ગૌશાળા અને ગૌસેવા સંબંધિત
@@ -1356,12 +1571,13 @@
         </div>
 
 
-        <!-- 6 -->
         <div class="scheme-card">
 
           <div class="scheme-icon">💧</div>
 
-          <h3>સિંચાઈ અને પાણી વ્યવસ્થાપન</h3>
+          <h3>
+            સિંચાઈ અને પાણી વ્યવસ્થાપન
+          </h3>
 
           <p>
             ખેતી માટે પાણી બચત, સિંચાઈ અને
@@ -1384,12 +1600,13 @@
         </div>
 
 
-        <!-- 7 -->
         <div class="scheme-card">
 
           <div class="scheme-icon">🏦</div>
 
-          <h3>KCC / કૃષિ નાણાકીય સહાય</h3>
+          <h3>
+            KCC / કૃષિ નાણાકીય સહાય
+          </h3>
 
           <p>
             ખેડૂતો માટે કૃષિ લોન અને
@@ -1412,12 +1629,13 @@
         </div>
 
 
-        <!-- 8 -->
         <div class="scheme-card">
 
           <div class="scheme-icon">💰</div>
 
-          <h3>PM-KISAN</h3>
+          <h3>
+            PM-KISAN
+          </h3>
 
           <p>
             પાત્ર જમીનધારક ખેડૂત પરિવારો માટે
@@ -1440,12 +1658,13 @@
         </div>
 
 
-        <!-- 9 -->
         <div class="scheme-card">
 
           <div class="scheme-icon">🛡️</div>
 
-          <h3>પ્રધાનમંત્રી ફસલ બીમા યોજના</h3>
+          <h3>
+            પ્રધાનમંત્રી ફસલ બીમા યોજના
+          </h3>
 
           <p>
             પાકના જોખમ સામે પાક વીમા સંબંધિત
@@ -1468,12 +1687,13 @@
         </div>
 
 
-        <!-- 10 -->
         <div class="scheme-card">
 
           <div class="scheme-icon">👨‍🌾</div>
 
-          <h3>Farmer Registry</h3>
+          <h3>
+            Farmer Registry
+          </h3>
 
           <p>
             ખેડૂતની ડિજિટલ ઓળખ અને
@@ -1496,12 +1716,13 @@
         </div>
 
 
-        <!-- 11 -->
         <div class="scheme-card">
 
           <div class="scheme-icon">🌱</div>
 
-          <h3>કુદરતી / ટકાઉ ખેતી</h3>
+          <h3>
+            કુદરતી / ટકાઉ ખેતી
+          </h3>
 
           <p>
             કુદરતી ખેતી અને ટકાઉ કૃષિ માટે
@@ -1524,12 +1745,13 @@
         </div>
 
 
-        <!-- 12 -->
         <div class="scheme-card">
 
           <div class="scheme-icon">🌾</div>
 
-          <h3>બિયારણ / તેલબિયાં યોજનાઓ</h3>
+          <h3>
+            બિયારણ / તેલબિયાં યોજનાઓ
+          </h3>
 
           <p>
             બિયારણ અને તેલબિયાં સંબંધિત
@@ -1552,12 +1774,13 @@
         </div>
 
 
-        <!-- 13 -->
         <div class="scheme-card">
 
           <div class="scheme-icon">🏭</div>
 
-          <h3>કૃષિ પ્રોસેસિંગ / Value Addition</h3>
+          <h3>
+            કૃષિ પ્રોસેસિંગ / Value Addition
+          </h3>
 
           <p>
             કૃષિ ઉત્પાદનના પ્રોસેસિંગ,
@@ -1580,12 +1803,13 @@
         </div>
 
 
-        <!-- 14 -->
         <div class="scheme-card">
 
           <div class="scheme-icon">📡</div>
 
-          <h3>Smart & Precision Farming</h3>
+          <h3>
+            Smart & Precision Farming
+          </h3>
 
           <p>
             Smart farming, precision farming અને
@@ -1608,12 +1832,13 @@
         </div>
 
 
-        <!-- 15 -->
         <div class="scheme-card">
 
           <div class="scheme-icon">🌿</div>
 
-          <h3>પશુ ચારા / Fodder યોજનાઓ</h3>
+          <h3>
+            પશુ ચારા / Fodder યોજનાઓ
+          </h3>
 
           <p>
             પશુઓ માટે ચારા ઉત્પાદન અને
@@ -1636,12 +1861,13 @@
         </div>
 
 
-        <!-- 16 -->
         <div class="scheme-card">
 
           <div class="scheme-icon">🤝</div>
 
-          <h3>ખેડૂત કલ્યાણ યોજનાઓ</h3>
+          <h3>
+            ખેડૂત કલ્યાણ યોજનાઓ
+          </h3>
 
           <p>
             ખેડૂતો માટેની વિવિધ કલ્યાણકારી
@@ -1664,12 +1890,13 @@
         </div>
 
 
-        <!-- All schemes -->
         <div class="scheme-card">
 
           <div class="scheme-icon">📋</div>
 
-          <h3>બધી i-Khedut યોજનાઓ</h3>
+          <h3>
+            બધી i-Khedut યોજનાઓ
+          </h3>
 
           <p>
             ગુજરાત સરકારના i-Khedut પોર્ટલ પર ઉપલબ્ધ
@@ -1701,13 +1928,13 @@
         </div>
 
 
-        <!-- Application Status -->
-
         <div class="scheme-card">
 
           <div class="scheme-icon">🔎</div>
 
-          <h3>અરજીનું સ્ટેટસ</h3>
+          <h3>
+            અરજીનું સ્ટેટસ
+          </h3>
 
           <p>
             i-Khedut પર કરેલી યોજનાની અરજીનું
@@ -1740,51 +1967,83 @@
        EQUIPMENT
   ========================== -->
 
-  <section class="equipment-section" id="equipment">
+  <section
+    class="equipment-section"
+    id="equipment"
+  >
 
     <div class="section-container">
 
       <div class="section-title">
+
         <h2>🚜 ખેતી સાધનો</h2>
-        <p>આધુનિક ખેતી માટે ઉપયોગી સાધનો</p>
+
+        <p>
+          આધુનિક ખેતી માટે ઉપયોગી સાધનો
+        </p>
+
       </div>
 
       <div class="cards">
 
         <div class="card">
+
           <div class="card-icon">🚜</div>
-          <h3>ટ્રેક્ટર</h3>
+
+          <h3>
+            ટ્રેક્ટર
+          </h3>
+
           <p>
             ખેતીમાં જમીન તૈયારી અને વિવિધ
             કૃષિ કાર્યો માટે ટ્રેક્ટર.
           </p>
+
         </div>
 
         <div class="card">
+
           <div class="card-icon">💧</div>
-          <h3>પાણીનો પંપ</h3>
+
+          <h3>
+            પાણીનો પંપ
+          </h3>
+
           <p>
             સિંચાઈ માટે વિવિધ પ્રકારના
             પાણીના પંપ અને સાધનો.
           </p>
+
         </div>
 
         <div class="card">
+
           <div class="card-icon">🌾</div>
-          <h3>કૃષિ મશીનરી</h3>
+
+          <h3>
+            કૃષિ મશીનરી
+          </h3>
+
           <p>
             વાવણી, કાપણી અને અન્ય ખેતી કાર્યો
             માટે આધુનિક મશીનરી.
           </p>
+
         </div>
 
         <div class="card">
+
           <div class="card-icon">🧰</div>
-          <h3>ખેતીના સાધનો</h3>
+
+          <h3>
+            ખેતીના સાધનો
+          </h3>
+
           <p>
             ખેડૂતો માટે જરૂરી વિવિધ
             કૃષિ સાધનો અને ઉપકરણો.
           </p>
+
         </div>
 
       </div>
@@ -1798,7 +2057,10 @@
        CONTACT
   ========================== -->
 
-  <section class="contact-section" id="contact">
+  <section
+    class="contact-section"
+    id="contact"
+  >
 
     <div class="section-container">
 
@@ -1812,17 +2074,15 @@
 
       </div>
 
-
       <div class="contact-grid">
-
-
-        <!-- CALL -->
 
         <div class="contact-card">
 
           <div class="icon">📱</div>
 
-          <h3>Call કરો</h3>
+          <h3>
+            Call કરો
+          </h3>
 
           <a href="tel:9016942705">
             9016942705
@@ -1831,13 +2091,13 @@
         </div>
 
 
-        <!-- EMAIL -->
-
         <div class="contact-card">
 
           <div class="icon">✉️</div>
 
-          <h3>Email કરો</h3>
+          <h3>
+            Email કરો
+          </h3>
 
           <a
             href="mailto:udayrajkhachar125@gmail.com?subject=Khedut%20Mitra%20Website%20Inquiry"
@@ -1848,13 +2108,13 @@
         </div>
 
 
-        <!-- WHATSAPP -->
-
         <div class="contact-card whatsapp-card">
 
           <div class="icon">💬</div>
 
-          <h3>WhatsApp</h3>
+          <h3>
+            WhatsApp
+          </h3>
 
           <a
             href="https://wa.me/919016942705"
@@ -1865,7 +2125,6 @@
           </a>
 
         </div>
-
 
       </div>
 
@@ -1882,12 +2141,11 @@
 
     <div class="footer-container">
 
-
-      <!-- About -->
-
       <div class="footer-box">
 
-        <h3>🌾 ખેડૂત મિત્ર</h3>
+        <h3>
+          🌾 ખેડૂત મિત્ર
+        </h3>
 
         <p>
           ખેડૂતો માટે હવામાન, બજાર ભાવ,
@@ -1898,11 +2156,11 @@
       </div>
 
 
-      <!-- Quick Links -->
-
       <div class="footer-box">
 
-        <h3>🔗 ઝડપી લિંક્સ</h3>
+        <h3>
+          🔗 ઝડપી લિંક્સ
+        </h3>
 
         <a href="#home">
           🏠 હોમ
@@ -1939,14 +2197,11 @@
       </div>
 
 
-      <!-- Contact -->
-
       <div class="footer-box">
 
-        <h3>📞 સંપર્ક કરો</h3>
-
-
-        <!-- CALL -->
+        <h3>
+          📞 સંપર્ક કરો
+        </h3>
 
         <a
           href="tel:9016942705"
@@ -1958,9 +2213,6 @@
           </span>
         </a>
 
-
-        <!-- EMAIL -->
-
         <a
           href="mailto:udayrajkhachar125@gmail.com?subject=Khedut%20Mitra%20Website%20Inquiry"
           class="contact-link"
@@ -1970,9 +2222,6 @@
             udayrajkhachar125@gmail.com
           </span>
         </a>
-
-
-        <!-- WHATSAPP -->
 
         <a
           href="https://wa.me/919016942705"
@@ -2022,6 +2271,7 @@
       <button
         class="close-modal"
         id="closeModalBtn"
+        type="button"
       >
         ×
       </button>
@@ -2031,7 +2281,9 @@
 
       <div id="loginForm">
 
-        <h2>🔐 Login</h2>
+        <h2>
+          🔐 Login
+        </h2>
 
         <div class="form-group">
 
@@ -2066,6 +2318,7 @@
         <button
           class="submit-btn"
           id="loginBtn"
+          type="button"
         >
           Login કરો
         </button>
@@ -2074,6 +2327,7 @@
         <button
           class="forgot-btn"
           id="forgotBtn"
+          type="button"
         >
           🔑 Password ભૂલી ગયા?
         </button>
@@ -2083,7 +2337,10 @@
 
           Account નથી?
 
-          <button id="showRegisterBtn">
+          <button
+            id="showRegisterBtn"
+            type="button"
+          >
             Register કરો
           </button>
 
@@ -2105,7 +2362,9 @@
         style="display:none;"
       >
 
-        <h2>📝 Register</h2>
+        <h2>
+          📝 Register
+        </h2>
 
 
         <div class="form-group">
@@ -2156,6 +2415,7 @@
         <button
           class="submit-btn"
           id="registerBtn"
+          type="button"
         >
           Register કરો
         </button>
@@ -2165,7 +2425,10 @@
 
           પહેલેથી Account છે?
 
-          <button id="showLoginBtn">
+          <button
+            id="showLoginBtn"
+            type="button"
+          >
             Login કરો
           </button>
 
@@ -2190,17 +2453,32 @@
 
   <script type="module">
 
+    /* =========================
+       FIREBASE APP
+    ========================== */
+
     import {
       initializeApp
     } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 
 
+    /* =========================
+       FIRESTORE
+       IMPORTANT:
+       onSnapshot પણ import કર્યું છે
+    ========================== */
+
     import {
       getFirestore,
       collection,
-      getDocs
+      getDocs,
+      onSnapshot
     } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
+
+    /* =========================
+       FIREBASE AUTH
+    ========================== */
 
     import {
       getAuth,
@@ -2239,18 +2517,22 @@
 
       measurementId:
         "G-RZC2MFE0BW"
+
     };
 
 
     /* =========================
-       INITIALIZE FIREBASE
+       INITIALIZE
     ========================== */
 
-    const app = initializeApp(firebaseConfig);
+    const app =
+      initializeApp(firebaseConfig);
 
-    const db = getFirestore(app);
+    const db =
+      getFirestore(app);
 
-    const auth = getAuth(app);
+    const auth =
+      getAuth(app);
 
 
     /* =========================
@@ -2268,7 +2550,9 @@
       "click",
       () => {
 
-        navLinks.classList.toggle("active");
+        navLinks.classList.toggle(
+          "active"
+        );
 
       }
     );
@@ -2282,7 +2566,9 @@
           "click",
           () => {
 
-            navLinks.classList.remove("active");
+            navLinks.classList.remove(
+              "active"
+            );
 
           }
         );
@@ -2295,10 +2581,14 @@
     ========================== */
 
     const siteSearchInput =
-      document.getElementById("siteSearchInput");
+      document.getElementById(
+        "siteSearchInput"
+      );
 
     const siteSearchBtn =
-      document.getElementById("siteSearchBtn");
+      document.getElementById(
+        "siteSearchBtn"
+      );
 
 
     function searchSite() {
@@ -2318,6 +2608,7 @@
         siteSearchInput.focus();
 
         return;
+
       }
 
 
@@ -2378,6 +2669,16 @@
 
 
       else if (
+        query.includes("નોટિસ") ||
+        query.includes("notice")
+      ) {
+
+        target = "notices";
+
+      }
+
+
+      else if (
         query.includes("સાધન") ||
         query.includes("ટ્રેક્ટર") ||
         query.includes("પંપ") ||
@@ -2404,26 +2705,41 @@
       if (target) {
 
         const section =
-          document.getElementById(target);
-
-        section.scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
+          document.getElementById(
+            target
+          );
 
 
-        setTimeout(() => {
+        if (section) {
 
-          section.style.boxShadow =
-            "inset 0 0 0 4px rgba(25,118,61,0.25)";
+          section.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
 
-          setTimeout(() => {
 
-            section.style.boxShadow = "";
+          setTimeout(
+            () => {
 
-          }, 1500);
+              section.style.boxShadow =
+                "inset 0 0 0 4px rgba(25,118,61,0.25)";
 
-        }, 500);
+
+              setTimeout(
+                () => {
+
+                  section.style.boxShadow =
+                    "";
+
+                },
+                1500
+              );
+
+            },
+            500
+          );
+
+        }
 
       }
 
@@ -2431,7 +2747,7 @@
       else {
 
         alert(
-          "આ માહિતી હાલમાં ઉપલબ્ધ નથી.\n\nહવામાન, બજાર ભાવ, પાક, યોજના, સાધન અથવા સંપર્ક શોધી જુઓ."
+          "આ માહિતી હાલમાં ઉપલબ્ધ નથી.\n\nહવામાન, બજાર ભાવ, પાક, યોજના, નોટિસ, સાધન અથવા સંપર્ક શોધી જુઓ."
         );
 
       }
@@ -2449,7 +2765,9 @@
       "keydown",
       event => {
 
-        if (event.key === "Enter") {
+        if (
+          event.key === "Enter"
+        ) {
 
           searchSite();
 
@@ -2464,16 +2782,24 @@
     ========================== */
 
     const weatherBtn =
-      document.getElementById("weatherBtn");
+      document.getElementById(
+        "weatherBtn"
+      );
 
     const weatherCityInput =
-      document.getElementById("weatherCityInput");
+      document.getElementById(
+        "weatherCityInput"
+      );
 
     const weatherContent =
-      document.getElementById("weatherContent");
+      document.getElementById(
+        "weatherContent"
+      );
 
 
-    function weatherDescription(code) {
+    function weatherDescription(
+      code
+    ) {
 
       const map = {
 
@@ -2548,9 +2874,11 @@
 
 
       weatherContent.innerHTML = `
+
         <div class="weather-loading">
           ⏳ ${city}નું હવામાન શોધી રહ્યા છીએ...
         </div>
+
       `;
 
 
@@ -2565,9 +2893,11 @@
 
 
         if (!geoResponse.ok) {
+
           throw new Error(
             "Geocoding error"
           );
+
         }
 
 
@@ -2607,9 +2937,11 @@
 
 
         if (!weatherResponse.ok) {
+
           throw new Error(
             "Weather error"
           );
+
         }
 
 
@@ -2636,7 +2968,8 @@
         if (
           data.hourly &&
           Array.isArray(
-            data.hourly.precipitation_probability
+            data.hourly
+              .precipitation_probability
           )
         ) {
 
@@ -2650,14 +2983,19 @@
 
             rainProbability =
               data.hourly
-                .precipitation_probability[index];
+                .precipitation_probability[
+                  index
+                ];
 
           }
+
           else {
 
             rainProbability =
               data.hourly
-                .precipitation_probability[0] || 0;
+                .precipitation_probability[
+                  0
+                ] || 0;
 
           }
 
@@ -2675,11 +3013,15 @@
             <div>
 
               <div class="weather-temp">
-                ${Math.round(current.temperature_2m)}°C
+                ${Math.round(
+                  current.temperature_2m
+                )}°C
               </div>
 
               <div class="weather-location">
-                📍 ${place.name || city}
+                📍 ${
+                  place.name || city
+                }
               </div>
 
               <div class="weather-desc">
@@ -2694,43 +3036,83 @@
           <div class="weather-grid">
 
             <div class="weather-item">
+
               🌡️
-              <span>મહેસૂસ</span>
+
+              <span>
+                મહેસૂસ
+              </span>
+
               <strong>
-                ${Math.round(current.apparent_temperature)}°C
+                ${Math.round(
+                  current.apparent_temperature
+                )}°C
               </strong>
+
             </div>
 
+
             <div class="weather-item">
+
               💧
-              <span>ભેજ</span>
+
+              <span>
+                ભેજ
+              </span>
+
               <strong>
-                ${current.relative_humidity_2m}%
+                ${
+                  current.relative_humidity_2m
+                }%
               </strong>
+
             </div>
 
+
             <div class="weather-item">
+
               🌧️
-              <span>વરસાદની શક્યતા</span>
+
+              <span>
+                વરસાદની શક્યતા
+              </span>
+
               <strong>
                 ${rainProbability}%
               </strong>
+
             </div>
 
+
             <div class="weather-item">
+
               💨
-              <span>પવન</span>
+
+              <span>
+                પવન
+              </span>
+
               <strong>
-                ${Math.round(current.wind_speed_10m)} km/h
+                ${Math.round(
+                  current.wind_speed_10m
+                )} km/h
               </strong>
+
             </div>
 
+
             <div class="weather-item">
+
               ☁️
-              <span>વાદળ</span>
+
+              <span>
+                વાદળ
+              </span>
+
               <strong>
                 ${current.cloud_cover}%
               </strong>
+
             </div>
 
           </div>
@@ -2777,7 +3159,9 @@
       "keydown",
       event => {
 
-        if (event.key === "Enter") {
+        if (
+          event.key === "Enter"
+        ) {
 
           loadWeather();
 
@@ -2840,10 +3224,12 @@
         typeof value === "number"
       ) {
 
-        return "₹" +
+        return (
+          "₹" +
           value.toLocaleString(
             "en-IN"
-          );
+          )
+        );
 
       }
 
@@ -2864,10 +3250,12 @@
 
         if (!isNaN(number)) {
 
-          return "₹" +
+          return (
+            "₹" +
             number.toLocaleString(
               "en-IN"
-            );
+            )
+          );
 
         }
 
@@ -3018,38 +3406,85 @@
               );
 
 
-            const previousAvgPrice = Number(
-              getValue(
-                data,
-                [
-                  "previousAvgPrice",
-                  "previousavgprice",
-                  "previous_avg_price",
-                  "oldAvgPrice",
-                  "oldavgprice"
-                ],
-                0
-              ) || 0
-            );
+            const previousAvgPrice =
+              Number(
+                getValue(
+                  data,
+                  [
+                    "previousAvgPrice",
+                    "previousavgprice",
+                    "previous_avg_price",
+                    "oldAvgPrice",
+                    "oldavgprice"
+                  ],
+                  0
+                ) || 0
+              );
 
-            let status = "— સ્થિર";
-            let statusClass = "same";
 
-            if (previousAvgPrice > 0) {
-              const currentAvg = Number(avgPrice) || 0;
+            const currentAvg =
+              Number(avgPrice) || 0;
 
-              if (currentAvg > previousAvgPrice) {
-                const difference = currentAvg - previousAvgPrice;
-                status = `↑ ₹${difference.toLocaleString("en-IN")} વધારો`;
-                statusClass = "increase";
-              } else if (currentAvg < previousAvgPrice) {
-                const difference = previousAvgPrice - currentAvg;
-                status = `↓ ₹${difference.toLocaleString("en-IN")} ઘટાડો`;
-                statusClass = "decrease";
+
+            let status =
+              "— સ્થિર";
+
+            let statusClass =
+              "same";
+
+
+            if (
+              previousAvgPrice > 0
+            ) {
+
+              if (
+                currentAvg >
+                previousAvgPrice
+              ) {
+
+                const difference =
+                  currentAvg -
+                  previousAvgPrice;
+
+
+                status =
+                  `↑ ₹${difference.toLocaleString("en-IN")} વધારો`;
+
+
+                statusClass =
+                  "increase";
+
               }
-            } else {
-              status = "ભાવ સરખામણી ઉપલબ્ધ નથી";
-              statusClass = "same";
+
+              else if (
+                currentAvg <
+                previousAvgPrice
+              ) {
+
+                const difference =
+                  previousAvgPrice -
+                  currentAvg;
+
+
+                status =
+                  `↓ ₹${difference.toLocaleString("en-IN")} ઘટાડો`;
+
+
+                statusClass =
+                  "decrease";
+
+              }
+
+            }
+
+            else {
+
+              status =
+                "ભાવ સરખામણી ઉપલબ્ધ નથી";
+
+              statusClass =
+                "same";
+
             }
 
 
@@ -3059,12 +3494,12 @@
 
                 <td>
                   <strong>
-                    ${crop}
+                    ${escapeHtml(crop)}
                   </strong>
                 </td>
 
                 <td>
-                  ${market}
+                  ${escapeHtml(market)}
                 </td>
 
                 <td class="price">
@@ -3080,11 +3515,13 @@
                 </td>
 
                 <td>
-                  ${arrival}
+                  ${escapeHtml(arrival)}
                 </td>
 
-                <td class="${statusClass}">
-                  ${status}
+                <td>
+                  <span class="${statusClass}">
+                    ${escapeHtml(status)}
+                  </span>
                 </td>
 
               </tr>
@@ -3124,9 +3561,14 @@
                 color:#c62828;
               "
             >
+
               ❌ બજાર ભાવ લોડ થઈ શક્યા નથી.
+
               <br>
-              Firebase Rules અને marketPrices collection તપાસો.
+
+              Firebase Rules અને
+              marketPrices collection તપાસો.
+
             </td>
 
           </tr>
@@ -3145,59 +3587,472 @@
     loadMarketPrices();
 
 
+    /* =========================
+       SAFE HTML
+    ========================== */
+
+    function escapeHtml(
+      value
+    ) {
+
+      return String(
+        value ?? ""
+      ).replace(
+        /[&<>"']/g,
+        character => {
+
+          const map = {
+
+            "&": "&amp;",
+
+            "<": "&lt;",
+
+            ">": "&gt;",
+
+            '"': "&quot;",
+
+            "'": "&#039;"
+
+          };
+
+          return map[
+            character
+          ];
+
+        }
+      );
+
+    }
 
 
     /* =========================
-       LIVE FIRESTORE NOTICES
+       LIVE NOTICES / SCHEMES
     ========================== */
-    const noticesList = document.getElementById("noticesList");
-    const schemesList = document.getElementById("schemesList");
 
-    function firstValue(data, keys, fallback = "") {
-      for (const key of keys) {
-        if (data[key] !== undefined && data[key] !== null && String(data[key]).trim() !== "") return data[key];
+    const noticesList =
+      document.getElementById(
+        "noticesList"
+      );
+
+
+    const schemesList =
+      document.getElementById(
+        "schemesList"
+      );
+
+
+    function firstValue(
+      data,
+      keys,
+      fallback = ""
+    ) {
+
+      for (
+        const key of keys
+      ) {
+
+        if (
+          data[key] !== undefined &&
+          data[key] !== null &&
+          String(
+            data[key]
+          ).trim() !== ""
+        ) {
+
+          return data[key];
+
+        }
+
       }
+
+
       return fallback;
+
     }
 
-    function safeText(value) {
-      return String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[ch]));
-    }
 
-    function renderLiveCollection(snapshot, container, type) {
-      if (snapshot.empty) {
-        container.innerHTML = `<div class="live-empty">ℹ️ હાલમાં કોઈ ${type === "notice" ? "નોટિસ" : "નવી યોજના"} ઉપલબ્ધ નથી.</div>`;
-        return;
+    function formatLiveDate(
+      value
+    ) {
+
+      if (!value) {
+        return "";
       }
-      let html = "";
-      snapshot.forEach(docSnap => {
-        const d = docSnap.data();
-        const title = firstValue(d, type === "notice" ? ["title","name","heading","subject"] : ["title","name","schemeName","scheme","heading"], type === "notice" ? "મહત્વની નોટિસ" : "સરકારી યોજના");
-        const description = firstValue(d, ["description","message","details","content","text"], "");
-        const date = firstValue(d, ["date","createdAt","updatedAt"], "");
-        const link = firstValue(d, ["link","url","website","applyUrl"], "");
-        let dateText = "";
-        if (date && typeof date === "object" && date.toDate) dateText = date.toDate().toLocaleDateString("gu-IN");
-        else if (date) dateText = safeText(date);
-        html += `<article class="live-card">
-          <h3>${safeText(title)}</h3>
-          ${dateText ? `<div class="live-date">📅 ${dateText}</div>` : ""}
-          <p>${safeText(description)}</p>
-          ${link ? `<a class="live-btn" href="${safeText(link)}" target="_blank" rel="noopener noreferrer">🔗 વધુ માહિતી</a>` : ""}
-        </article>`;
-      });
-      container.innerHTML = html;
+
+
+      try {
+
+        if (
+          typeof value === "object" &&
+          typeof value.toDate === "function"
+        ) {
+
+          return value
+            .toDate()
+            .toLocaleDateString(
+              "gu-IN"
+            );
+
+        }
+
+
+        if (
+          typeof value === "object" &&
+          value.seconds
+        ) {
+
+          return new Date(
+            value.seconds * 1000
+          ).toLocaleDateString(
+            "gu-IN"
+          );
+
+        }
+
+
+        const parsed =
+          new Date(value);
+
+
+        if (
+          !isNaN(
+            parsed.getTime()
+          )
+        ) {
+
+          return parsed.toLocaleDateString(
+            "gu-IN"
+          );
+
+        }
+
+
+        return String(value);
+
+      }
+
+      catch {
+
+        return String(value);
+
+      }
+
     }
 
-    onSnapshot(collection(db, "notices"),
-      snapshot => renderLiveCollection(snapshot, noticesList, "notice"),
-      error => { console.error("Notices error:", error); noticesList.innerHTML = `<div class="live-empty">❌ નોટિસ લોડ થઈ શકી નથી.</div>`; }
+
+    function validExternalUrl(
+      value
+    ) {
+
+      if (!value) {
+        return "";
+      }
+
+
+      try {
+
+        const url =
+          new URL(
+            String(value).trim()
+          );
+
+
+        if (
+          url.protocol === "http:" ||
+          url.protocol === "https:"
+        ) {
+
+          return url.href;
+
+        }
+
+      }
+
+      catch {
+
+        return "";
+
+      }
+
+
+      return "";
+
+    }
+
+
+    function renderLiveCollection(
+      snapshot,
+      container,
+      type
+    ) {
+
+      if (
+        snapshot.empty
+      ) {
+
+        container.innerHTML = `
+
+          <div class="live-empty">
+
+            ℹ️ હાલમાં કોઈ
+            ${
+              type === "notice"
+                ? "નોટિસ"
+                : "નવી યોજના"
+            }
+            ઉપલબ્ધ નથી.
+
+          </div>
+
+        `;
+
+        return;
+
+      }
+
+
+      let html = "";
+
+
+      snapshot.forEach(
+        docSnap => {
+
+          const data =
+            docSnap.data();
+
+
+          const title =
+            firstValue(
+              data,
+              type === "notice"
+                ? [
+                    "title",
+                    "name",
+                    "heading",
+                    "subject"
+                  ]
+                : [
+                    "title",
+                    "name",
+                    "schemeName",
+                    "scheme",
+                    "heading"
+                  ],
+              type === "notice"
+                ? "મહત્વની નોટિસ"
+                : "સરકારી યોજના"
+            );
+
+
+          const description =
+            firstValue(
+              data,
+              [
+                "description",
+                "message",
+                "details",
+                "content",
+                "text"
+              ],
+              ""
+            );
+
+
+          const date =
+            firstValue(
+              data,
+              [
+                "date",
+                "createdAt",
+                "updatedAt"
+              ],
+              ""
+            );
+
+
+          const link =
+            firstValue(
+              data,
+              [
+                "link",
+                "url",
+                "website",
+                "applyUrl"
+              ],
+              ""
+            );
+
+
+          const dateText =
+            formatLiveDate(
+              date
+            );
+
+
+          const safeLink =
+            validExternalUrl(
+              link
+            );
+
+
+          html += `
+
+            <article class="live-card">
+
+              <h3>
+                ${escapeHtml(title)}
+              </h3>
+
+              ${
+                dateText
+                  ? `
+                    <div class="live-date">
+                      📅 ${escapeHtml(dateText)}
+                    </div>
+                  `
+                  : ""
+              }
+
+              <p>
+                ${escapeHtml(description)}
+              </p>
+
+              ${
+                safeLink
+                  ? `
+                    <a
+                      class="live-btn"
+                      href="${escapeHtml(safeLink)}"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      🔗 વધુ માહિતી
+                    </a>
+                  `
+                  : ""
+              }
+
+            </article>
+
+          `;
+
+        }
+      );
+
+
+      container.innerHTML =
+        html;
+
+    }
+
+
+    /* =========================
+       NOTICES REAL-TIME LISTENER
+    ========================== */
+
+    onSnapshot(
+      collection(
+        db,
+        "notices"
+      ),
+
+      snapshot => {
+
+        console.log(
+          "Notices loaded:",
+          snapshot.size
+        );
+
+
+        renderLiveCollection(
+          snapshot,
+          noticesList,
+          "notice"
+        );
+
+      },
+
+      error => {
+
+        console.error(
+          "Notices error:",
+          error
+        );
+
+
+        noticesList.innerHTML = `
+
+          <div class="live-empty">
+
+            ❌ નોટિસ લોડ થઈ શકી નથી.
+
+            <br><br>
+
+            Firebase Rules અથવા
+            notices collection તપાસો.
+
+          </div>
+
+        `;
+
+      }
+
     );
 
-    onSnapshot(collection(db, "schemes"),
-      snapshot => renderLiveCollection(snapshot, schemesList, "scheme"),
-      error => { console.error("Schemes error:", error); schemesList.innerHTML = `<div class="live-empty">❌ યોજનાઓ લોડ થઈ શકી નથી.</div>`; }
+
+    /* =========================
+       SCHEMES REAL-TIME LISTENER
+    ========================== */
+
+    onSnapshot(
+      collection(
+        db,
+        "schemes"
+      ),
+
+      snapshot => {
+
+        console.log(
+          "Schemes loaded:",
+          snapshot.size
+        );
+
+
+        renderLiveCollection(
+          snapshot,
+          schemesList,
+          "scheme"
+        );
+
+      },
+
+      error => {
+
+        console.error(
+          "Schemes error:",
+          error
+        );
+
+
+        schemesList.innerHTML = `
+
+          <div class="live-empty">
+
+            ❌ યોજનાઓ લોડ થઈ શકી નથી.
+
+            <br><br>
+
+            Firebase Rules અથવા
+            schemes collection તપાસો.
+
+          </div>
+
+        `;
+
+      }
+
     );
+
 
     /* =========================
        AUTH MODAL
@@ -3268,7 +4123,8 @@
       event => {
 
         if (
-          event.target === authModal
+          event.target ===
+          authModal
         ) {
 
           closeAuthModal();
@@ -3416,18 +4272,6 @@
               }
             );
 
-            // Firebaseમાં સાચવાયેલ નામ તરત UIમાં બતાવો
-            loginOpenBtn.innerText = `👤 ${name}`;
-
-            loginOpenBtn.onclick = async () => {
-              const confirmLogout = confirm(
-                `તમે ${name} તરીકે Login છો.\n\nLogout કરવું છે?`
-              );
-
-              if (confirmLogout) {
-                await signOut(auth);
-              }
-            };
 
             message.style.color =
               "#16743a";
@@ -3706,33 +4550,60 @@
 
     onAuthStateChanged(
       auth,
-      user => {
+      async user => {
 
         if (user) {
 
-          // Latest Firebase profile વાંચો જેથી દરેક accountનું પોતાનું નામ દેખાય
-          user.reload().then(() => {
-            const currentUser = auth.currentUser;
-            const name =
-              currentUser?.displayName ||
-              currentUser?.email ||
-              "User";
+          try {
 
-            loginOpenBtn.innerText = `👤 ${name}`;
+            await user.reload();
 
-            loginOpenBtn.onclick = async () => {
-              const confirmLogout = confirm(
-                `તમે ${name} તરીકે Login છો.\n\nLogout કરવું છે?`
-              );
+          }
 
-              if (confirmLogout) {
-                await signOut(auth);
+          catch (error) {
+
+            console.warn(
+              "User reload error:",
+              error
+            );
+
+          }
+
+
+          const currentUser =
+            auth.currentUser;
+
+
+          const name =
+            currentUser?.displayName ||
+            currentUser?.email ||
+            "User";
+
+
+          loginOpenBtn.innerText =
+            `👤 ${name}`;
+
+
+          loginOpenBtn.onclick =
+            async () => {
+
+              const confirmLogout =
+                confirm(
+                  `તમે ${name} તરીકે Login છો.\n\nLogout કરવું છે?`
+                );
+
+
+              if (
+                confirmLogout
+              ) {
+
+                await signOut(
+                  auth
+                );
+
               }
+
             };
-          }).catch(() => {
-            const name = user.displayName || user.email || "User";
-            loginOpenBtn.innerText = `👤 ${name}`;
-          });
 
         }
 
