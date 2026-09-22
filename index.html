@@ -1,4628 +1,5220 @@
 <!DOCTYPE html>
 <html lang="gu">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>ખેડૂત મિત્ર | ખેડૂતોનું ડિજિટલ સાથી</title>
-
-  <meta
-    name="description"
-    content="ખેડૂત મિત્ર - હવામાન, બજાર ભાવ, પાક માર્ગદર્શન, સરકારી યોજનાઓ અને ખેતી સાધનોની માહિતી."
-  >
-
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family:
-        "Noto Sans Gujarati",
-        "Nirmala UI",
-        Arial,
-        sans-serif;
-      background: #f5f8f4;
-      color: #1d2b20;
-      line-height: 1.6;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    button,
-    input {
-      font-family: inherit;
-    }
-
-    /* =========================
-       HEADER
-    ========================== */
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: #ffffff;
-      box-shadow: 0 2px 15px rgba(0,0,0,0.08);
-    }
-
-    .navbar {
-      max-width: 1250px;
-      margin: auto;
-      padding: 12px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 800;
-      color: #18753c;
-      font-size: 21px;
-      white-space: nowrap;
-    }
-
-    .logo-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      background: #e7f7ea;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 23px;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .nav-links a {
-      padding: 9px 11px;
-      border-radius: 8px;
-      font-size: 14px;
-      color: #35463a;
-      transition: 0.3s;
-    }
-
-    .nav-links a:hover {
-      background: #eaf7ed;
-      color: #16743a;
-    }
-
-    .auth-area {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .auth-btn {
-      border: none;
-      padding: 9px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      background: #19763d;
-      color: white;
-      font-weight: 600;
-    }
-
-    .auth-btn:hover {
-      background: #125d2e;
-    }
-
-    .menu-btn {
-      display: none;
-      border: none;
-      background: #eaf7ed;
-      color: #176f39;
-      font-size: 25px;
-      padding: 5px 10px;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    /* =========================
-       HERO
-    ========================== */
-
-    .hero {
-      background:
-        linear-gradient(
-          135deg,
-          rgba(13, 89, 43, 0.96),
-          rgba(30, 125, 65, 0.90)
-        );
-      color: white;
-      padding: 75px 20px 85px;
-      text-align: center;
-    }
-
-    .hero-container {
-      max-width: 1000px;
-      margin: auto;
-    }
-
-    .hero h1 {
-      font-size: clamp(32px, 6vw, 58px);
-      margin-bottom: 10px;
-      font-weight: 900;
-    }
-
-    .hero-subtitle {
-      font-size: 20px;
-      margin-bottom: 12px;
-    }
-
-    .hero-text {
-      max-width: 700px;
-      margin: 0 auto 30px;
-      color: #e8f7ec;
-      font-size: 16px;
-    }
-
-    .search-box {
-      max-width: 720px;
-      margin: auto;
-      display: flex;
-      background: white;
-      padding: 6px;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
-    }
-
-    .search-box input {
-      flex: 1;
-      border: none;
-      outline: none;
-      padding: 15px;
-      font-size: 16px;
-      min-width: 0;
-      color: #222;
-      background: white;
-    }
-
-    .search-box button {
-      border: none;
-      background: #ffca28;
-      color: #3d3000;
-      font-weight: 800;
-      padding: 0 25px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: 0.3s;
-      font-size: 15px;
-    }
-
-    .search-box button:hover {
-      background: #ffb300;
-    }
-
-    /* =========================
-       GENERAL SECTION
-    ========================== */
-
-    section {
-      padding: 65px 20px;
-    }
-
-    .section-container {
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 35px;
-    }
-
-    .section-title h2 {
-      color: #176c38;
-      font-size: 31px;
-      margin-bottom: 8px;
-    }
-
-    .section-title p {
-      color: #657269;
-    }
-
-    /* =========================
-       WEATHER
-    ========================== */
-
-    .weather-section {
-      background: #eef7ff;
-    }
-
-    .weather-search {
-      max-width: 650px;
-      margin: 0 auto 30px;
-      display: flex;
-      gap: 8px;
-    }
-
-    .weather-search input {
-      flex: 1;
-      padding: 13px;
-      border: 1px solid #ccd8df;
-      border-radius: 9px;
-      outline: none;
-      font-size: 15px;
-    }
-
-    .weather-search button {
-      border: none;
-      background: #1976d2;
-      color: white;
-      padding: 0 20px;
-      border-radius: 9px;
-      cursor: pointer;
-      font-weight: 700;
-    }
-
-    .weather-card {
-      max-width: 850px;
-      margin: auto;
-      background: white;
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-    }
-
-    .weather-main {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 25px;
-      margin-bottom: 25px;
-      flex-wrap: wrap;
-    }
-
-    .weather-icon {
-      font-size: 65px;
-    }
-
-    .weather-temp {
-      font-size: 48px;
-      font-weight: 800;
-      color: #176c38;
-    }
-
-    .weather-location {
-      font-size: 18px;
-      color: #555;
-    }
-
-    .weather-desc {
-      color: #777;
-    }
-
-    .weather-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 12px;
-    }
-
-    .weather-item {
-      background: #f5f9fc;
-      padding: 16px 8px;
-      border-radius: 12px;
-      text-align: center;
-    }
-
-    .weather-item strong {
-      display: block;
-      color: #166b38;
-      font-size: 18px;
-      margin-top: 5px;
-    }
-
-    .weather-loading {
-      text-align: center;
-      color: #777;
-      padding: 20px;
-    }
-
-    /* =========================
-       MARKET
-    ========================== */
-
-    .market-section {
-      background: #ffffff;
-    }
-
-    .market-status {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #68756c;
-      font-size: 14px;
-    }
-
-    .table-wrapper {
-      overflow-x: auto;
-      background: white;
-      border-radius: 15px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.07);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 750px;
-    }
-
-    th {
-      background: #176d39;
-      color: white;
-      padding: 15px;
-      text-align: left;
-    }
-
-    td {
-      padding: 15px;
-      border-bottom: 1px solid #edf0ed;
-    }
-
-    tr:hover td {
-      background: #f8fbf8;
-    }
-
-    .price {
-      font-weight: 800;
-      color: #176d39;
-    }
-
-    .increase {
-      color: #159447;
-      background: #e9f8ef;
-      padding: 6px 10px;
-      border-radius: 18px;
-      font-weight: 700;
-      display: inline-block;
-    }
-
-    .decrease {
-      color: #d33b3b;
-      background: #fff0f0;
-      padding: 6px 10px;
-      border-radius: 18px;
-      font-weight: 700;
-      display: inline-block;
-    }
-
-    .same {
-      color: #64748b;
-      background: #f1f5f9;
-      padding: 6px 10px;
-      border-radius: 18px;
-      font-weight: 700;
-      display: inline-block;
-    }
-
-    /* =========================
-       GUIDANCE
-    ========================== */
-
-    .guidance-section {
-      background: #f5faf4;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .card {
-      background: white;
-      border-radius: 17px;
-      padding: 25px;
-      box-shadow: 0 7px 22px rgba(0,0,0,0.07);
-      transition: 0.3s;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.10);
-    }
-
-    .card-icon {
-      font-size: 38px;
-      margin-bottom: 10px;
-    }
-
-    .card h3 {
-      color: #176c38;
-      margin-bottom: 8px;
-    }
-
-    .card p {
-      color: #637067;
-      font-size: 14px;
-    }
-
-    /* =========================
-       LIVE NOTICES / SCHEMES
-    ========================== */
-
-    .live-section {
-      background: #f5faf4;
-    }
-
-    .live-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .live-card {
-      background: #ffffff;
-      border: 1px solid #e1ebe3;
-      border-radius: 17px;
-      padding: 24px;
-      box-shadow: 0 7px 22px rgba(0,0,0,0.07);
-      transition: 0.3s;
-    }
-
-    .live-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.10);
-    }
-
-    .live-card h3 {
-      color: #176d39;
-      font-size: 20px;
-      margin-bottom: 10px;
-    }
-
-    .live-card p {
-      color: #637067;
-      font-size: 15px;
-      line-height: 1.7;
-      margin-bottom: 12px;
-      white-space: pre-line;
-    }
-
-    .live-date {
-      color: #777;
-      font-size: 13px;
-      margin-bottom: 10px;
-    }
-
-    .live-btn {
-      display: inline-block;
-      margin-top: 8px;
-      padding: 9px 14px;
-      border-radius: 8px;
-      background: #176d39;
-      color: #ffffff;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .live-btn:hover {
-      background: #10552c;
-    }
-
-    .live-empty {
-      grid-column: 1 / -1;
-      background: #ffffff;
-      border-radius: 15px;
-      padding: 25px;
-      text-align: center;
-      color: #68756c;
-      box-shadow: 0 5px 18px rgba(0,0,0,0.06);
-    }
-
-    /* =========================
-       SCHEMES
-    ========================== */
-
-    .schemes-section {
-      background: #ffffff;
-    }
-
-    .scheme-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .scheme-card {
-      background: #f9fcf9;
-      border: 1px solid #e2ece4;
-      border-radius: 17px;
-      padding: 22px;
-      display: flex;
-      flex-direction: column;
-      transition: 0.3s;
-    }
-
-    .scheme-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-    }
-
-    .scheme-icon {
-      font-size: 38px;
-      margin-bottom: 8px;
-    }
-
-    .scheme-card h3 {
-      color: #176d39;
-      font-size: 19px;
-      margin-bottom: 8px;
-    }
-
-    .scheme-card p {
-      color: #637067;
-      font-size: 14px;
-      flex: 1;
-    }
-
-    .scheme-buttons {
-      display: flex;
-      gap: 8px;
-      margin-top: 18px;
-      flex-wrap: wrap;
-    }
-
-    .scheme-btn {
-      display: inline-block;
-      background: #176d39;
-      color: white;
-      padding: 9px 13px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .scheme-btn:hover {
-      background: #10552c;
-    }
-
-    .scheme-btn.secondary {
-      background: #e8f4eb;
-      color: #176d39;
-    }
-
-    /* =========================
-       EQUIPMENT
-    ========================== */
-
-    .equipment-section {
-      background: #f5f8f4;
-    }
-
-    /* =========================
-       CONTACT
-    ========================== */
-
-    .contact-section {
-      background: #eaf6ed;
-    }
-
-    .contact-grid {
-      max-width: 1000px;
-      margin: auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .contact-card {
-      background: white;
-      border-radius: 18px;
-      padding: 28px 20px;
-      text-align: center;
-      box-shadow: 0 7px 22px rgba(0,0,0,0.07);
-      transition: 0.3s;
-    }
-
-    .contact-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .contact-card .icon {
-      font-size: 42px;
-      margin-bottom: 10px;
-    }
-
-    .contact-card h3 {
-      color: #176d39;
-      margin-bottom: 7px;
-    }
-
-    .contact-card a {
-      color: #4d5c52;
-      font-size: 14px;
-      word-break: break-word;
-    }
-
-    .contact-card a:hover {
-      color: #176d39;
-    }
-
-    .whatsapp-card {
-      border-top: 4px solid #25D366;
-    }
-
-    /* =========================
-       FOOTER
-    ========================== */
-
-    footer {
-      background: #123524;
-      color: white;
-      padding: 45px 20px 20px;
-      margin-top: 0;
-    }
-
-    .footer-container {
-      max-width: 1200px;
-      margin: auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 40px;
-    }
-
-    .footer-box h3 {
-      font-size: 21px;
-      margin-bottom: 18px;
-      color: #ffffff;
-    }
-
-    .footer-box p {
-      color: #d9e8df;
-      line-height: 1.7;
-      font-size: 15px;
-    }
-
-    .footer-box a {
-      display: block;
-      color: #d9e8df;
-      text-decoration: none;
-      margin: 10px 0;
-      transition: 0.3s;
-    }
-
-    .footer-box a:hover {
-      color: #ffd54f;
-      transform: translateX(4px);
-    }
-
-    .contact-link {
-      display: flex !important;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 0;
-      font-size: 15px;
-      word-break: break-word;
-    }
-
-    .whatsapp-link:hover {
-      color: #25D366 !important;
-    }
-
-    .footer-bottom {
-      max-width: 1200px;
-      margin: 35px auto 0;
-      padding-top: 20px;
-      border-top: 1px solid rgba(255,255,255,0.2);
-      text-align: center;
-      color: #d9e8df;
-      font-size: 14px;
-      line-height: 1.8;
-    }
-
-    /* =========================
-       MODAL
-    ========================== */
-
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.60);
-      z-index: 3000;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .modal.show {
-      display: flex;
-    }
-
-    .modal-box {
-      width: 100%;
-      max-width: 420px;
-      background: white;
-      border-radius: 18px;
-      padding: 28px;
-      position: relative;
-      box-shadow: 0 15px 50px rgba(0,0,0,0.25);
-    }
-
-    .close-modal {
-      position: absolute;
-      right: 15px;
-      top: 10px;
-      border: none;
-      background: none;
-      font-size: 27px;
-      cursor: pointer;
-      color: #777;
-    }
-
-    .modal-box h2 {
-      color: #176d39;
-      margin-bottom: 20px;
-    }
-
-    .form-group {
-      margin-bottom: 14px;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 5px;
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .form-group input {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #ccd6ce;
-      border-radius: 8px;
-      outline: none;
-    }
-
-    .form-group input:focus {
-      border-color: #19763d;
-    }
-
-    .submit-btn {
-      width: 100%;
-      border: none;
-      padding: 12px;
-      border-radius: 8px;
-      background: #176d39;
-      color: white;
-      cursor: pointer;
-      font-weight: 800;
-      margin-top: 5px;
-    }
-
-    .submit-btn:hover {
-      background: #10552c;
-    }
-
-    .modal-switch {
-      text-align: center;
-      margin-top: 15px;
-      font-size: 14px;
-    }
-
-    .modal-switch button {
-      border: none;
-      background: none;
-      color: #176d39;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .forgot-btn {
-      display: block;
-      width: 100%;
-      border: none;
-      background: none;
-      color: #176d39;
-      cursor: pointer;
-      margin-top: 12px;
-      font-size: 14px;
-    }
-
-    .form-message {
-      margin-top: 12px;
-      font-size: 14px;
-      text-align: center;
-    }
-
-    /* =========================
-       MOBILE
-    ========================== */
-
-    @media (max-width: 1000px) {
-
-      .nav-links {
-        display: none;
-        position: absolute;
-        top: 68px;
-        left: 0;
-        right: 0;
-        background: white;
-        padding: 15px;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.10);
-        flex-direction: column;
-      }
-
-      .nav-links.active {
-        display: flex;
-      }
-
-      .nav-links a {
-        width: 100%;
-        text-align: center;
-      }
-
-      .menu-btn {
-        display: block;
-      }
-
-      .auth-area {
-        margin-left: auto;
-      }
-
-      .cards,
-      .scheme-grid,
-      .live-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .weather-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-      .footer-container {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    @media (max-width: 700px) {
-
-      .navbar {
-        padding: 10px 12px;
-      }
-
-      .logo {
-        font-size: 17px;
-      }
-
-      .logo-icon {
-        width: 36px;
-        height: 36px;
-        font-size: 19px;
-      }
-
-      .auth-btn {
-        padding: 8px 10px;
-        font-size: 12px;
-      }
-
-      .hero {
-        padding: 55px 15px 60px;
-      }
-
-      .hero-subtitle {
-        font-size: 17px;
-      }
-
-      .search-box {
-        flex-direction: column;
-        background: transparent;
-        box-shadow: none;
-        gap: 8px;
-      }
-
-      .search-box input {
-        border-radius: 10px;
-        padding: 14px;
-      }
-
-      .search-box button {
-        min-height: 48px;
-      }
-
-      section {
-        padding: 48px 15px;
-      }
-
-      .section-title h2 {
-        font-size: 26px;
-      }
-
-      .weather-search {
-        flex-direction: column;
-      }
-
-      .weather-search button {
-        min-height: 45px;
-      }
-
-      .weather-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .cards,
-      .scheme-grid,
-      .live-grid,
-      .contact-grid,
-      .footer-container {
-        grid-template-columns: 1fr;
-      }
-
-      .weather-card {
-        padding: 20px 14px;
-      }
-
-      .weather-temp {
-        font-size: 40px;
-      }
-
-      .footer-container {
-        gap: 25px;
-      }
-    }
-  </style>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>ખેડૂત મિત્ર | ખેડૂતોનું ડિજિટલ સાથી</title>
+
+<meta
+  name="description"
+  content="ખેડૂત મિત્ર - હવામાન, બજાર ભાવ, પાક માર્ગદર્શન, સરકારી યોજનાઓ અને ખેતી સાધનોની માહિતી."
+>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:
+    "Noto Sans Gujarati",
+    "Nirmala UI",
+    Arial,
+    sans-serif;
+
+  background:#f5f8f4;
+  color:#1d2b20;
+  line-height:1.6;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+button,
+input{
+  font-family:inherit;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:#fff;
+  box-shadow:0 2px 15px rgba(0,0,0,.08);
+}
+
+.navbar{
+  max-width:1250px;
+  margin:auto;
+  padding:12px 20px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  font-weight:800;
+  color:#18753c;
+  font-size:21px;
+  white-space:nowrap;
+}
+
+.logo-icon{
+  width:42px;
+  height:42px;
+
+  border-radius:50%;
+  background:#e7f7ea;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:23px;
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:5px;
+}
+
+.nav-links a{
+  padding:9px 11px;
+  border-radius:8px;
+
+  font-size:14px;
+  color:#35463a;
+
+  transition:.3s;
+}
+
+.nav-links a:hover{
+  background:#eaf7ed;
+  color:#16743a;
+}
+
+.auth-area{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.auth-btn{
+  border:none;
+
+  padding:9px 14px;
+
+  border-radius:8px;
+
+  cursor:pointer;
+
+  background:#19763d;
+  color:#fff;
+
+  font-weight:600;
+}
+
+.auth-btn:hover{
+  background:#125d2e;
+}
+
+.menu-btn{
+  display:none;
+
+  border:none;
+
+  background:#eaf7ed;
+  color:#176f39;
+
+  font-size:25px;
+
+  padding:5px 10px;
+
+  border-radius:8px;
+
+  cursor:pointer;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+  background:
+    linear-gradient(
+      135deg,
+      rgba(13,89,43,.96),
+      rgba(30,125,65,.90)
+    );
+
+  color:#fff;
+
+  padding:75px 20px 85px;
+
+  text-align:center;
+}
+
+.hero-container{
+  max-width:1000px;
+  margin:auto;
+}
+
+.hero h1{
+  font-size:clamp(32px,6vw,58px);
+  margin-bottom:10px;
+  font-weight:900;
+}
+
+.hero-subtitle{
+  font-size:20px;
+  margin-bottom:12px;
+}
+
+.hero-text{
+  max-width:700px;
+  margin:0 auto 30px;
+
+  color:#e8f7ec;
+  font-size:16px;
+}
+
+.search-box{
+  max-width:720px;
+
+  margin:auto;
+
+  display:flex;
+
+  background:#fff;
+
+  padding:6px;
+
+  border-radius:15px;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.18);
+}
+
+.search-box input{
+  flex:1;
+
+  border:none;
+  outline:none;
+
+  padding:15px;
+
+  font-size:16px;
+
+  min-width:0;
+
+  color:#222;
+  background:#fff;
+}
+
+.search-box button{
+  border:none;
+
+  background:#ffca28;
+
+  color:#3d3000;
+
+  font-weight:800;
+
+  padding:0 25px;
+
+  border-radius:10px;
+
+  cursor:pointer;
+
+  font-size:15px;
+}
+
+
+/* =========================================================
+   GENERAL
+========================================================= */
+
+section{
+  padding:65px 20px;
+}
+
+.section-container{
+  max-width:1200px;
+  margin:auto;
+}
+
+.section-title{
+  text-align:center;
+  margin-bottom:35px;
+}
+
+.section-title h2{
+  color:#176c38;
+  font-size:31px;
+  margin-bottom:8px;
+}
+
+.section-title p{
+  color:#657269;
+}
+
+
+/* =========================================================
+   WEATHER
+========================================================= */
+
+.weather-section{
+  background:#eef7ff;
+}
+
+.weather-search{
+  max-width:650px;
+
+  margin:0 auto 30px;
+
+  display:flex;
+  gap:8px;
+}
+
+.weather-search input{
+  flex:1;
+
+  padding:13px;
+
+  border:1px solid #ccd8df;
+
+  border-radius:9px;
+
+  outline:none;
+
+  font-size:15px;
+}
+
+.weather-search button{
+  border:none;
+
+  background:#1976d2;
+  color:#fff;
+
+  padding:0 20px;
+
+  border-radius:9px;
+
+  cursor:pointer;
+
+  font-weight:700;
+}
+
+.weather-card{
+  max-width:850px;
+
+  margin:auto;
+
+  background:#fff;
+
+  border-radius:20px;
+
+  padding:30px;
+
+  box-shadow:
+    0 8px 25px rgba(0,0,0,.08);
+}
+
+.weather-main{
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  gap:25px;
+
+  margin-bottom:25px;
+
+  flex-wrap:wrap;
+}
+
+.weather-icon{
+  font-size:65px;
+}
+
+.weather-temp{
+  font-size:48px;
+
+  font-weight:800;
+
+  color:#176c38;
+}
+
+.weather-location{
+  font-size:18px;
+  color:#555;
+}
+
+.weather-desc{
+  color:#777;
+}
+
+.weather-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(5,1fr);
+
+  gap:12px;
+}
+
+.weather-item{
+  background:#f5f9fc;
+
+  padding:16px 8px;
+
+  border-radius:12px;
+
+  text-align:center;
+}
+
+.weather-item strong{
+  display:block;
+
+  color:#166b38;
+
+  font-size:18px;
+
+  margin-top:5px;
+}
+
+.weather-loading{
+  text-align:center;
+  color:#777;
+  padding:20px;
+}
+
+
+/* =========================================================
+   MARKET
+========================================================= */
+
+.market-section{
+  background:#fff;
+}
+
+.market-status{
+  text-align:center;
+
+  margin-bottom:20px;
+
+  color:#68756c;
+
+  font-size:14px;
+}
+
+.table-wrapper{
+  overflow-x:auto;
+
+  background:#fff;
+
+  border-radius:15px;
+
+  box-shadow:
+    0 8px 25px rgba(0,0,0,.07);
+}
+
+table{
+  width:100%;
+
+  border-collapse:collapse;
+
+  min-width:750px;
+}
+
+th{
+  background:#176d39;
+  color:#fff;
+
+  padding:15px;
+
+  text-align:left;
+}
+
+td{
+  padding:15px;
+
+  border-bottom:
+    1px solid #edf0ed;
+}
+
+tr:hover td{
+  background:#f8fbf8;
+}
+
+.price{
+  font-weight:800;
+  color:#176d39;
+}
+
+.increase{
+  color:#159447;
+  font-weight:700;
+
+  background:#e9f8ee;
+
+  padding:7px 10px;
+
+  border-radius:20px;
+
+  display:inline-block;
+}
+
+.decrease{
+  color:#d33b3b;
+  font-weight:700;
+
+  background:#fdecec;
+
+  padding:7px 10px;
+
+  border-radius:20px;
+
+  display:inline-block;
+}
+
+.same{
+  color:#64748b;
+  background:#f1f5f9;
+
+  padding:7px 10px;
+
+  border-radius:20px;
+
+  display:inline-block;
+
+  font-weight:700;
+}
+
+
+/* =========================================================
+   LIVE ADS
+========================================================= */
+
+.ads-section{
+  background:#fff7e8;
+}
+
+.ads-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:20px;
+}
+
+.ad-card{
+  background:#fff;
+
+  border-radius:18px;
+
+  overflow:hidden;
+
+  border:1px solid #f0dfbc;
+
+  box-shadow:
+    0 8px 25px rgba(0,0,0,.08);
+
+  transition:.3s;
+
+  display:flex;
+
+  flex-direction:column;
+}
+
+.ad-card:hover{
+  transform:translateY(-5px);
+
+  box-shadow:
+    0 14px 35px rgba(0,0,0,.12);
+}
+
+.ad-image-wrap{
+  width:100%;
+
+  aspect-ratio:16/9;
+
+  background:#f1f3f1;
+
+  overflow:hidden;
+}
+
+.ad-image{
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  display:block;
+}
+
+.ad-image-error{
+  width:100%;
+  height:100%;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  text-align:center;
+
+  padding:20px;
+
+  color:#777;
+
+  background:#f5f5f5;
+}
+
+.ad-content{
+  padding:20px;
+
+  display:flex;
+  flex-direction:column;
+
+  flex:1;
+}
+
+.ad-content h3{
+  color:#176d39;
+
+  font-size:20px;
+
+  margin-bottom:8px;
+}
+
+.ad-content p{
+  color:#637067;
+
+  font-size:14px;
+
+  margin-bottom:15px;
+
+  flex:1;
+}
+
+.ad-btn{
+  display:inline-block;
+
+  background:#176d39;
+
+  color:#fff;
+
+  padding:10px 15px;
+
+  border-radius:9px;
+
+  font-weight:700;
+
+  text-align:center;
+}
+
+.ad-btn:hover{
+  background:#10552c;
+}
+
+.ads-empty{
+  grid-column:1/-1;
+
+  background:#fff;
+
+  border-radius:15px;
+
+  padding:30px;
+
+  text-align:center;
+
+  color:#68756c;
+
+  box-shadow:
+    0 5px 18px rgba(0,0,0,.06);
+}
+
+
+/* =========================================================
+   LIVE NOTICES / SCHEMES
+========================================================= */
+
+.live-section{
+  background:#f5faf4;
+}
+
+.live-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:20px;
+}
+
+.live-card{
+  background:#fff;
+
+  border:1px solid #e1ebe3;
+
+  border-radius:17px;
+
+  padding:24px;
+
+  box-shadow:
+    0 7px 22px rgba(0,0,0,.07);
+
+  transition:.3s;
+}
+
+.live-card:hover{
+  transform:translateY(-4px);
+
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.10);
+}
+
+.live-card h3{
+  color:#176d39;
+
+  font-size:20px;
+
+  margin-bottom:10px;
+}
+
+.live-card p{
+  color:#637067;
+
+  font-size:15px;
+
+  line-height:1.7;
+
+  margin-bottom:12px;
+}
+
+.live-date{
+  color:#777;
+
+  font-size:13px;
+
+  margin-bottom:10px;
+}
+
+.live-btn{
+  display:inline-block;
+
+  margin-top:8px;
+
+  padding:9px 14px;
+
+  border-radius:8px;
+
+  background:#176d39;
+
+  color:#fff;
+
+  font-size:13px;
+
+  font-weight:700;
+}
+
+.live-btn:hover{
+  background:#10552c;
+}
+
+.live-empty{
+  grid-column:1/-1;
+
+  background:#fff;
+
+  border-radius:15px;
+
+  padding:25px;
+
+  text-align:center;
+
+  color:#68756c;
+
+  box-shadow:
+    0 5px 18px rgba(0,0,0,.06);
+}
+
+
+/* =========================================================
+   GUIDANCE
+========================================================= */
+
+.guidance-section{
+  background:#f5faf4;
+}
+
+.cards{
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:20px;
+}
+
+.card{
+  background:#fff;
+
+  border-radius:17px;
+
+  padding:25px;
+
+  box-shadow:
+    0 7px 22px rgba(0,0,0,.07);
+
+  transition:.3s;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.10);
+}
+
+.card-icon{
+  font-size:38px;
+
+  margin-bottom:10px;
+}
+
+.card h3{
+  color:#176c38;
+
+  margin-bottom:8px;
+}
+
+.card p{
+  color:#637067;
+
+  font-size:14px;
+}
+
+
+/* =========================================================
+   STATIC SCHEMES
+========================================================= */
+
+.schemes-section{
+  background:#fff;
+}
+
+.scheme-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:20px;
+}
+
+.scheme-card{
+  background:#f9fcf9;
+
+  border:1px solid #e2ece4;
+
+  border-radius:17px;
+
+  padding:22px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  transition:.3s;
+}
+
+.scheme-card:hover{
+  transform:translateY(-4px);
+
+  box-shadow:
+    0 8px 25px rgba(0,0,0,.08);
+}
+
+.scheme-icon{
+  font-size:38px;
+
+  margin-bottom:8px;
+}
+
+.scheme-card h3{
+  color:#176d39;
+
+  font-size:19px;
+
+  margin-bottom:8px;
+}
+
+.scheme-card p{
+  color:#637067;
+
+  font-size:14px;
+
+  flex:1;
+}
+
+.scheme-buttons{
+  display:flex;
+
+  gap:8px;
+
+  margin-top:18px;
+
+  flex-wrap:wrap;
+}
+
+.scheme-btn{
+  display:inline-block;
+
+  background:#176d39;
+
+  color:#fff;
+
+  padding:9px 13px;
+
+  border-radius:8px;
+
+  font-size:13px;
+
+  font-weight:700;
+}
+
+.scheme-btn:hover{
+  background:#10552c;
+}
+
+.scheme-btn.secondary{
+  background:#e8f4eb;
+  color:#176d39;
+}
+
+
+/* =========================================================
+   EQUIPMENT
+========================================================= */
+
+.equipment-section{
+  background:#f5f8f4;
+}
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+.contact-section{
+  background:#eaf6ed;
+}
+
+.contact-grid{
+  max-width:1000px;
+
+  margin:auto;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:20px;
+}
+
+.contact-card{
+  background:#fff;
+
+  border-radius:18px;
+
+  padding:28px 20px;
+
+  text-align:center;
+
+  box-shadow:
+    0 7px 22px rgba(0,0,0,.07);
+
+  transition:.3s;
+}
+
+.contact-card:hover{
+  transform:translateY(-5px);
+}
+
+.contact-card .icon{
+  font-size:42px;
+
+  margin-bottom:10px;
+}
+
+.contact-card h3{
+  color:#176d39;
+
+  margin-bottom:7px;
+}
+
+.contact-card a{
+  color:#4d5c52;
+
+  font-size:14px;
+
+  word-break:break-word;
+}
+
+.whatsapp-card{
+  border-top:4px solid #25D366;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+  background:#123524;
+
+  color:#fff;
+
+  padding:45px 20px 20px;
+}
+
+.footer-container{
+  max-width:1200px;
+
+  margin:auto;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:40px;
+}
+
+.footer-box h3{
+  font-size:21px;
+
+  margin-bottom:18px;
+}
+
+.footer-box p{
+  color:#d9e8df;
+
+  line-height:1.7;
+
+  font-size:15px;
+}
+
+.footer-box a{
+  display:block;
+
+  color:#d9e8df;
+
+  margin:10px 0;
+
+  transition:.3s;
+}
+
+.footer-box a:hover{
+  color:#ffd54f;
+
+  transform:translateX(4px);
+}
+
+.contact-link{
+  display:flex !important;
+
+  align-items:center;
+
+  gap:10px;
+
+  padding:8px 0;
+
+  word-break:break-word;
+}
+
+.whatsapp-link:hover{
+  color:#25D366 !important;
+}
+
+.footer-bottom{
+  max-width:1200px;
+
+  margin:35px auto 0;
+
+  padding-top:20px;
+
+  border-top:
+    1px solid rgba(255,255,255,.2);
+
+  text-align:center;
+
+  color:#d9e8df;
+
+  font-size:14px;
+
+  line-height:1.8;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal{
+  display:none;
+
+  position:fixed;
+
+  inset:0;
+
+  background:rgba(0,0,0,.60);
+
+  z-index:3000;
+
+  align-items:center;
+
+  justify-content:center;
+
+  padding:20px;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:100%;
+
+  max-width:420px;
+
+  background:#fff;
+
+  border-radius:18px;
+
+  padding:28px;
+
+  position:relative;
+
+  box-shadow:
+    0 15px 50px rgba(0,0,0,.25);
+}
+
+.close-modal{
+  position:absolute;
+
+  right:15px;
+
+  top:10px;
+
+  border:none;
+
+  background:none;
+
+  font-size:27px;
+
+  cursor:pointer;
+
+  color:#777;
+}
+
+.modal-box h2{
+  color:#176d39;
+
+  margin-bottom:20px;
+}
+
+.form-group{
+  margin-bottom:14px;
+}
+
+.form-group label{
+  display:block;
+
+  margin-bottom:5px;
+
+  font-size:14px;
+
+  font-weight:700;
+}
+
+.form-group input{
+  width:100%;
+
+  padding:12px;
+
+  border:1px solid #ccd6ce;
+
+  border-radius:8px;
+
+  outline:none;
+}
+
+.submit-btn{
+  width:100%;
+
+  border:none;
+
+  padding:12px;
+
+  border-radius:8px;
+
+  background:#176d39;
+
+  color:#fff;
+
+  cursor:pointer;
+
+  font-weight:800;
+
+  margin-top:5px;
+}
+
+.modal-switch{
+  text-align:center;
+
+  margin-top:15px;
+
+  font-size:14px;
+}
+
+.modal-switch button,
+.forgot-btn{
+  border:none;
+
+  background:none;
+
+  color:#176d39;
+
+  font-weight:800;
+
+  cursor:pointer;
+}
+
+.forgot-btn{
+  display:block;
+
+  width:100%;
+
+  margin-top:12px;
+
+  font-size:14px;
+}
+
+.form-message{
+  margin-top:12px;
+
+  font-size:14px;
+
+  text-align:center;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:1000px){
+
+  .nav-links{
+    display:none;
+
+    position:absolute;
+
+    top:68px;
+
+    left:0;
+    right:0;
+
+    background:#fff;
+
+    padding:15px;
+
+    box-shadow:
+      0 10px 20px rgba(0,0,0,.10);
+
+    flex-direction:column;
+  }
+
+  .nav-links.active{
+    display:flex;
+  }
+
+  .nav-links a{
+    width:100%;
+
+    text-align:center;
+  }
+
+  .menu-btn{
+    display:block;
+  }
+
+  .cards,
+  .scheme-grid,
+  .ads-grid,
+  .live-grid{
+    grid-template-columns:
+      repeat(2,1fr);
+  }
+
+  .weather-grid{
+    grid-template-columns:
+      repeat(3,1fr);
+  }
+
+  .footer-container{
+    grid-template-columns:
+      1fr 1fr;
+  }
+}
+
+
+@media(max-width:700px){
+
+  .navbar{
+    padding:10px 12px;
+  }
+
+  .logo{
+    font-size:17px;
+  }
+
+  .logo-icon{
+    width:36px;
+    height:36px;
+
+    font-size:19px;
+  }
+
+  .auth-btn{
+    padding:8px 10px;
+
+    font-size:12px;
+  }
+
+  .hero{
+    padding:55px 15px 60px;
+  }
+
+  .hero-subtitle{
+    font-size:17px;
+  }
+
+  .search-box{
+    flex-direction:column;
+
+    background:transparent;
+
+    box-shadow:none;
+
+    gap:8px;
+  }
+
+  .search-box input{
+    border-radius:10px;
+  }
+
+  .search-box button{
+    min-height:48px;
+  }
+
+  section{
+    padding:48px 15px;
+  }
+
+  .section-title h2{
+    font-size:26px;
+  }
+
+  .weather-search{
+    flex-direction:column;
+  }
+
+  .weather-search button{
+    min-height:45px;
+  }
+
+  .weather-grid{
+    grid-template-columns:
+      repeat(2,1fr);
+  }
+
+  .cards,
+  .scheme-grid,
+  .ads-grid,
+  .live-grid,
+  .contact-grid,
+  .footer-container{
+    grid-template-columns:1fr;
+  }
+
+  .weather-card{
+    padding:20px 14px;
+  }
+
+  .weather-temp{
+    font-size:40px;
+  }
+
+}
+
+</style>
+
 </head>
+
 
 <body>
 
-  <!-- =========================
-       HEADER
-  ========================== -->
 
-  <header>
+<!-- =======================================================
+     HEADER
+======================================================= -->
 
-    <div class="navbar">
+<header>
 
-      <a href="#home" class="logo">
-        <span class="logo-icon">🌾</span>
-        <span>ખેડૂત મિત્ર</span>
-      </a>
+<div class="navbar">
 
-      <nav class="nav-links" id="navLinks">
+<a href="#home" class="logo">
 
-        <a href="#home">હોમ</a>
+<span class="logo-icon">
+🌾
+</span>
 
-        <a href="#weather">હવામાન</a>
+<span>
+ખેડૂત મિત્ર
+</span>
 
-        <a href="#market">બજાર ભાવ</a>
+</a>
 
-        <a href="#guidance">પાક માર્ગદર્શન</a>
 
-        <a href="#notices">📢 નોટિસ</a>
+<nav class="nav-links" id="navLinks">
 
-        <a href="#schemes">સરકારી યોજનાઓ</a>
+<a href="#home">
+હોમ
+</a>
 
-        <a href="#equipment">ખેતી સાધનો</a>
+<a href="#weather">
+હવામાન
+</a>
 
-        <a href="#contact">સંપર્ક</a>
+<a href="#market">
+બજાર ભાવ
+</a>
 
-      </nav>
+<a href="#ads">
+જાહેરાત
+</a>
 
-      <div class="auth-area">
+<a href="#notices">
+નોટિસ
+</a>
 
-        <button
-          class="auth-btn"
-          id="loginOpenBtn"
-          type="button"
-        >
-          🔐 Login
-        </button>
+<a href="#guidance">
+પાક માર્ગદર્શન
+</a>
 
-        <button
-          class="menu-btn"
-          id="menuBtn"
-          type="button"
-        >
-          ☰
-        </button>
+<a href="#schemes">
+સરકારી યોજનાઓ
+</a>
 
-      </div>
+<a href="#equipment">
+ખેતી સાધનો
+</a>
 
-    </div>
+<a href="#contact">
+સંપર્ક
+</a>
 
-  </header>
+</nav>
 
 
-  <!-- =========================
-       HERO
-  ========================== -->
+<div class="auth-area">
 
-  <section class="hero" id="home">
+<button
+  class="auth-btn"
+  id="loginOpenBtn"
+>
+🔐 Login
+</button>
 
-    <div class="hero-container">
+<button
+  class="menu-btn"
+  id="menuBtn"
+>
+☰
+</button>
 
-      <h1>🌾 ખેડૂત મિત્ર</h1>
+</div>
 
-      <div class="hero-subtitle">
-        ખેડૂતોનું ડિજિટલ સાથી
-      </div>
+</div>
 
-      <p class="hero-text">
-        હવામાન, બજાર ભાવ, પાક માર્ગદર્શન, સરકારી યોજનાઓ
-        અને ખેતી સાધનોની માહિતી એક જ જગ્યાએ મેળવો.
-      </p>
+</header>
 
-      <div class="search-box">
 
-        <input
-          type="text"
-          id="siteSearchInput"
-          placeholder="શું શોધવું છે? જેમ કે હવામાન, બજાર ભાવ..."
-        >
 
-        <button
-          type="button"
-          id="siteSearchBtn"
-        >
-          🔍 શોધો
-        </button>
+<!-- =======================================================
+     HERO
+======================================================= -->
 
-      </div>
+<section
+  class="hero"
+  id="home"
+>
 
-    </div>
+<div class="hero-container">
 
-  </section>
+<h1>
+🌾 ખેડૂત મિત્ર
+</h1>
 
+<div class="hero-subtitle">
+ખેડૂતોનું ડિજિટલ સાથી
+</div>
 
-  <!-- =========================
-       WEATHER
-  ========================== -->
+<p class="hero-text">
+હવામાન, બજાર ભાવ, પાક માર્ગદર્શન,
+સરકારી યોજનાઓ અને ખેતી સાધનોની
+માહિતી એક જ જગ્યાએ મેળવો.
+</p>
 
-  <section class="weather-section" id="weather">
 
-    <div class="section-container">
+<div class="search-box">
 
-      <div class="section-title">
+<input
+  type="text"
+  id="siteSearchInput"
+  placeholder="શું શોધવું છે? જેમ કે હવામાન, બજાર ભાવ..."
+>
 
-        <h2>🌤️ લાઈવ હવામાન</h2>
+<button
+  type="button"
+  id="siteSearchBtn"
+>
+🔍 શોધો
+</button>
 
-        <p>
-          તમારા શહેરનું હાલનું હવામાન જુઓ
-        </p>
+</div>
 
-      </div>
+</div>
 
-      <div class="weather-search">
+</section>
 
-        <input
-          type="text"
-          id="weatherCityInput"
-          value="Botad"
-          placeholder="શહેરનું નામ લખો"
-        >
 
-        <button
-          type="button"
-          id="weatherBtn"
-        >
-          🔍 હવામાન જુઓ
-        </button>
 
-      </div>
+<!-- =======================================================
+     WEATHER
+======================================================= -->
 
-      <div class="weather-card">
+<section
+  class="weather-section"
+  id="weather"
+>
 
-        <div id="weatherContent">
+<div class="section-container">
 
-          <div class="weather-loading">
-            🌤️ હવામાન લોડ થઈ રહ્યું છે...
-          </div>
+<div class="section-title">
 
-        </div>
+<h2>
+🌤️ લાઈવ હવામાન
+</h2>
 
-      </div>
+<p>
+તમારા શહેરનું હાલનું હવામાન જુઓ
+</p>
 
-    </div>
+</div>
 
-  </section>
 
+<div class="weather-search">
 
-  <!-- =========================
-       MARKET
-  ========================== -->
+<input
+  type="text"
+  id="weatherCityInput"
+  value="Botad"
+  placeholder="શહેરનું નામ લખો"
+>
 
-  <section class="market-section" id="market">
+<button
+  type="button"
+  id="weatherBtn"
+>
+🔍 હવામાન જુઓ
+</button>
 
-    <div class="section-container">
+</div>
 
-      <div class="section-title">
 
-        <h2>📈 આજના બજાર ભાવ</h2>
+<div class="weather-card">
 
-        <p>
-          Firebase માંથી લાઈવ ડેટા
-        </p>
+<div id="weatherContent">
 
-      </div>
+<div class="weather-loading">
+🌤️ હવામાન લોડ થઈ રહ્યું છે...
+</div>
 
-      <div
-        class="market-status"
-        id="marketStatus"
-      >
-        ⏳ બજાર ભાવ લોડ થઈ રહ્યા છે...
-      </div>
+</div>
 
-      <div class="table-wrapper">
+</div>
 
-        <table>
+</div>
 
-          <thead>
+</section>
 
-            <tr>
 
-              <th>પાક</th>
 
-              <th>બજાર</th>
+<!-- =======================================================
+     MARKET
+======================================================= -->
 
-              <th>ન્યૂનતમ ભાવ</th>
+<section
+  class="market-section"
+  id="market"
+>
 
-              <th>મહત્તમ ભાવ</th>
+<div class="section-container">
 
-              <th>સરેરાશ ભાવ</th>
+<div class="section-title">
 
-              <th>આવક</th>
+<h2>
+📈 આજના બજાર ભાવ
+</h2>
 
-              <th>સ્થિતિ</th>
+<p>
+Firebase માંથી લાઈવ ડેટા
+</p>
 
-            </tr>
+</div>
 
-          </thead>
 
-          <tbody id="marketTableBody">
+<div
+  class="market-status"
+  id="marketStatus"
+>
+⏳ બજાર ભાવ લોડ થઈ રહ્યા છે...
+</div>
 
-            <tr>
 
-              <td
-                colspan="7"
-                style="text-align:center;"
-              >
-                ⏳ ડેટા લોડ થઈ રહ્યો છે...
-              </td>
+<div class="table-wrapper">
 
-            </tr>
+<table>
 
-          </tbody>
+<thead>
 
-        </table>
+<tr>
 
-      </div>
+<th>
+પાક
+</th>
 
-    </div>
+<th>
+બજાર
+</th>
 
-  </section>
+<th>
+ન્યૂનતમ ભાવ
+</th>
 
+<th>
+મહત્તમ ભાવ
+</th>
 
-  <!-- =========================
-       GUIDANCE
-  ========================== -->
+<th>
+સરેરાશ ભાવ
+</th>
 
-  <section
-    class="guidance-section"
-    id="guidance"
-  >
+<th>
+આવક
+</th>
 
-    <div class="section-container">
+<th>
+સ્થિતિ
+</th>
 
-      <div class="section-title">
+</tr>
 
-        <h2>🌱 પાક માર્ગદર્શન</h2>
+</thead>
 
-        <p>
-          મુખ્ય પાકો માટે ઉપયોગી માહિતી
-        </p>
 
-      </div>
+<tbody id="marketTableBody">
 
-      <div class="cards">
+<tr>
 
-        <div class="card">
+<td
+  colspan="7"
+  style="text-align:center;"
+>
+⏳ ડેટા લોડ થઈ રહ્યો છે...
+</td>
 
-          <div class="card-icon">🥜</div>
+</tr>
 
-          <h3>મગફળી</h3>
+</tbody>
 
-          <p>
-            મગફળીના વાવેતર, પાણી વ્યવસ્થાપન,
-            ખાતર અને રોગ નિયંત્રણ અંગેની મૂળભૂત માહિતી.
-          </p>
+</table>
 
-        </div>
+</div>
 
-        <div class="card">
+</div>
 
-          <div class="card-icon">🌿</div>
+</section>
 
-          <h3>કપાસ</h3>
 
-          <p>
-            કપાસના પાકમાં વાવેતરથી લઈને જીવાત
-            અને રોગ નિયંત્રણ સુધીની ઉપયોગી માહિતી.
-          </p>
 
-        </div>
+<!-- =======================================================
+     LIVE ADS
+======================================================= -->
 
-        <div class="card">
+<section
+  class="ads-section"
+  id="ads"
+>
 
-          <div class="card-icon">🌾</div>
+<div class="section-container">
 
-          <h3>ઘઉં</h3>
+<div class="section-title">
 
-          <p>
-            ઘઉંના પાક માટે જમીન તૈયારી,
-            સિંચાઈ અને ખેતી વ્યવસ્થાપનની માહિતી.
-          </p>
+<h2>
+📢 ખાસ જાહેરાતો
+</h2>
 
-        </div>
+<p>
+ખેડૂત મિત્ર પર ઉપલબ્ધ નવી જાહેરાતો
+</p>
 
-        <div class="card">
+</div>
 
-          <div class="card-icon">🌿</div>
 
-          <h3>જીરું</h3>
+<div
+  class="ads-grid"
+  id="adsList"
+>
 
-          <p>
-            જીરું પાકમાં યોગ્ય વાવેતર,
-            પાણી અને રોગ વ્યવસ્થાપન વિશે માહિતી.
-          </p>
+<div class="ads-empty">
+⏳ જાહેરાતો લોડ થઈ રહી છે...
+</div>
 
-        </div>
+</div>
 
-        <div class="card">
+</div>
 
-          <div class="card-icon">🌽</div>
+</section>
 
-          <h3>મકાઈ</h3>
 
-          <p>
-            મકાઈ માટે વાવેતર, ખાતર, સિંચાઈ
-            અને પાક સંભાળની માહિતી.
-          </p>
 
-        </div>
+<!-- =======================================================
+     LIVE NOTICES
+======================================================= -->
 
-        <div class="card">
+<section
+  class="live-section"
+  id="notices"
+>
 
-          <div class="card-icon">🧅</div>
+<div class="section-container">
 
-          <h3>ડુંગળી</h3>
+<div class="section-title">
 
-          <p>
-            ડુંગળીના પાકમાં વાવેતર, પાણી,
-            રોગ અને સંગ્રહ અંગેની માહિતી.
-          </p>
+<h2>
+📢 મહત્વની નોટિસ
+</h2>
 
-        </div>
+<p>
+એડમિન દ્વારા ઉમેરવામાં આવેલી નવીનતમ માહિતી
+</p>
 
-      </div>
+</div>
 
-    </div>
 
-  </section>
+<div
+  class="live-grid"
+  id="noticesList"
+>
 
+<div class="live-empty">
+⏳ નોટિસ લોડ થઈ રહી છે...
+</div>
 
-  <!-- =========================
-       LIVE FIRESTORE NOTICES
-  ========================== -->
+</div>
 
-  <section
-    class="live-section"
-    id="notices"
-  >
+</div>
 
-    <div class="section-container">
+</section>
 
-      <div class="section-title">
 
-        <h2>📢 મહત્વની નોટિસ</h2>
 
-        <p>
-          એડમિન દ્વારા ઉમેરવામાં આવેલી નવીનતમ માહિતી
-        </p>
+<!-- =======================================================
+     LIVE SCHEMES
+======================================================= -->
 
-      </div>
+<section
+  class="live-section"
+  id="liveSchemes"
+>
 
-      <div
-        class="live-grid"
-        id="noticesList"
-      >
+<div class="section-container">
 
-        <div class="live-empty">
-          ⏳ નોટિસ લોડ થઈ રહી છે...
-        </div>
+<div class="section-title">
 
-      </div>
+<h2>
+🏛️ નવી સરકારી યોજનાઓ
+</h2>
 
-    </div>
+<p>
+એડમિન દ્વારા ઉમેરવામાં આવેલી નવી યોજનાઓ
+</p>
 
-  </section>
+</div>
 
 
-  <!-- =========================
-       LIVE FIRESTORE SCHEMES
-  ========================== -->
+<div
+  class="live-grid"
+  id="schemesList"
+>
 
-  <section
-    class="live-section"
-    id="liveSchemes"
-  >
+<div class="live-empty">
+⏳ યોજનાઓ લોડ થઈ રહી છે...
+</div>
 
-    <div class="section-container">
+</div>
 
-      <div class="section-title">
+</div>
 
-        <h2>🏛️ નવી સરકારી યોજનાઓ</h2>
+</section>
 
-        <p>
-          એડમિન દ્વારા ઉમેરવામાં આવેલી યોજનાઓ
-        </p>
 
-      </div>
 
-      <div
-        class="live-grid"
-        id="schemesList"
-      >
+<!-- =======================================================
+     GUIDANCE
+======================================================= -->
 
-        <div class="live-empty">
-          ⏳ યોજનાઓ લોડ થઈ રહી છે...
-        </div>
+<section
+  class="guidance-section"
+  id="guidance"
+>
 
-      </div>
+<div class="section-container">
 
-    </div>
+<div class="section-title">
 
-  </section>
+<h2>
+🌱 પાક માર્ગદર્શન
+</h2>
 
+<p>
+મુખ્ય પાકો માટે ઉપયોગી માહિતી
+</p>
 
-  <!-- =========================
-       GOVERNMENT SCHEMES
-  ========================== -->
+</div>
 
-  <section
-    class="schemes-section"
-    id="schemes"
-  >
 
-    <div class="section-container">
+<div class="cards">
 
-      <div class="section-title">
 
-        <h2>📋 સરકારી યોજનાઓ</h2>
+<div class="card">
 
-        <p>
-          ખેડૂતો માટે ઉપયોગી સરકારી યોજનાઓ અને અધિકૃત લિંક્સ
-        </p>
+<div class="card-icon">
+🥜
+</div>
 
-      </div>
+<h3>
+મગફળી
+</h3>
 
-      <div class="scheme-grid">
+<p>
+મગફળીના વાવેતર, પાણી વ્યવસ્થાપન,
+ખાતર અને રોગ નિયંત્રણ અંગેની
+મૂળભૂત માહિતી.
+</p>
 
+</div>
 
-        <div class="scheme-card">
 
-          <div class="scheme-icon">🌾</div>
+<div class="card">
 
-          <h3>
-            i-Khedut ખેતીવાડી યોજનાઓ
-          </h3>
+<div class="card-icon">
+🌿
+</div>
 
-          <p>
-            ગુજરાત સરકારની ખેતીવાડી વિભાગ હેઠળની
-            વિવિધ ખેડૂત યોજનાઓ.
-          </p>
+<h3>
+કપાસ
+</h3>
 
-          <div class="scheme-buttons">
+<p>
+કપાસના પાકમાં વાવેતરથી લઈને
+જીવાત અને રોગ નિયંત્રણ સુધીની
+ઉપયોગી માહિતી.
+</p>
 
-            <a
-              href="https://ikhedut.gujarat.gov.in/iKhedutPublicScheme/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="scheme-btn"
-            >
-              યોજનાઓ જુઓ
-            </a>
+</div>
 
-            <a
-              href="https://ikhedut.gujarat.gov.in/site/login"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="scheme-btn secondary"
-            >
-              Login
-            </a>
 
-          </div>
+<div class="card">
 
-        </div>
+<div class="card-icon">
+🌾
+</div>
 
+<h3>
+ઘઉં
+</h3>
 
-        <div class="scheme-card">
+<p>
+ઘઉંના પાક માટે જમીન તૈયારી,
+સિંચાઈ અને ખેતી વ્યવસ્થાપનની
+માહિતી.
+</p>
 
-          <div class="scheme-icon">🚜</div>
+</div>
 
-          <h3>
-            કૃષિ યાંત્રિકીકરણ
-          </h3>
 
-          <p>
-            ટ્રેક્ટર, ખેતીના સાધનો અને મશીનરી માટે
-            ઉપલબ્ધ સરકારી સહાયની માહિતી.
-          </p>
+<div class="card">
 
-          <div class="scheme-buttons">
+<div class="card-icon">
+🌿
+</div>
 
-            <a
-              href="https://ikhedut.gujarat.gov.in/iKhedutPublicScheme/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="scheme-btn"
-            >
-              i-Khedut
-            </a>
+<h3>
+જીરું
+</h3>
 
-          </div>
+<p>
+જીરું પાકમાં યોગ્ય વાવેતર,
+પાણી અને રોગ વ્યવસ્થાપન
+વિશે માહિતી.
+</p>
 
-        </div>
+</div>
 
 
-        <div class="scheme-card">
+<div class="card">
 
-          <div class="scheme-icon">🌳</div>
+<div class="card-icon">
+🌽
+</div>
 
-          <h3>
-            બાગાયત યોજનાઓ
-          </h3>
+<h3>
+મકાઈ
+</h3>
 
-          <p>
-            ફળ, શાકભાજી, બાગાયત અને સંબંધિત ખેતી માટે
-            ઉપલબ્ધ સહાય યોજનાઓ.
-          </p>
+<p>
+મકાઈ માટે વાવેતર, ખાતર,
+સિંચાઈ અને પાક સંભાળની
+માહિતી.
+</p>
 
-          <div class="scheme-buttons">
+</div>
 
-            <a
-              href="https://ikhedut.gujarat.gov.in/iKhedutPublicScheme/Public/frm_Public_GhataksWithGroupAndMainScheme.aspx"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="scheme-btn"
-            >
-              યોજનાઓ જુઓ
-            </a>
 
-          </div>
+<div class="card">
 
-        </div>
+<div class="card-icon">
+🧅
+</div>
 
+<h3>
+ડુંગળી
+</h3>
 
-        <div class="scheme-card">
+<p>
+ડુંગળીના પાકમાં વાવેતર,
+પાણી, રોગ અને સંગ્રહ
+અંગેની માહિતી.
+</p>
 
-          <div class="scheme-icon">🐄</div>
+</div>
 
-          <h3>
-            પશુપાલન યોજનાઓ
-          </h3>
+</div>
 
-          <p>
-            ગાય, ભેંસ અને અન્ય પશુપાલન માટે
-            સરકાર દ્વારા ઉપલબ્ધ યોજનાઓ.
-          </p>
+</div>
 
-          <div class="scheme-buttons">
+</section>
 
-            <a
-              href="https://ikhedut.gujarat.gov.in/iKhedutPublicScheme/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="scheme-btn"
-            >
-              માહિતી જુઓ
-            </a>
 
-          </div>
 
-        </div>
+<!-- =======================================================
+     GOVERNMENT SCHEMES
+======================================================= -->
 
+<section
+  class="schemes-section"
+  id="schemes"
+>
 
-        <div class="scheme-card">
+<div class="section-container">
 
-          <div class="scheme-icon">🐃</div>
+<div class="section-title">
 
-          <h3>
-            ગૌસેવા / ગૌશાળા
-          </h3>
+<h2>
+📋 સરકારી યોજનાઓ
+</h2>
 
-          <p>
-            ગૌશાળા અને ગૌસેવા સંબંધિત
-            સરકારી સહાય અને યોજનાઓ.
-          </p>
+<p>
+ખેડૂતો માટે ઉપયોગી સરકારી યોજનાઓ અને અધિકૃત લિંક્સ
+</p>
 
-          <div class="scheme-buttons">
+</div>
 
-            <a
-              href="https://ikhedut.gujarat.gov.in/iKhedutPublicScheme/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="scheme-btn"
-            >
-              i-Khedut
-            </a>
 
-          </div>
+<div class="scheme-grid">
 
-        </div>
 
+<div class="scheme-card">
 
-        <div class="scheme-card">
+<div class="scheme-icon">
+🌾
+</div>
 
-          <div class="scheme-icon">💧</div>
+<h3>
+i-Khedut ખેતીવાડી યોજનાઓ
+</h3>
 
-          <h3>
-            સિંચાઈ અને પાણી વ્યવસ્થાપન
-          </h3>
+<p>
+ગુજરાત સરકારની ખેતીવાડી વિભાગ હેઠળની
+વિવિધ ખેડૂત યોજનાઓ.
+</p>
 
-          <p>
-            ખેતી માટે પાણી બચત, સિંચાઈ અને
-            પાણી વ્યવસ્થાપન સંબંધિત સહાય.
-          </p>
+<div class="scheme-buttons">
 
-          <div class="scheme-buttons">
+<a
+  href="https://ikhedut.gujarat.gov.in/iKhedutPublicScheme/"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="scheme-btn"
+>
+યોજનાઓ જુઓ
+</a>
 
-            <a
-              href="https://ikhedut.gujarat.gov.in/iKhedutPublicScheme/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="scheme-btn"
-            >
-              યોજનાઓ જુઓ
-            </a>
+<a
+  href="https://ikhedut.gujarat.gov.in/site/login"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="scheme-btn secondary"
+>
+Login
+</a>
 
-          </div>
+</div>
 
-        </div>
+</div>
 
 
-        <div class="scheme-card">
+<div class="scheme-card">
 
-          <div class="scheme-icon">🏦</div>
+<div class="scheme-icon">
+🚜
+</div>
 
-          <h3>
-            KCC / કૃષિ નાણાકીય સહાય
-          </h3>
+<h3>
+કૃષિ યાંત્રિકીકરણ
+</h3>
 
-          <p>
-            ખેડૂતો માટે કૃષિ લોન અને
-            Kisan Credit Card સંબંધિત માહિતી.
-          </p>
+<p>
+ટ્રેક્ટર, ખેતીના સાધનો અને મશીનરી માટે
+ઉપલબ્ધ સરકારી સહાયની માહિતી.
+</p>
 
-          <div class="scheme-buttons">
+<div class="scheme-buttons">
 
-            <a
-              href="https://www.pmkisan.gov.in/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="scheme-btn"
-            >
-              PM-KISAN
-            </a>
+<a
+  href="https://ikhedut.gujarat.gov.in/iKhedutPublicScheme/"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="scheme-btn"
+>
+i-Khedut
+</a>
 
-          </div>
+</div>
 
-        </div>
+</div>
 
 
-        <div class="scheme-card">
+<div class="scheme-card">
 
-          <div class="scheme-icon">💰</div>
+<div class="scheme-icon">
+🌳
+</div>
 
-          <h3>
-            PM-KISAN
-          </h3>
+<h3>
+બાગાયત યોજનાઓ
+</h3>
 
-          <p>
-            પાત્ર જમીનધારક ખેડૂત પરિવારો માટે
-            કેન્દ્ર સરકારની PM-KISAN યોજના.
-          </p>
+<p>
+ફળ, શાકભાજી અને બાગાયત માટે
+ઉપલબ્ધ સહાય યોજનાઓ.
+</p>
 
-          <div class="scheme-buttons">
+<div class="scheme-buttons">
 
-            <a
-              href="https://pmkisan.gov.in/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="scheme-btn"
-            >
-              Official Website
-            </a>
+<a
+  href="https://ikhedut.gujarat.gov.in/iKhedutPublicScheme/"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="scheme-btn"
+>
+યોજનાઓ જુઓ
+</a>
 
-          </div>
+</div>
 
-        </div>
+</div>
 
 
-        <div class="scheme-card">
+<div class="scheme-card">
 
-          <div class="scheme-icon">🛡️</div>
+<div class="scheme-icon">
+🐄
+</div>
 
-          <h3>
-            પ્રધાનમંત્રી ફસલ બીમા યોજના
-          </h3>
+<h3>
+પશુપાલન યોજનાઓ
+</h3>
 
-          <p>
-            પાકના જોખમ સામે પાક વીમા સંબંધિત
-            અધિકૃત માહિતી.
-          </p>
+<p>
+ગાય, ભેંસ અને અન્ય પશુપાલન માટે
+સરકાર દ્વારા ઉપલબ્ધ યોજનાઓ.
+</p>
 
-          <div class="scheme-buttons">
+<div class="scheme-buttons">
 
-            <a
-              href="https://pmfby.gov.in/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="scheme-btn"
-            >
-              PMFBY Website
-            </a>
+<a
+  href="https://ikhedut.gujarat.gov.in/iKhedutPublicScheme/"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="scheme-btn"
+>
+માહિતી જુઓ
+</a>
 
-          </div>
+</div>
 
-        </div>
+</div>
 
 
-        <div class="scheme-card">
+<div class="scheme-card">
 
-          <div class="scheme-icon">👨‍🌾</div>
+<div class="scheme-icon">
+💧
+</div>
 
-          <h3>
-            Farmer Registry
-          </h3>
+<h3>
+સિંચાઈ અને પાણી વ્યવસ્થાપન
+</h3>
 
-          <p>
-            ખેડૂતની ડિજિટલ ઓળખ અને
-            Farmer Registry સંબંધિત માહિતી.
-          </p>
+<p>
+ખેતી માટે પાણી બચત અને સિંચાઈ
+સંબંધિત સહાય.
+</p>
 
-          <div class="scheme-buttons">
+<div class="scheme-buttons">
 
-            <a
-              href="https://gjfr.agristack.gov.in/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="scheme-btn"
-            >
-              Farmer Registry
-            </a>
+<a
+  href="https://ikhedut.gujarat.gov.in/iKhedutPublicScheme/"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="scheme-btn"
+>
+યોજનાઓ જુઓ
+</a>
 
-          </div>
+</div>
 
-        </div>
+</div>
 
 
-        <div class="scheme-card">
+<div class="scheme-card">
 
-          <div class="scheme-icon">🌱</div>
+<div class="scheme-icon">
+💰
+</div>
 
-          <h3>
-            કુદરતી / ટકાઉ ખેતી
-          </h3>
+<h3>
+PM-KISAN
+</h3>
 
-          <p>
-            કુદરતી ખેતી અને ટકાઉ કૃષિ માટે
-            ઉપલબ્ધ સરકારી માહિતી અને યોજનાઓ.
-          </p>
+<p>
+પાત્ર જમીનધારક ખેડૂત પરિવારો માટે
+કેન્દ્ર સરકારની PM-KISAN યોજના.
+</p>
 
-          <div class="scheme-buttons">
+<div class="scheme-buttons">
 
-            <a
-              href="https://ikhedut.gujarat.gov.in/iKhedutPublicScheme/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="scheme-btn"
-            >
-              i-Khedut
-            </a>
+<a
+  href="https://pmkisan.gov.in/"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="scheme-btn"
+>
+Official Website
+</a>
 
-          </div>
+</div>
 
-        </div>
+</div>
 
 
-        <div class="scheme-card">
+<div class="scheme-card">
 
-          <div class="scheme-icon">🌾</div>
+<div class="scheme-icon">
+🛡️
+</div>
 
-          <h3>
-            બિયારણ / તેલબિયાં યોજનાઓ
-          </h3>
+<h3>
+પ્રધાનમંત્રી ફસલ બીમા યોજના
+</h3>
 
-          <p>
-            બિયારણ અને તેલબિયાં સંબંધિત
-            ઉપલબ્ધ સરકારી સહાયની માહિતી.
-          </p>
+<p>
+પાકના જોખમ સામે પાક વીમા
+સંબંધિત અધિકૃત માહિતી.
+</p>
 
-          <div class="scheme-buttons">
+<div class="scheme-buttons">
 
-            <a
-              href="https://ikhedut.gujarat.gov.in/iKhedutPublicScheme/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="scheme-btn"
-            >
-              માહિતી જુઓ
-            </a>
+<a
+  href="https://pmfby.gov.in/"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="scheme-btn"
+>
+PMFBY Website
+</a>
 
-          </div>
+</div>
 
-        </div>
+</div>
 
 
-        <div class="scheme-card">
+<div class="scheme-card">
 
-          <div class="scheme-icon">🏭</div>
+<div class="scheme-icon">
+👨‍🌾
+</div>
 
-          <h3>
-            કૃષિ પ્રોસેસિંગ / Value Addition
-          </h3>
+<h3>
+Farmer Registry
+</h3>
 
-          <p>
-            કૃષિ ઉત્પાદનના પ્રોસેસિંગ,
-            સંગ્રહ અને value addition માટેની માહિતી.
-          </p>
+<p>
+ખેડૂતની ડિજિટલ ઓળખ અને
+Farmer Registry સંબંધિત માહિતી.
+</p>
 
-          <div class="scheme-buttons">
+<div class="scheme-buttons">
 
-            <a
-              href="https://ikhedut.gujarat.gov.in/iKhedutPublicScheme/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="scheme-btn"
-            >
-              i-Khedut
-            </a>
+<a
+  href="https://gjfr.agristack.gov.in/"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="scheme-btn"
+>
+Farmer Registry
+</a>
 
-          </div>
+</div>
 
-        </div>
+</div>
 
 
-        <div class="scheme-card">
+<div class="scheme-card">
 
-          <div class="scheme-icon">📡</div>
+<div class="scheme-icon">
+🌱
+</div>
 
-          <h3>
-            Smart & Precision Farming
-          </h3>
+<h3>
+કુદરતી / ટકાઉ ખેતી
+</h3>
 
-          <p>
-            Smart farming, precision farming અને
-            આધુનિક કૃષિ ટેક્નોલોજી સંબંધિત માહિતી.
-          </p>
+<p>
+કુદરતી ખેતી અને ટકાઉ કૃષિ માટે
+ઉપલબ્ધ માહિતી.
+</p>
 
-          <div class="scheme-buttons">
+<div class="scheme-buttons">
 
-            <a
-              href="https://ikhedut.gujarat.gov.in/iKhedutPublicScheme/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="scheme-btn"
-            >
-              યોજનાઓ જુઓ
-            </a>
+<a
+  href="https://ikhedut.gujarat.gov.in/iKhedutPublicScheme/"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="scheme-btn"
+>
+i-Khedut
+</a>
 
-          </div>
+</div>
 
-        </div>
+</div>
 
 
-        <div class="scheme-card">
+<div class="scheme-card">
 
-          <div class="scheme-icon">🌿</div>
+<div class="scheme-icon">
+🏭
+</div>
 
-          <h3>
-            પશુ ચારા / Fodder યોજનાઓ
-          </h3>
+<h3>
+કૃષિ પ્રોસેસિંગ
+</h3>
 
-          <p>
-            પશુઓ માટે ચારા ઉત્પાદન અને
-            સંબંધિત સહાય યોજનાઓની માહિતી.
-          </p>
+<p>
+કૃષિ ઉત્પાદનના પ્રોસેસિંગ,
+સંગ્રહ અને value addition માટેની માહિતી.
+</p>
 
-          <div class="scheme-buttons">
+<div class="scheme-buttons">
 
-            <a
-              href="https://ikhedut.gujarat.gov.in/iKhedutPublicScheme/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="scheme-btn"
-            >
-              i-Khedut
-            </a>
+<a
+  href="https://ikhedut.gujarat.gov.in/iKhedutPublicScheme/"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="scheme-btn"
+>
+i-Khedut
+</a>
 
-          </div>
+</div>
 
-        </div>
+</div>
 
 
-        <div class="scheme-card">
+<div class="scheme-card">
 
-          <div class="scheme-icon">🤝</div>
+<div class="scheme-icon">
+📡
+</div>
 
-          <h3>
-            ખેડૂત કલ્યાણ યોજનાઓ
-          </h3>
+<h3>
+Smart & Precision Farming
+</h3>
 
-          <p>
-            ખેડૂતો માટેની વિવિધ કલ્યાણકારી
-            સરકારી યોજનાઓ અને માહિતી.
-          </p>
+<p>
+Smart farming અને આધુનિક કૃષિ
+ટેક્નોલોજી સંબંધિત માહિતી.
+</p>
 
-          <div class="scheme-buttons">
+<div class="scheme-buttons">
 
-            <a
-              href="https://ikhedut.gujarat.gov.in/iKhedutPublicScheme/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="scheme-btn"
-            >
-              બધી યોજનાઓ
-            </a>
+<a
+  href="https://ikhedut.gujarat.gov.in/iKhedutPublicScheme/"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="scheme-btn"
+>
+યોજનાઓ જુઓ
+</a>
 
-          </div>
+</div>
 
-        </div>
+</div>
 
 
-        <div class="scheme-card">
+<div class="scheme-card">
 
-          <div class="scheme-icon">📋</div>
+<div class="scheme-icon">
+📋
+</div>
 
-          <h3>
-            બધી i-Khedut યોજનાઓ
-          </h3>
+<h3>
+બધી i-Khedut યોજનાઓ
+</h3>
 
-          <p>
-            ગુજરાત સરકારના i-Khedut પોર્ટલ પર ઉપલબ્ધ
-            યોજનાઓ અને વિભાગોની સંપૂર્ણ માહિતી.
-          </p>
+<p>
+ગુજરાત સરકારના i-Khedut પોર્ટલ પર ઉપલબ્ધ
+યોજનાઓ અને વિભાગોની સંપૂર્ણ માહિતી.
+</p>
 
-          <div class="scheme-buttons">
+<div class="scheme-buttons">
 
-            <a
-              href="https://ikhedut.gujarat.gov.in/iKhedutPublicScheme/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="scheme-btn"
-            >
-              🌐 બધી યોજનાઓ જુઓ
-            </a>
+<a
+  href="https://ikhedut.gujarat.gov.in/iKhedutPublicScheme/"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="scheme-btn"
+>
+🌐 બધી યોજનાઓ જુઓ
+</a>
 
-            <a
-              href="https://ikhedut.gujarat.gov.in/site/signup"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="scheme-btn secondary"
-            >
-              📝 Registration
-            </a>
+<a
+  href="https://ikhedut.gujarat.gov.in/site/signup"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="scheme-btn secondary"
+>
+📝 Registration
+</a>
 
-          </div>
+</div>
 
-        </div>
+</div>
 
 
-        <div class="scheme-card">
+<div class="scheme-card">
 
-          <div class="scheme-icon">🔎</div>
+<div class="scheme-icon">
+🔎
+</div>
 
-          <h3>
-            અરજીનું સ્ટેટસ
-          </h3>
+<h3>
+અરજીનું સ્ટેટસ
+</h3>
 
-          <p>
-            i-Khedut પર કરેલી યોજનાની અરજીનું
-            સ્ટેટસ ચેક કરવા માટે.
-          </p>
+<p>
+i-Khedut પર કરેલી યોજનાની અરજીનું
+સ્ટેટસ ચેક કરવા માટે.
+</p>
 
-          <div class="scheme-buttons">
+<div class="scheme-buttons">
 
-            <a
-              href="https://ikhedut.gujarat.gov.in/Scheme/frm_SchemeApplicationStatus.aspx"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="scheme-btn"
-            >
-              Status Check
-            </a>
+<a
+  href="https://ikhedut.gujarat.gov.in/Scheme/frm_SchemeApplicationStatus.aspx"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="scheme-btn"
+>
+Status Check
+</a>
 
-          </div>
+</div>
 
-        </div>
+</div>
 
-      </div>
+</div>
 
-    </div>
+</div>
 
-  </section>
+</section>
 
 
-  <!-- =========================
-       EQUIPMENT
-  ========================== -->
 
-  <section
-    class="equipment-section"
-    id="equipment"
-  >
+<!-- =======================================================
+     EQUIPMENT
+======================================================= -->
 
-    <div class="section-container">
+<section
+  class="equipment-section"
+  id="equipment"
+>
 
-      <div class="section-title">
+<div class="section-container">
 
-        <h2>🚜 ખેતી સાધનો</h2>
+<div class="section-title">
 
-        <p>
-          આધુનિક ખેતી માટે ઉપયોગી સાધનો
-        </p>
+<h2>
+🚜 ખેતી સાધનો
+</h2>
 
-      </div>
+<p>
+આધુનિક ખેતી માટે ઉપયોગી સાધનો
+</p>
 
-      <div class="cards">
+</div>
 
-        <div class="card">
 
-          <div class="card-icon">🚜</div>
+<div class="cards">
 
-          <h3>
-            ટ્રેક્ટર
-          </h3>
 
-          <p>
-            ખેતીમાં જમીન તૈયારી અને વિવિધ
-            કૃષિ કાર્યો માટે ટ્રેક્ટર.
-          </p>
+<div class="card">
 
-        </div>
+<div class="card-icon">
+🚜
+</div>
 
-        <div class="card">
+<h3>
+ટ્રેક્ટર
+</h3>
 
-          <div class="card-icon">💧</div>
+<p>
+ખેતીમાં જમીન તૈયારી અને વિવિધ
+કૃષિ કાર્યો માટે ટ્રેક્ટર.
+</p>
 
-          <h3>
-            પાણીનો પંપ
-          </h3>
+</div>
 
-          <p>
-            સિંચાઈ માટે વિવિધ પ્રકારના
-            પાણીના પંપ અને સાધનો.
-          </p>
 
-        </div>
+<div class="card">
 
-        <div class="card">
+<div class="card-icon">
+💧
+</div>
 
-          <div class="card-icon">🌾</div>
+<h3>
+પાણીનો પંપ
+</h3>
 
-          <h3>
-            કૃષિ મશીનરી
-          </h3>
+<p>
+સિંચાઈ માટે વિવિધ પ્રકારના
+પાણીના પંપ અને સાધનો.
+</p>
 
-          <p>
-            વાવણી, કાપણી અને અન્ય ખેતી કાર્યો
-            માટે આધુનિક મશીનરી.
-          </p>
+</div>
 
-        </div>
 
-        <div class="card">
+<div class="card">
 
-          <div class="card-icon">🧰</div>
+<div class="card-icon">
+🌾
+</div>
 
-          <h3>
-            ખેતીના સાધનો
-          </h3>
+<h3>
+કૃષિ મશીનરી
+</h3>
 
-          <p>
-            ખેડૂતો માટે જરૂરી વિવિધ
-            કૃષિ સાધનો અને ઉપકરણો.
-          </p>
+<p>
+વાવણી, કાપણી અને અન્ય ખેતી કાર્યો
+માટે આધુનિક મશીનરી.
+</p>
 
-        </div>
+</div>
 
-      </div>
 
-    </div>
+<div class="card">
 
-  </section>
+<div class="card-icon">
+🧰
+</div>
 
+<h3>
+ખેતીના સાધનો
+</h3>
 
-  <!-- =========================
-       CONTACT
-  ========================== -->
+<p>
+ખેડૂતો માટે જરૂરી વિવિધ
+કૃષિ સાધનો અને ઉપકરણો.
+</p>
 
-  <section
-    class="contact-section"
-    id="contact"
-  >
+</div>
 
-    <div class="section-container">
+</div>
 
-      <div class="section-title">
+</div>
 
-        <h2>📞 સંપર્ક કરો</h2>
+</section>
 
-        <p>
-          ખેડૂત મિત્ર સાથે સીધો સંપર્ક કરો
-        </p>
 
-      </div>
 
-      <div class="contact-grid">
+<!-- =======================================================
+     CONTACT
+======================================================= -->
 
-        <div class="contact-card">
+<section
+  class="contact-section"
+  id="contact"
+>
 
-          <div class="icon">📱</div>
+<div class="section-container">
 
-          <h3>
-            Call કરો
-          </h3>
+<div class="section-title">
 
-          <a href="tel:9016942705">
-            9016942705
-          </a>
+<h2>
+📞 સંપર્ક કરો
+</h2>
 
-        </div>
+<p>
+ખેડૂત મિત્ર સાથે સીધો સંપર્ક કરો
+</p>
 
+</div>
 
-        <div class="contact-card">
 
-          <div class="icon">✉️</div>
+<div class="contact-grid">
 
-          <h3>
-            Email કરો
-          </h3>
 
-          <a
-            href="mailto:udayrajkhachar125@gmail.com?subject=Khedut%20Mitra%20Website%20Inquiry"
-          >
-            udayrajkhachar125@gmail.com
-          </a>
+<div class="contact-card">
 
-        </div>
+<div class="icon">
+📱
+</div>
 
+<h3>
+Call કરો
+</h3>
 
-        <div class="contact-card whatsapp-card">
+<a href="tel:9016942705">
+9016942705
+</a>
 
-          <div class="icon">💬</div>
+</div>
 
-          <h3>
-            WhatsApp
-          </h3>
 
-          <a
-            href="https://wa.me/919016942705"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            WhatsApp પર મેસેજ કરો
-          </a>
+<div class="contact-card">
 
-        </div>
+<div class="icon">
+✉️
+</div>
 
-      </div>
+<h3>
+Email કરો
+</h3>
 
-    </div>
+<a
+  href="mailto:udayrajkhachar125@gmail.com?subject=Khedut%20Mitra%20Website%20Inquiry"
+>
+udayrajkhachar125@gmail.com
+</a>
 
-  </section>
+</div>
 
 
-  <!-- =========================
-       FOOTER
-  ========================== -->
+<div class="contact-card whatsapp-card">
 
-  <footer>
+<div class="icon">
+💬
+</div>
 
-    <div class="footer-container">
+<h3>
+WhatsApp
+</h3>
 
-      <div class="footer-box">
+<a
+  href="https://wa.me/919016942705"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+WhatsApp પર મેસેજ કરો
+</a>
 
-        <h3>
-          🌾 ખેડૂત મિત્ર
-        </h3>
+</div>
 
-        <p>
-          ખેડૂતો માટે હવામાન, બજાર ભાવ,
-          પાક માર્ગદર્શન અને સરકારી યોજનાઓની
-          ઉપયોગી માહિતી એક જ જગ્યાએ.
-        </p>
+</div>
 
-      </div>
+</div>
 
+</section>
 
-      <div class="footer-box">
 
-        <h3>
-          🔗 ઝડપી લિંક્સ
-        </h3>
 
-        <a href="#home">
-          🏠 હોમ
-        </a>
+<!-- =======================================================
+     FOOTER
+======================================================= -->
 
-        <a href="#weather">
-          🌤️ હવામાન
-        </a>
+<footer>
 
-        <a href="#market">
-          📈 બજાર ભાવ
-        </a>
+<div class="footer-container">
 
-        <a href="#guidance">
-          🌱 પાક માર્ગદર્શન
-        </a>
 
-        <a href="#notices">
-          📢 નોટિસ
-        </a>
+<div class="footer-box">
 
-        <a href="#schemes">
-          📋 સરકારી યોજનાઓ
-        </a>
+<h3>
+🌾 ખેડૂત મિત્ર
+</h3>
 
-        <a href="#equipment">
-          🚜 ખેતી સાધનો
-        </a>
+<p>
+ખેડૂતો માટે હવામાન, બજાર ભાવ,
+પાક માર્ગદર્શન અને સરકારી યોજનાઓની
+ઉપયોગી માહિતી એક જ જગ્યાએ.
+</p>
 
-        <a href="#contact">
-          📞 સંપર્ક
-        </a>
+</div>
 
-      </div>
 
+<div class="footer-box">
 
-      <div class="footer-box">
+<h3>
+🔗 ઝડપી લિંક્સ
+</h3>
 
-        <h3>
-          📞 સંપર્ક કરો
-        </h3>
+<a href="#home">
+🏠 હોમ
+</a>
 
-        <a
-          href="tel:9016942705"
-          class="contact-link"
-        >
-          📱
-          <span>
-            9016942705
-          </span>
-        </a>
+<a href="#weather">
+🌤️ હવામાન
+</a>
 
-        <a
-          href="mailto:udayrajkhachar125@gmail.com?subject=Khedut%20Mitra%20Website%20Inquiry"
-          class="contact-link"
-        >
-          ✉️
-          <span>
-            udayrajkhachar125@gmail.com
-          </span>
-        </a>
+<a href="#market">
+📈 બજાર ભાવ
+</a>
 
-        <a
-          href="https://wa.me/919016942705"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="contact-link whatsapp-link"
-        >
-          💬
-          <span>
-            WhatsApp પર સંપર્ક કરો
-          </span>
-        </a>
+<a href="#ads">
+📢 જાહેરાત
+</a>
 
-      </div>
+<a href="#notices">
+📢 નોટિસ
+</a>
 
-    </div>
+<a href="#schemes">
+📋 સરકારી યોજનાઓ
+</a>
 
+<a href="#contact">
+📞 સંપર્ક
+</a>
 
-    <div class="footer-bottom">
+</div>
 
-      <p>
-        © 2026 ખેડૂત મિત્ર | ખેડૂતોનું ડિજિટલ સાથી
-      </p>
 
-      <p>
-        📱 9016942705
-        &nbsp; | &nbsp;
-        ✉️ udayrajkhachar125@gmail.com
-      </p>
+<div class="footer-box">
 
-    </div>
+<h3>
+📞 સંપર્ક કરો
+</h3>
 
-  </footer>
+<a
+  href="tel:9016942705"
+  class="contact-link"
+>
+📱
+<span>
+9016942705
+</span>
+</a>
 
+<a
+  href="mailto:udayrajkhachar125@gmail.com"
+  class="contact-link"
+>
+✉️
+<span>
+udayrajkhachar125@gmail.com
+</span>
+</a>
 
-  <!-- =========================
-       LOGIN / REGISTER MODAL
-  ========================== -->
+<a
+  href="https://wa.me/919016942705"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="contact-link whatsapp-link"
+>
+💬
+<span>
+WhatsApp પર સંપર્ક કરો
+</span>
+</a>
 
-  <div
-    class="modal"
-    id="authModal"
-  >
+</div>
 
-    <div class="modal-box">
+</div>
 
-      <button
-        class="close-modal"
-        id="closeModalBtn"
-        type="button"
-      >
-        ×
-      </button>
 
+<div class="footer-bottom">
 
-      <!-- LOGIN -->
+<p>
+© 2026 ખેડૂત મિત્ર | ખેડૂતોનું ડિજિટલ સાથી
+</p>
 
-      <div id="loginForm">
+<p>
+📱 9016942705
+&nbsp; | &nbsp;
+✉️ udayrajkhachar125@gmail.com
+</p>
 
-        <h2>
-          🔐 Login
-        </h2>
+</div>
 
-        <div class="form-group">
+</footer>
 
-          <label>
-            Email
-          </label>
 
-          <input
-            type="email"
-            id="loginEmail"
-            placeholder="તમારો Email"
-          >
 
-        </div>
+<!-- =======================================================
+     LOGIN MODAL
+======================================================= -->
 
+<div
+  class="modal"
+  id="authModal"
+>
 
-        <div class="form-group">
+<div class="modal-box">
 
-          <label>
-            Password
-          </label>
+<button
+  class="close-modal"
+  id="closeModalBtn"
+>
+×
+</button>
 
-          <input
-            type="password"
-            id="loginPassword"
-            placeholder="Password"
-          >
 
-        </div>
+<!-- LOGIN -->
 
+<div id="loginForm">
 
-        <button
-          class="submit-btn"
-          id="loginBtn"
-          type="button"
-        >
-          Login કરો
-        </button>
+<h2>
+🔐 Login
+</h2>
 
+<div class="form-group">
 
-        <button
-          class="forgot-btn"
-          id="forgotBtn"
-          type="button"
-        >
-          🔑 Password ભૂલી ગયા?
-        </button>
+<label>
+Email
+</label>
 
+<input
+  type="email"
+  id="loginEmail"
+  placeholder="તમારો Email"
+>
 
-        <div class="modal-switch">
+</div>
 
-          Account નથી?
 
-          <button
-            id="showRegisterBtn"
-            type="button"
-          >
-            Register કરો
-          </button>
+<div class="form-group">
 
-        </div>
+<label>
+Password
+</label>
 
+<input
+  type="password"
+  id="loginPassword"
+  placeholder="Password"
+>
 
-        <div
-          class="form-message"
-          id="loginMessage"
-        ></div>
+</div>
 
-      </div>
 
+<button
+  class="submit-btn"
+  id="loginBtn"
+>
+Login કરો
+</button>
 
-      <!-- REGISTER -->
 
-      <div
-        id="registerForm"
-        style="display:none;"
-      >
+<button
+  class="forgot-btn"
+  id="forgotBtn"
+>
+🔑 Password ભૂલી ગયા?
+</button>
 
-        <h2>
-          📝 Register
-        </h2>
 
+<div class="modal-switch">
 
-        <div class="form-group">
+Account નથી?
 
-          <label>
-            તમારું નામ
-          </label>
+<button id="showRegisterBtn">
+Register કરો
+</button>
 
-          <input
-            type="text"
-            id="registerName"
-            placeholder="તમારું નામ"
-          >
+</div>
 
-        </div>
 
+<div
+  class="form-message"
+  id="loginMessage"
+></div>
 
-        <div class="form-group">
+</div>
 
-          <label>
-            Email
-          </label>
 
-          <input
-            type="email"
-            id="registerEmail"
-            placeholder="તમારો Email"
-          >
 
-        </div>
+<!-- REGISTER -->
 
+<div
+  id="registerForm"
+  style="display:none;"
+>
 
-        <div class="form-group">
+<h2>
+📝 Register
+</h2>
 
-          <label>
-            Password
-          </label>
 
-          <input
-            type="password"
-            id="registerPassword"
-            placeholder="ઓછામાં ઓછો 6 અક્ષર"
-          >
+<div class="form-group">
 
-        </div>
+<label>
+તમારું નામ
+</label>
 
+<input
+  type="text"
+  id="registerName"
+  placeholder="તમારું નામ"
+>
 
-        <button
-          class="submit-btn"
-          id="registerBtn"
-          type="button"
-        >
-          Register કરો
-        </button>
+</div>
 
 
-        <div class="modal-switch">
+<div class="form-group">
 
-          પહેલેથી Account છે?
+<label>
+Email
+</label>
 
-          <button
-            id="showLoginBtn"
-            type="button"
-          >
-            Login કરો
-          </button>
+<input
+  type="email"
+  id="registerEmail"
+  placeholder="તમારો Email"
+>
 
-        </div>
+</div>
 
 
-        <div
-          class="form-message"
-          id="registerMessage"
-        ></div>
+<div class="form-group">
 
-      </div>
+<label>
+Password
+</label>
 
-    </div>
+<input
+  type="password"
+  id="registerPassword"
+  placeholder="ઓછામાં ઓછો 6 અક્ષર"
+>
 
-  </div>
+</div>
 
 
-  <!-- =========================
-       FIREBASE + JAVASCRIPT
-  ========================== -->
+<button
+  class="submit-btn"
+  id="registerBtn"
+>
+Register કરો
+</button>
 
-  <script type="module">
 
-    /* =========================
-       FIREBASE APP
-    ========================== */
+<div class="modal-switch">
 
-    import {
-      initializeApp
-    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+પહેલેથી Account છે?
 
+<button id="showLoginBtn">
+Login કરો
+</button>
 
-    /* =========================
-       FIRESTORE
-       IMPORTANT:
-       onSnapshot પણ import કર્યું છે
-    ========================== */
+</div>
 
-    import {
-      getFirestore,
-      collection,
-      getDocs,
-      onSnapshot
-    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
+<div
+  class="form-message"
+  id="registerMessage"
+></div>
 
-    /* =========================
-       FIREBASE AUTH
-    ========================== */
+</div>
 
-    import {
-      getAuth,
-      createUserWithEmailAndPassword,
-      signInWithEmailAndPassword,
-      sendPasswordResetEmail,
-      updateProfile,
-      signOut,
-      onAuthStateChanged
-    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+</div>
 
+</div>
 
-    /* =========================
-       FIREBASE CONFIG
-    ========================== */
 
-    const firebaseConfig = {
 
-      apiKey:
-        "AIzaSyCoRcAEmMV0i-WVgnA5uzZjcDzBGtsqcDE",
+<!-- =======================================================
+     FIREBASE
+======================================================= -->
 
-      authDomain:
-        "khedut-mitra-d6808.firebaseapp.com",
+<script type="module">
 
-      projectId:
-        "khedut-mitra-d6808",
+import {
+  initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 
-      storageBucket:
-        "khedut-mitra-d6808.firebasestorage.app",
 
-      messagingSenderId:
-        "368250177516",
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  onSnapshot
+}
+from
+"https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
-      appId:
-        "1:368250177516:web:d23db936f7c5a4e53c62c9",
 
-      measurementId:
-        "G-RZC2MFE0BW"
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  updateProfile,
+  signOut,
+  onAuthStateChanged
+}
+from
+"https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
-    };
 
+/* =========================================================
+   FIREBASE CONFIG
+========================================================= */
 
-    /* =========================
-       INITIALIZE
-    ========================== */
+const firebaseConfig = {
 
-    const app =
-      initializeApp(firebaseConfig);
+  apiKey:
+    "AIzaSyCoRcAEmMV0i-WVgnA5uzZjcDzBGtsqcDE",
 
-    const db =
-      getFirestore(app);
+  authDomain:
+    "khedut-mitra-d6808.firebaseapp.com",
 
-    const auth =
-      getAuth(app);
+  projectId:
+    "khedut-mitra-d6808",
 
+  storageBucket:
+    "khedut-mitra-d6808.firebasestorage.app",
 
-    /* =========================
-       MOBILE MENU
-    ========================== */
+  messagingSenderId:
+    "368250177516",
 
-    const menuBtn =
-      document.getElementById("menuBtn");
+  appId:
+    "1:368250177516:web:d23db936f7c5a4e53c62c9",
 
-    const navLinks =
-      document.getElementById("navLinks");
+  measurementId:
+    "G-RZC2MFE0BW"
 
+};
 
-    menuBtn.addEventListener(
+
+const app =
+  initializeApp(firebaseConfig);
+
+const db =
+  getFirestore(app);
+
+const auth =
+  getAuth(app);
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+const menuBtn =
+  document.getElementById("menuBtn");
+
+const navLinks =
+  document.getElementById("navLinks");
+
+
+menuBtn.addEventListener(
+  "click",
+  () => {
+
+    navLinks.classList.toggle(
+      "active"
+    );
+
+  }
+);
+
+
+document
+  .querySelectorAll(".nav-links a")
+  .forEach(link => {
+
+    link.addEventListener(
       "click",
       () => {
 
-        navLinks.classList.toggle(
+        navLinks.classList.remove(
           "active"
         );
 
       }
     );
 
+  });
 
-    document
-      .querySelectorAll(".nav-links a")
-      .forEach(link => {
 
-        link.addEventListener(
-          "click",
+/* =========================================================
+   SEARCH
+========================================================= */
+
+const siteSearchInput =
+  document.getElementById(
+    "siteSearchInput"
+  );
+
+const siteSearchBtn =
+  document.getElementById(
+    "siteSearchBtn"
+  );
+
+
+function searchSite(){
+
+  const query =
+    siteSearchInput.value
+      .trim()
+      .toLowerCase();
+
+
+  if(!query){
+
+    alert(
+      "કૃપા કરીને કંઈક શોધો."
+    );
+
+    return;
+  }
+
+
+  let target = null;
+
+
+  if(
+    query.includes("હવામાન") ||
+    query.includes("મોસમ") ||
+    query.includes("વરસાદ") ||
+    query.includes("weather")
+  ){
+
+    target = "weather";
+
+  }
+
+
+  else if(
+    query.includes("બજાર") ||
+    query.includes("ભાવ") ||
+    query.includes("market") ||
+    query.includes("price")
+  ){
+
+    target = "market";
+
+  }
+
+
+  else if(
+    query.includes("જાહેરાત") ||
+    query.includes("ads") ||
+    query.includes("advertisement")
+  ){
+
+    target = "ads";
+
+  }
+
+
+  else if(
+    query.includes("નોટિસ") ||
+    query.includes("notice")
+  ){
+
+    target = "notices";
+
+  }
+
+
+  else if(
+    query.includes("પાક") ||
+    query.includes("મગફળી") ||
+    query.includes("કપાસ") ||
+    query.includes("ઘઉં") ||
+    query.includes("જીરું") ||
+    query.includes("મકાઈ") ||
+    query.includes("ડુંગળી")
+  ){
+
+    target = "guidance";
+
+  }
+
+
+  else if(
+    query.includes("યોજના") ||
+    query.includes("સરકારી") ||
+    query.includes("pm kisan") ||
+    query.includes("pm-kisan") ||
+    query.includes("વીમા") ||
+    query.includes("insurance")
+  ){
+
+    target = "schemes";
+
+  }
+
+
+  else if(
+    query.includes("સાધન") ||
+    query.includes("ટ્રેક્ટર") ||
+    query.includes("પંપ") ||
+    query.includes("equipment")
+  ){
+
+    target = "equipment";
+
+  }
+
+
+  else if(
+    query.includes("સંપર્ક") ||
+    query.includes("contact") ||
+    query.includes("email") ||
+    query.includes("whatsapp")
+  ){
+
+    target = "contact";
+
+  }
+
+
+  if(target){
+
+    const section =
+      document.getElementById(
+        target
+      );
+
+
+    section.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+
+
+    setTimeout(
+      () => {
+
+        section.style.boxShadow =
+          "inset 0 0 0 4px rgba(25,118,61,.25)";
+
+
+        setTimeout(
           () => {
 
-            navLinks.classList.remove(
-              "active"
-            );
+            section.style.boxShadow = "";
 
-          }
+          },
+          1500
         );
 
-      });
+      },
+      500
+    );
+
+  }
+
+  else{
+
+    alert(
+      "આ માહિતી હાલમાં ઉપલબ્ધ નથી."
+    );
+
+  }
+
+}
 
 
-    /* =========================
-       SITE SEARCH
-    ========================== */
+siteSearchBtn.addEventListener(
+  "click",
+  searchSite
+);
 
-    const siteSearchInput =
-      document.getElementById(
-        "siteSearchInput"
+
+siteSearchInput.addEventListener(
+  "keydown",
+  event => {
+
+    if(event.key === "Enter"){
+
+      searchSite();
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   WEATHER
+========================================================= */
+
+const weatherBtn =
+  document.getElementById(
+    "weatherBtn"
+  );
+
+const weatherCityInput =
+  document.getElementById(
+    "weatherCityInput"
+  );
+
+const weatherContent =
+  document.getElementById(
+    "weatherContent"
+  );
+
+
+function weatherDescription(code){
+
+  const map = {
+
+    0:["☀️","આકાશ સ્વચ્છ"],
+    1:["🌤️","મુખ્યત્વે સ્વચ્છ"],
+    2:["⛅","આંશિક વાદળછાયું"],
+    3:["☁️","વાદળછાયું"],
+
+    45:["🌫️","ધુમ્મસ"],
+    48:["🌫️","ધુમ્મસ"],
+
+    51:["🌦️","હળવો ઝરમર વરસાદ"],
+    53:["🌦️","મધ્યમ ઝરમર વરસાદ"],
+    55:["🌧️","ભારે ઝરમર વરસાદ"],
+
+    61:["🌦️","હળવો વરસાદ"],
+    63:["🌧️","મધ્યમ વરસાદ"],
+    65:["🌧️","ભારે વરસાદ"],
+
+    71:["🌨️","હળવી હિમવર્ષા"],
+    73:["🌨️","મધ્યમ હિમવર્ષા"],
+    75:["❄️","ભારે હિમવર્ષા"],
+
+    80:["🌦️","વરસાદના ઝાપટા"],
+    81:["🌧️","મધ્યમ ઝાપટા"],
+    82:["⛈️","ભારે વરસાદના ઝાપટા"],
+
+    95:["⛈️","વાવાઝોડું"],
+    96:["⛈️","ગાજવીજ સાથે કરા"],
+    99:["⛈️","ભારે ગાજવીજ અને કરા"]
+
+  };
+
+
+  return (
+    map[code] ||
+    ["🌤️","હવામાનની માહિતી"]
+  );
+
+}
+
+
+async function loadWeather(){
+
+  const city =
+    weatherCityInput.value.trim();
+
+
+  if(!city){
+
+    alert(
+      "કૃપા કરીને શહેરનું નામ લખો."
+    );
+
+    return;
+
+  }
+
+
+  weatherContent.innerHTML = `
+
+    <div class="weather-loading">
+      ⏳ ${city}નું હવામાન શોધી રહ્યા છીએ...
+    </div>
+
+  `;
+
+
+  try{
+
+    const geoUrl =
+      `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=gu&format=json`;
+
+
+    const geoResponse =
+      await fetch(geoUrl);
+
+
+    if(!geoResponse.ok){
+
+      throw new Error(
+        "Geocoding error"
       );
 
-    const siteSearchBtn =
-      document.getElementById(
-        "siteSearchBtn"
+    }
+
+
+    const geoData =
+      await geoResponse.json();
+
+
+    if(
+      !geoData.results ||
+      !geoData.results.length
+    ){
+
+      throw new Error(
+        "City not found"
+      );
+
+    }
+
+
+    const place =
+      geoData.results[0];
+
+
+    const weatherUrl =
+      `https://api.open-meteo.com/v1/forecast?latitude=${place.latitude}&longitude=${place.longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,cloud_cover,wind_speed_10m&hourly=precipitation_probability&forecast_days=1&timezone=auto`;
+
+
+    const weatherResponse =
+      await fetch(weatherUrl);
+
+
+    if(!weatherResponse.ok){
+
+      throw new Error(
+        "Weather error"
+      );
+
+    }
+
+
+    const data =
+      await weatherResponse.json();
+
+
+    const current =
+      data.current;
+
+
+    const [
+      icon,
+      description
+    ] =
+      weatherDescription(
+        current.weather_code
       );
 
 
-    function searchSite() {
-
-      const query =
-        siteSearchInput.value
-          .trim()
-          .toLowerCase();
+    let rainProbability = 0;
 
 
-      if (!query) {
+    if(
+      data.hourly &&
+      Array.isArray(
+        data.hourly.precipitation_probability
+      )
+    ){
 
-        alert(
-          "કૃપા કરીને કંઈક શોધો."
+      const index =
+        data.hourly.time.indexOf(
+          current.time
         );
 
-        siteSearchInput.focus();
 
-        return;
+      if(index >= 0){
 
-      }
-
-
-      let target = null;
-
-
-      if (
-        query.includes("હવામાન") ||
-        query.includes("મોસમ") ||
-        query.includes("વરસાદ") ||
-        query.includes("weather")
-      ) {
-
-        target = "weather";
+        rainProbability =
+          data.hourly
+            .precipitation_probability[index];
 
       }
+      else{
 
-
-      else if (
-        query.includes("બજાર") ||
-        query.includes("ભાવ") ||
-        query.includes("market") ||
-        query.includes("price")
-      ) {
-
-        target = "market";
-
-      }
-
-
-      else if (
-        query.includes("પાક") ||
-        query.includes("મગફળી") ||
-        query.includes("કપાસ") ||
-        query.includes("ઘઉં") ||
-        query.includes("જીરું") ||
-        query.includes("મકાઈ") ||
-        query.includes("ડુંગળી")
-      ) {
-
-        target = "guidance";
-
-      }
-
-
-      else if (
-        query.includes("યોજના") ||
-        query.includes("સરકારી") ||
-        query.includes("pm kisan") ||
-        query.includes("pm-kisan") ||
-        query.includes("વીમા") ||
-        query.includes("insurance")
-      ) {
-
-        target = "schemes";
-
-      }
-
-
-      else if (
-        query.includes("નોટિસ") ||
-        query.includes("notice")
-      ) {
-
-        target = "notices";
-
-      }
-
-
-      else if (
-        query.includes("સાધન") ||
-        query.includes("ટ્રેક્ટર") ||
-        query.includes("પંપ") ||
-        query.includes("equipment")
-      ) {
-
-        target = "equipment";
-
-      }
-
-
-      else if (
-        query.includes("સંપર્ક") ||
-        query.includes("contact") ||
-        query.includes("email") ||
-        query.includes("whatsapp")
-      ) {
-
-        target = "contact";
-
-      }
-
-
-      if (target) {
-
-        const section =
-          document.getElementById(
-            target
-          );
-
-
-        if (section) {
-
-          section.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-          });
-
-
-          setTimeout(
-            () => {
-
-              section.style.boxShadow =
-                "inset 0 0 0 4px rgba(25,118,61,0.25)";
-
-
-              setTimeout(
-                () => {
-
-                  section.style.boxShadow =
-                    "";
-
-                },
-                1500
-              );
-
-            },
-            500
-          );
-
-        }
-
-      }
-
-
-      else {
-
-        alert(
-          "આ માહિતી હાલમાં ઉપલબ્ધ નથી.\n\nહવામાન, બજાર ભાવ, પાક, યોજના, નોટિસ, સાધન અથવા સંપર્ક શોધી જુઓ."
-        );
+        rainProbability =
+          data.hourly
+            .precipitation_probability[0] || 0;
 
       }
 
     }
 
 
-    siteSearchBtn.addEventListener(
-      "click",
-      searchSite
-    );
+    weatherContent.innerHTML = `
 
+      <div class="weather-main">
 
-    siteSearchInput.addEventListener(
-      "keydown",
-      event => {
-
-        if (
-          event.key === "Enter"
-        ) {
-
-          searchSite();
-
-        }
-
-      }
-    );
-
-
-    /* =========================
-       WEATHER
-    ========================== */
-
-    const weatherBtn =
-      document.getElementById(
-        "weatherBtn"
-      );
-
-    const weatherCityInput =
-      document.getElementById(
-        "weatherCityInput"
-      );
-
-    const weatherContent =
-      document.getElementById(
-        "weatherContent"
-      );
-
-
-    function weatherDescription(
-      code
-    ) {
-
-      const map = {
-
-        0: ["☀️", "આકાશ સ્વચ્છ"],
-
-        1: ["🌤️", "મુખ્યત્વે સ્વચ્છ"],
-
-        2: ["⛅", "આંશિક વાદળછાયું"],
-
-        3: ["☁️", "વાદળછાયું"],
-
-        45: ["🌫️", "ધુમ્મસ"],
-
-        48: ["🌫️", "ધુમ્મસ"],
-
-        51: ["🌦️", "હળવો ઝરમર વરસાદ"],
-
-        53: ["🌦️", "મધ્યમ ઝરમર વરસાદ"],
-
-        55: ["🌧️", "ભારે ઝરમર વરસાદ"],
-
-        61: ["🌦️", "હળવો વરસાદ"],
-
-        63: ["🌧️", "મધ્યમ વરસાદ"],
-
-        65: ["🌧️", "ભારે વરસાદ"],
-
-        71: ["🌨️", "હળવો હિમવર્ષા"],
-
-        73: ["🌨️", "મધ્યમ હિમવર્ષા"],
-
-        75: ["❄️", "ભારે હિમવર્ષા"],
-
-        80: ["🌦️", "વરસાદના ઝાપટા"],
-
-        81: ["🌧️", "મધ્યમ ઝાપટા"],
-
-        82: ["⛈️", "ભારે વરસાદના ઝાપટા"],
-
-        95: ["⛈️", "વાવાઝોડું"],
-
-        96: ["⛈️", "ગાજવીજ સાથે કરા"],
-
-        99: ["⛈️", "ભારે ગાજવીજ અને કરા"]
-
-      };
-
-
-      return (
-        map[code] ||
-        ["🌤️", "હવામાનની માહિતી"]
-      );
-
-    }
-
-
-    async function loadWeather() {
-
-      const city =
-        weatherCityInput.value.trim();
-
-
-      if (!city) {
-
-        alert(
-          "કૃપા કરીને શહેરનું નામ લખો."
-        );
-
-        return;
-
-      }
-
-
-      weatherContent.innerHTML = `
-
-        <div class="weather-loading">
-          ⏳ ${city}નું હવામાન શોધી રહ્યા છીએ...
+        <div class="weather-icon">
+          ${icon}
         </div>
 
-      `;
+        <div>
 
-
-      try {
-
-        const geoUrl =
-          `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=gu&format=json`;
-
-
-        const geoResponse =
-          await fetch(geoUrl);
-
-
-        if (!geoResponse.ok) {
-
-          throw new Error(
-            "Geocoding error"
-          );
-
-        }
-
-
-        const geoData =
-          await geoResponse.json();
-
-
-        if (
-          !geoData.results ||
-          geoData.results.length === 0
-        ) {
-
-          throw new Error(
-            "શહેર મળ્યું નથી"
-          );
-
-        }
-
-
-        const place =
-          geoData.results[0];
-
-
-        const latitude =
-          place.latitude;
-
-        const longitude =
-          place.longitude;
-
-
-        const weatherUrl =
-          `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,rain,weather_code,cloud_cover,wind_speed_10m&hourly=precipitation_probability&forecast_days=1&timezone=auto`;
-
-
-        const weatherResponse =
-          await fetch(weatherUrl);
-
-
-        if (!weatherResponse.ok) {
-
-          throw new Error(
-            "Weather error"
-          );
-
-        }
-
-
-        const data =
-          await weatherResponse.json();
-
-
-        const current =
-          data.current;
-
-
-        const [
-          icon,
-          description
-        ] =
-          weatherDescription(
-            current.weather_code
-          );
-
-
-        let rainProbability = 0;
-
-
-        if (
-          data.hourly &&
-          Array.isArray(
-            data.hourly
-              .precipitation_probability
-          )
-        ) {
-
-          const index =
-            data.hourly.time.indexOf(
-              current.time
-            );
-
-
-          if (index >= 0) {
-
-            rainProbability =
-              data.hourly
-                .precipitation_probability[
-                  index
-                ];
-
-          }
-
-          else {
-
-            rainProbability =
-              data.hourly
-                .precipitation_probability[
-                  0
-                ] || 0;
-
-          }
-
-        }
-
-
-        weatherContent.innerHTML = `
-
-          <div class="weather-main">
-
-            <div class="weather-icon">
-              ${icon}
-            </div>
-
-            <div>
-
-              <div class="weather-temp">
-                ${Math.round(
-                  current.temperature_2m
-                )}°C
-              </div>
-
-              <div class="weather-location">
-                📍 ${
-                  place.name || city
-                }
-              </div>
-
-              <div class="weather-desc">
-                ${description}
-              </div>
-
-            </div>
-
+          <div class="weather-temp">
+            ${Math.round(current.temperature_2m)}°C
           </div>
 
-
-          <div class="weather-grid">
-
-            <div class="weather-item">
-
-              🌡️
-
-              <span>
-                મહેસૂસ
-              </span>
-
-              <strong>
-                ${Math.round(
-                  current.apparent_temperature
-                )}°C
-              </strong>
-
-            </div>
-
-
-            <div class="weather-item">
-
-              💧
-
-              <span>
-                ભેજ
-              </span>
-
-              <strong>
-                ${
-                  current.relative_humidity_2m
-                }%
-              </strong>
-
-            </div>
-
-
-            <div class="weather-item">
-
-              🌧️
-
-              <span>
-                વરસાદની શક્યતા
-              </span>
-
-              <strong>
-                ${rainProbability}%
-              </strong>
-
-            </div>
-
-
-            <div class="weather-item">
-
-              💨
-
-              <span>
-                પવન
-              </span>
-
-              <strong>
-                ${Math.round(
-                  current.wind_speed_10m
-                )} km/h
-              </strong>
-
-            </div>
-
-
-            <div class="weather-item">
-
-              ☁️
-
-              <span>
-                વાદળ
-              </span>
-
-              <strong>
-                ${current.cloud_cover}%
-              </strong>
-
-            </div>
-
+          <div class="weather-location">
+            📍 ${place.name || city}
           </div>
 
-        `;
-
-      }
-
-
-      catch (error) {
-
-        console.error(
-          "Weather error:",
-          error
-        );
-
-
-        weatherContent.innerHTML = `
-
-          <div class="weather-loading">
-
-            ❌ હવામાનની માહિતી મળી શકી નથી.
-
-            <br><br>
-
-            શહેરનું નામ ફરી તપાસો અને ફરી પ્રયાસ કરો.
-
+          <div class="weather-desc">
+            ${description}
           </div>
 
-        `;
+        </div>
 
-      }
-
-    }
+      </div>
 
 
-    weatherBtn.addEventListener(
-      "click",
-      loadWeather
+      <div class="weather-grid">
+
+        <div class="weather-item">
+          🌡️
+          <span>મહેસૂસ</span>
+          <strong>
+            ${Math.round(current.apparent_temperature)}°C
+          </strong>
+        </div>
+
+        <div class="weather-item">
+          💧
+          <span>ભેજ</span>
+          <strong>
+            ${current.relative_humidity_2m}%
+          </strong>
+        </div>
+
+        <div class="weather-item">
+          🌧️
+          <span>વરસાદની શક્યતા</span>
+          <strong>
+            ${rainProbability}%
+          </strong>
+        </div>
+
+        <div class="weather-item">
+          💨
+          <span>પવન</span>
+          <strong>
+            ${Math.round(current.wind_speed_10m)} km/h
+          </strong>
+        </div>
+
+        <div class="weather-item">
+          ☁️
+          <span>વાદળ</span>
+          <strong>
+            ${current.cloud_cover}%
+          </strong>
+        </div>
+
+      </div>
+
+    `;
+
+  }
+
+  catch(error){
+
+    console.error(
+      "Weather error:",
+      error
     );
 
 
-    weatherCityInput.addEventListener(
-      "keydown",
-      event => {
+    weatherContent.innerHTML = `
 
-        if (
-          event.key === "Enter"
-        ) {
+      <div class="weather-loading">
 
-          loadWeather();
+        ❌ હવામાનની માહિતી મળી શકી નથી.
 
-        }
+        <br><br>
 
-      }
-    );
+        શહેરનું નામ ફરી તપાસો.
 
+      </div>
 
-    loadWeather();
+    `;
 
+  }
 
-    /* =========================
-       FIRESTORE MARKET PRICES
-    ========================== */
-
-    const marketTableBody =
-      document.getElementById(
-        "marketTableBody"
-      );
+}
 
 
-    const marketStatus =
-      document.getElementById(
-        "marketStatus"
-      );
+weatherBtn.addEventListener(
+  "click",
+  loadWeather
+);
 
 
-    function getValue(
-      data,
-      keys,
-      defaultValue = "-"
-    ) {
+weatherCityInput.addEventListener(
+  "keydown",
+  event => {
 
-      for (
-        const key of keys
-      ) {
+    if(event.key === "Enter"){
 
-        if (
-          data[key] !== undefined &&
-          data[key] !== null &&
-          data[key] !== ""
-        ) {
-
-          return data[key];
-
-        }
-
-      }
-
-
-      return defaultValue;
+      loadWeather();
 
     }
 
-
-    function formatPrice(value) {
-
-      if (
-        typeof value === "number"
-      ) {
-
-        return (
-          "₹" +
-          value.toLocaleString(
-            "en-IN"
-          )
-        );
-
-      }
+  }
+);
 
 
-      if (
-        typeof value === "string" &&
-        !value.includes("₹")
-      ) {
-
-        const number =
-          Number(
-            value.replace(
-              /[^0-9.]/g,
-              ""
-            )
-          );
+loadWeather();
 
 
-        if (!isNaN(number)) {
+/* =========================================================
+   HELPER FUNCTIONS
+========================================================= */
 
-          return (
-            "₹" +
-            number.toLocaleString(
-              "en-IN"
-            )
-          );
+function getValue(
+  data,
+  keys,
+  defaultValue = "-"
+){
 
-        }
+  for(
+    const key of keys
+  ){
 
-      }
+    if(
+      data[key] !== undefined &&
+      data[key] !== null &&
+      data[key] !== ""
+    ){
 
+      return data[key];
+
+    }
+
+  }
+
+
+  return defaultValue;
+
+}
+
+
+function escapeHtml(value){
+
+  return String(
+    value ?? ""
+  )
+
+  .replaceAll("&","&amp;")
+  .replaceAll("<","&lt;")
+  .replaceAll(">","&gt;")
+  .replaceAll('"',"&quot;")
+  .replaceAll("'","&#039;");
+
+}
+
+
+function formatPrice(value){
+
+  if(
+    typeof value === "number"
+  ){
+
+    return "₹" +
+      value.toLocaleString(
+        "en-IN"
+      );
+
+  }
+
+
+  if(
+    typeof value === "string"
+  ){
+
+    if(
+      value.includes("₹")
+    ){
 
       return value;
 
     }
 
 
-    async function loadMarketPrices() {
-
-      try {
-
-        marketStatus.innerHTML =
-          "⏳ Firebase માંથી બજાર ભાવ લોડ થઈ રહ્યા છે...";
-
-
-        const snapshot =
-          await getDocs(
-            collection(
-              db,
-              "marketPrices"
-            )
-          );
-
-
-        if (
-          snapshot.empty
-        ) {
-
-          marketTableBody.innerHTML = `
-
-            <tr>
-
-              <td
-                colspan="7"
-                style="text-align:center;"
-              >
-                હાલમાં કોઈ બજાર ભાવ ઉપલબ્ધ નથી.
-              </td>
-
-            </tr>
-
-          `;
-
-
-          marketStatus.innerHTML =
-            "ℹ️ Firebaseમાં marketPrices collection ખાલી છે.";
-
-          return;
-
-        }
-
-
-        let html = "";
-
-
-        snapshot.forEach(
-          docSnap => {
-
-            const data =
-              docSnap.data();
-
-
-            console.log(
-              "Market document:",
-              docSnap.id,
-              data
-            );
-
-
-            const crop =
-              getValue(
-                data,
-                [
-                  "crop",
-                  "Crop",
-                  "પાક"
-                ]
-              );
-
-
-            const market =
-              getValue(
-                data,
-                [
-                  "market",
-                  "Market",
-                  "bazaar",
-                  "bajar",
-                  "બજાર"
-                ]
-              );
-
-
-            const minPrice =
-              getValue(
-                data,
-                [
-                  "minPrice",
-                  "minimumPrice",
-                  "min_price",
-                  "minimum_price",
-                  "MinPrice",
-                  "ન્યૂનતમ ભાવ"
-                ]
-              );
-
-
-            const maxPrice =
-              getValue(
-                data,
-                [
-                  "maxPrice",
-                  "maximumPrice",
-                  "max_price",
-                  "maximum_price",
-                  "MaxPrice",
-                  "મહત્તમ ભાવ"
-                ]
-              );
-
-
-            const avgPrice =
-              getValue(
-                data,
-                [
-                  "avgPrice",
-                  "averagePrice",
-                  "avgprice",
-                  "avg_price",
-                  "AveragePrice",
-                  "સરેરાશ ભાવ"
-                ]
-              );
-
-
-            const arrival =
-              getValue(
-                data,
-                [
-                  "arrival",
-                  "arrivals",
-                  "આવક"
-                ]
-              );
-
-
-            const previousAvgPrice =
-              Number(
-                getValue(
-                  data,
-                  [
-                    "previousAvgPrice",
-                    "previousavgprice",
-                    "previous_avg_price",
-                    "oldAvgPrice",
-                    "oldavgprice"
-                  ],
-                  0
-                ) || 0
-              );
-
-
-            const currentAvg =
-              Number(avgPrice) || 0;
-
-
-            let status =
-              "— સ્થિર";
-
-            let statusClass =
-              "same";
-
-
-            if (
-              previousAvgPrice > 0
-            ) {
-
-              if (
-                currentAvg >
-                previousAvgPrice
-              ) {
-
-                const difference =
-                  currentAvg -
-                  previousAvgPrice;
-
-
-                status =
-                  `↑ ₹${difference.toLocaleString("en-IN")} વધારો`;
-
-
-                statusClass =
-                  "increase";
-
-              }
-
-              else if (
-                currentAvg <
-                previousAvgPrice
-              ) {
-
-                const difference =
-                  previousAvgPrice -
-                  currentAvg;
-
-
-                status =
-                  `↓ ₹${difference.toLocaleString("en-IN")} ઘટાડો`;
-
-
-                statusClass =
-                  "decrease";
-
-              }
-
-            }
-
-            else {
-
-              status =
-                "ભાવ સરખામણી ઉપલબ્ધ નથી";
-
-              statusClass =
-                "same";
-
-            }
-
-
-            html += `
-
-              <tr>
-
-                <td>
-                  <strong>
-                    ${escapeHtml(crop)}
-                  </strong>
-                </td>
-
-                <td>
-                  ${escapeHtml(market)}
-                </td>
-
-                <td class="price">
-                  ${formatPrice(minPrice)}
-                </td>
-
-                <td class="price">
-                  ${formatPrice(maxPrice)}
-                </td>
-
-                <td class="price">
-                  ${formatPrice(avgPrice)}
-                </td>
-
-                <td>
-                  ${escapeHtml(arrival)}
-                </td>
-
-                <td>
-                  <span class="${statusClass}">
-                    ${escapeHtml(status)}
-                  </span>
-                </td>
-
-              </tr>
-
-            `;
-
-          }
+    const number =
+      Number(
+        value.replace(
+          /[^0-9.]/g,
+          ""
+        )
+      );
+
+
+    if(!isNaN(number)){
+
+      return "₹" +
+        number.toLocaleString(
+          "en-IN"
         );
 
+    }
 
-        marketTableBody.innerHTML =
-          html;
-
-
-        marketStatus.innerHTML =
-          `✅ Firebaseમાંથી ${snapshot.size} બજાર ભાવ લોડ થયા.`;
-
-      }
+  }
 
 
-      catch (error) {
+  return value;
 
-        console.error(
-          "Firebase market error:",
-          error
+}
+
+
+function formatDate(value){
+
+  if(!value){
+    return "";
+  }
+
+
+  try{
+
+    let date;
+
+
+    if(
+      value &&
+      typeof value.toDate === "function"
+    ){
+
+      date =
+        value.toDate();
+
+    }
+
+    else if(
+      value &&
+      value.seconds
+    ){
+
+      date =
+        new Date(
+          value.seconds * 1000
         );
 
+    }
 
-        marketTableBody.innerHTML = `
+    else{
 
-          <tr>
-
-            <td
-              colspan="7"
-              style="
-                text-align:center;
-                color:#c62828;
-              "
-            >
-
-              ❌ બજાર ભાવ લોડ થઈ શક્યા નથી.
-
-              <br>
-
-              Firebase Rules અને
-              marketPrices collection તપાસો.
-
-            </td>
-
-          </tr>
-
-        `;
-
-
-        marketStatus.innerHTML =
-          "❌ Firebaseમાંથી ભાવ લોડ થઈ શક્યા નથી.";
-
-      }
+      date =
+        new Date(value);
 
     }
 
 
-    loadMarketPrices();
-
-
-    /* =========================
-       SAFE HTML
-    ========================== */
-
-    function escapeHtml(
-      value
-    ) {
-
-      return String(
-        value ?? ""
-      ).replace(
-        /[&<>"']/g,
-        character => {
-
-          const map = {
-
-            "&": "&amp;",
-
-            "<": "&lt;",
-
-            ">": "&gt;",
-
-            '"': "&quot;",
-
-            "'": "&#039;"
-
-          };
-
-          return map[
-            character
-          ];
-
-        }
-      );
-
-    }
-
-
-    /* =========================
-       LIVE NOTICES / SCHEMES
-    ========================== */
-
-    const noticesList =
-      document.getElementById(
-        "noticesList"
-      );
-
-
-    const schemesList =
-      document.getElementById(
-        "schemesList"
-      );
-
-
-    function firstValue(
-      data,
-      keys,
-      fallback = ""
-    ) {
-
-      for (
-        const key of keys
-      ) {
-
-        if (
-          data[key] !== undefined &&
-          data[key] !== null &&
-          String(
-            data[key]
-          ).trim() !== ""
-        ) {
-
-          return data[key];
-
-        }
-
-      }
-
-
-      return fallback;
-
-    }
-
-
-    function formatLiveDate(
-      value
-    ) {
-
-      if (!value) {
-        return "";
-      }
-
-
-      try {
-
-        if (
-          typeof value === "object" &&
-          typeof value.toDate === "function"
-        ) {
-
-          return value
-            .toDate()
-            .toLocaleDateString(
-              "gu-IN"
-            );
-
-        }
-
-
-        if (
-          typeof value === "object" &&
-          value.seconds
-        ) {
-
-          return new Date(
-            value.seconds * 1000
-          ).toLocaleDateString(
-            "gu-IN"
-          );
-
-        }
-
-
-        const parsed =
-          new Date(value);
-
-
-        if (
-          !isNaN(
-            parsed.getTime()
-          )
-        ) {
-
-          return parsed.toLocaleDateString(
-            "gu-IN"
-          );
-
-        }
-
-
-        return String(value);
-
-      }
-
-      catch {
-
-        return String(value);
-
-      }
-
-    }
-
-
-    function validExternalUrl(
-      value
-    ) {
-
-      if (!value) {
-        return "";
-      }
-
-
-      try {
-
-        const url =
-          new URL(
-            String(value).trim()
-          );
-
-
-        if (
-          url.protocol === "http:" ||
-          url.protocol === "https:"
-        ) {
-
-          return url.href;
-
-        }
-
-      }
-
-      catch {
-
-        return "";
-
-      }
-
+    if(
+      isNaN(date.getTime())
+    ){
 
       return "";
 
     }
 
 
-    function renderLiveCollection(
-      snapshot,
-      container,
-      type
-    ) {
+    return date.toLocaleDateString(
+      "gu-IN",
+      {
+        day:"2-digit",
+        month:"2-digit",
+        year:"numeric"
+      }
+    );
 
-      if (
-        snapshot.empty
-      ) {
+  }
 
-        container.innerHTML = `
+  catch{
 
-          <div class="live-empty">
+    return "";
 
-            ℹ️ હાલમાં કોઈ
-            ${
-              type === "notice"
-                ? "નોટિસ"
-                : "નવી યોજના"
-            }
-            ઉપલબ્ધ નથી.
+  }
+
+}
+
+
+/* =========================================================
+   MARKET PRICES
+========================================================= */
+
+const marketTableBody =
+  document.getElementById(
+    "marketTableBody"
+  );
+
+const marketStatus =
+  document.getElementById(
+    "marketStatus"
+  );
+
+
+async function loadMarketPrices(){
+
+  try{
+
+    marketStatus.innerHTML =
+      "⏳ Firebase માંથી બજાર ભાવ લોડ થઈ રહ્યા છે...";
+
+
+    const snapshot =
+      await getDocs(
+        collection(
+          db,
+          "marketPrices"
+        )
+      );
+
+
+    if(snapshot.empty){
+
+      marketTableBody.innerHTML = `
+
+        <tr>
+
+          <td
+            colspan="7"
+            style="text-align:center;"
+          >
+            હાલમાં કોઈ બજાર ભાવ ઉપલબ્ધ નથી.
+          </td>
+
+        </tr>
+
+      `;
+
+
+      marketStatus.innerHTML =
+        "ℹ️ હાલમાં કોઈ બજાર ભાવ ઉપલબ્ધ નથી.";
+
+      return;
+
+    }
+
+
+    let html = "";
+
+
+    snapshot.forEach(
+      docSnap => {
+
+        const data =
+          docSnap.data();
+
+
+        const crop =
+          getValue(
+            data,
+            [
+              "crop",
+              "Crop",
+              "પાક"
+            ]
+          );
+
+
+        const market =
+          getValue(
+            data,
+            [
+              "market",
+              "Market",
+              "બજાર"
+            ]
+          );
+
+
+        const minPrice =
+          getValue(
+            data,
+            [
+              "minPrice",
+              "minimumPrice",
+              "min_price",
+              "minprice"
+            ]
+          );
+
+
+        const maxPrice =
+          getValue(
+            data,
+            [
+              "maxPrice",
+              "maximumPrice",
+              "max_price",
+              "maxprice"
+            ]
+          );
+
+
+        const avgPrice =
+          getValue(
+            data,
+            [
+              "avgPrice",
+              "averagePrice",
+              "avgprice",
+              "avg_price"
+            ]
+          );
+
+
+        const arrival =
+          getValue(
+            data,
+            [
+              "arrival",
+              "arrivals",
+              "આવક"
+            ]
+          );
+
+
+        const previousAvgPrice =
+          Number(
+            getValue(
+              data,
+              [
+                "previousAvgPrice",
+                "previousavgprice",
+                "previous_avg_price",
+                "oldAvgPrice",
+                "oldavgprice"
+              ],
+              0
+            ) || 0
+          );
+
+
+        let status =
+          "— સ્થિર";
+
+        let statusClass =
+          "same";
+
+
+        if(
+          previousAvgPrice > 0
+        ){
+
+          if(
+            Number(avgPrice) >
+            previousAvgPrice
+          ){
+
+            const difference =
+              Number(avgPrice) -
+              previousAvgPrice;
+
+
+            status =
+              `↑ ₹${difference.toLocaleString("en-IN")} વધારો`;
+
+            statusClass =
+              "increase";
+
+          }
+
+          else if(
+            Number(avgPrice) <
+            previousAvgPrice
+          ){
+
+            const difference =
+              previousAvgPrice -
+              Number(avgPrice);
+
+
+            status =
+              `↓ ₹${difference.toLocaleString("en-IN")} ઘટાડો`;
+
+            statusClass =
+              "decrease";
+
+          }
+
+          else{
+
+            status =
+              "— સ્થિર";
+
+            statusClass =
+              "same";
+
+          }
+
+        }
+
+        else{
+
+          status =
+            "ભાવ સરખામણી ઉપલબ્ધ નથી";
+
+          statusClass =
+            "same";
+
+        }
+
+
+        html += `
+
+          <tr>
+
+            <td>
+              <strong>
+                ${escapeHtml(crop)}
+              </strong>
+            </td>
+
+            <td>
+              ${escapeHtml(market)}
+            </td>
+
+            <td class="price">
+              ${formatPrice(minPrice)}
+            </td>
+
+            <td class="price">
+              ${formatPrice(maxPrice)}
+            </td>
+
+            <td class="price">
+              ${formatPrice(avgPrice)}
+            </td>
+
+            <td>
+              ${escapeHtml(arrival)}
+            </td>
+
+            <td>
+              <span class="${statusClass}">
+                ${escapeHtml(status)}
+              </span>
+            </td>
+
+          </tr>
+
+        `;
+
+      }
+    );
+
+
+    marketTableBody.innerHTML =
+      html;
+
+
+    marketStatus.innerHTML =
+      `✅ Firebaseમાંથી ${snapshot.size} બજાર ભાવ લોડ થયા.`;
+
+  }
+
+  catch(error){
+
+    console.error(
+      "Market error:",
+      error
+    );
+
+
+    marketTableBody.innerHTML = `
+
+      <tr>
+
+        <td
+          colspan="7"
+          style="
+            text-align:center;
+            color:#c62828;
+          "
+        >
+
+          ❌ બજાર ભાવ લોડ થઈ શક્યા નથી.
+
+          <br><br>
+
+          Firebase Rules અને
+          marketPrices collection તપાસો.
+
+        </td>
+
+      </tr>
+
+    `;
+
+
+    marketStatus.innerHTML =
+      "❌ Firebaseમાંથી ભાવ લોડ થઈ શક્યા નથી.";
+
+  }
+
+}
+
+
+loadMarketPrices();
+
+
+/* =========================================================
+   ADS - FIREBASE LIVE
+========================================================= */
+
+const adsList =
+  document.getElementById(
+    "adsList"
+  );
+
+
+function renderAds(snapshot){
+
+  if(snapshot.empty){
+
+    adsList.innerHTML = `
+
+      <div class="ads-empty">
+
+        📢 હાલમાં કોઈ જાહેરાત ઉપલબ્ધ નથી.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  let html = "";
+
+
+  snapshot.forEach(
+    docSnap => {
+
+      const data =
+        docSnap.data();
+
+
+      const title =
+        getValue(
+          data,
+          [
+            "title",
+            "name",
+            "heading"
+          ],
+          "જાહેરાત"
+        );
+
+
+      const description =
+        getValue(
+          data,
+          [
+            "description",
+            "details",
+            "text",
+            "content"
+          ],
+          ""
+        );
+
+
+      const imageUrl =
+        getValue(
+          data,
+          [
+            "imageUrl",
+            "imageURL",
+            "image",
+            "photoUrl",
+            "photoURL"
+          ],
+          ""
+        );
+
+
+      const link =
+        getValue(
+          data,
+          [
+            "link",
+            "url",
+            "targetUrl",
+            "website"
+          ],
+          ""
+        );
+
+
+      const buttonText =
+        getValue(
+          data,
+          [
+            "buttonText",
+            "button",
+            "cta"
+          ],
+          "વધુ માહિતી"
+        );
+
+
+      const date =
+        formatDate(
+          getValue(
+            data,
+            [
+              "createdAt",
+              "updatedAt",
+              "date"
+            ],
+            ""
+          )
+        );
+
+
+      const safeImage =
+        escapeHtml(
+          imageUrl
+        );
+
+
+      const safeTitle =
+        escapeHtml(
+          title
+        );
+
+
+      const safeDescription =
+        escapeHtml(
+          description
+        );
+
+
+      const safeLink =
+        escapeHtml(
+          link
+        );
+
+
+      let imageHtml = "";
+
+
+      if(imageUrl){
+
+        imageHtml = `
+
+          <div class="ad-image-wrap">
+
+            <img
+              class="ad-image"
+              src="${safeImage}"
+              alt="${safeTitle}"
+              loading="lazy"
+              onerror="
+                this.style.display='none';
+                this.parentElement.innerHTML='<div class=&quot;ad-image-error&quot;>🖼️ જાહેરાતનો ફોટો લોડ થઈ શક્યો નથી.</div>';
+              "
+            >
 
           </div>
 
         `;
+
+      }
+
+
+      let buttonHtml = "";
+
+
+      if(link){
+
+        buttonHtml = `
+
+          <a
+            class="ad-btn"
+            href="${safeLink}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            ${escapeHtml(buttonText)}
+          </a>
+
+        `;
+
+      }
+
+
+      html += `
+
+        <article class="ad-card">
+
+          ${imageHtml}
+
+          <div class="ad-content">
+
+            <h3>
+              ${safeTitle}
+            </h3>
+
+            ${
+              description
+              ?
+              `<p>${safeDescription}</p>`
+              :
+              ""
+            }
+
+            ${
+              date
+              ?
+              `<div class="live-date">📅 ${date}</div>`
+              :
+              ""
+            }
+
+            ${buttonHtml}
+
+          </div>
+
+        </article>
+
+      `;
+
+    }
+  );
+
+
+  adsList.innerHTML =
+    html;
+
+}
+
+
+onSnapshot(
+  collection(db,"ads"),
+
+  snapshot => {
+
+    console.log(
+      "Ads updated:",
+      snapshot.size
+    );
+
+    renderAds(
+      snapshot
+    );
+
+  },
+
+  error => {
+
+    console.error(
+      "Ads Firebase error:",
+      error
+    );
+
+
+    adsList.innerHTML = `
+
+      <div class="ads-empty">
+
+        ❌ જાહેરાતો લોડ થઈ શકી નથી.
+
+        <br><br>
+
+        Firebase Rules માં
+        <b>ads</b> collection માટે
+        public read allow છે કે નહીં તે તપાસો.
+
+      </div>
+
+    `;
+
+  }
+
+);
+
+
+/* =========================================================
+   NOTICES - FIREBASE LIVE
+========================================================= */
+
+const noticesList =
+  document.getElementById(
+    "noticesList"
+  );
+
+
+function renderNotices(snapshot){
+
+  if(snapshot.empty){
+
+    noticesList.innerHTML = `
+
+      <div class="live-empty">
+        📢 હાલમાં કોઈ નોટિસ ઉપલબ્ધ નથી.
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  let html = "";
+
+
+  snapshot.forEach(
+    docSnap => {
+
+      const data =
+        docSnap.data();
+
+
+      const title =
+        getValue(
+          data,
+          [
+            "title",
+            "name",
+            "heading"
+          ],
+          "મહત્વની નોટિસ"
+        );
+
+
+      const description =
+        getValue(
+          data,
+          [
+            "description",
+            "details",
+            "text",
+            "content"
+          ],
+          ""
+        );
+
+
+      const link =
+        getValue(
+          data,
+          [
+            "link",
+            "url"
+          ],
+          ""
+        );
+
+
+      const date =
+        formatDate(
+          getValue(
+            data,
+            [
+              "createdAt",
+              "updatedAt",
+              "date"
+            ],
+            ""
+          )
+        );
+
+
+      html += `
+
+        <article class="live-card">
+
+          <h3>
+            📢 ${escapeHtml(title)}
+          </h3>
+
+          ${
+            date
+            ?
+            `<div class="live-date">📅 ${date}</div>`
+            :
+            ""
+          }
+
+          <p>
+            ${escapeHtml(description)}
+          </p>
+
+          ${
+            link
+            ?
+            `
+            <a
+              class="live-btn"
+              href="${escapeHtml(link)}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              વધુ માહિતી →
+            </a>
+            `
+            :
+            ""
+          }
+
+        </article>
+
+      `;
+
+    }
+  );
+
+
+  noticesList.innerHTML =
+    html;
+
+}
+
+
+onSnapshot(
+  collection(db,"notices"),
+
+  snapshot => {
+
+    renderNotices(
+      snapshot
+    );
+
+  },
+
+  error => {
+
+    console.error(
+      "Notices error:",
+      error
+    );
+
+
+    noticesList.innerHTML = `
+
+      <div class="live-empty">
+
+        ❌ નોટિસ લોડ થઈ શકી નથી.
+
+        <br><br>
+
+        Firebase Rules તપાસો.
+
+      </div>
+
+    `;
+
+  }
+
+);
+
+
+/* =========================================================
+   LIVE SCHEMES - FIREBASE
+========================================================= */
+
+const schemesList =
+  document.getElementById(
+    "schemesList"
+  );
+
+
+function renderSchemes(snapshot){
+
+  if(snapshot.empty){
+
+    schemesList.innerHTML = `
+
+      <div class="live-empty">
+
+        🏛️ હાલમાં કોઈ નવી યોજના ઉપલબ્ધ નથી.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  let html = "";
+
+
+  snapshot.forEach(
+    docSnap => {
+
+      const data =
+        docSnap.data();
+
+
+      const title =
+        getValue(
+          data,
+          [
+            "title",
+            "name",
+            "heading"
+          ],
+          "સરકારી યોજના"
+        );
+
+
+      const description =
+        getValue(
+          data,
+          [
+            "description",
+            "details",
+            "text",
+            "content"
+          ],
+          ""
+        );
+
+
+      const link =
+        getValue(
+          data,
+          [
+            "link",
+            "url"
+          ],
+          ""
+        );
+
+
+      const date =
+        formatDate(
+          getValue(
+            data,
+            [
+              "createdAt",
+              "updatedAt",
+              "date"
+            ],
+            ""
+          )
+        );
+
+
+      html += `
+
+        <article class="live-card">
+
+          <h3>
+            🏛️ ${escapeHtml(title)}
+          </h3>
+
+          ${
+            date
+            ?
+            `<div class="live-date">📅 ${date}</div>`
+            :
+            ""
+          }
+
+          <p>
+            ${escapeHtml(description)}
+          </p>
+
+          ${
+            link
+            ?
+            `
+            <a
+              class="live-btn"
+              href="${escapeHtml(link)}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              યોજના જુઓ →
+            </a>
+            `
+            :
+            ""
+          }
+
+        </article>
+
+      `;
+
+    }
+  );
+
+
+  schemesList.innerHTML =
+    html;
+
+}
+
+
+onSnapshot(
+  collection(db,"schemes"),
+
+  snapshot => {
+
+    renderSchemes(
+      snapshot
+    );
+
+  },
+
+  error => {
+
+    console.error(
+      "Schemes error:",
+      error
+    );
+
+
+    schemesList.innerHTML = `
+
+      <div class="live-empty">
+
+        ❌ યોજનાઓ લોડ થઈ શકી નથી.
+
+        <br><br>
+
+        Firebase Rules તપાસો.
+
+      </div>
+
+    `;
+
+  }
+
+);
+
+
+/* =========================================================
+   AUTH MODAL
+========================================================= */
+
+const authModal =
+  document.getElementById(
+    "authModal"
+  );
+
+const loginOpenBtn =
+  document.getElementById(
+    "loginOpenBtn"
+  );
+
+const closeModalBtn =
+  document.getElementById(
+    "closeModalBtn"
+  );
+
+const loginForm =
+  document.getElementById(
+    "loginForm"
+  );
+
+const registerForm =
+  document.getElementById(
+    "registerForm"
+  );
+
+
+function openAuthModal(){
+
+  authModal.classList.add(
+    "show"
+  );
+
+}
+
+
+function closeAuthModal(){
+
+  authModal.classList.remove(
+    "show"
+  );
+
+}
+
+
+loginOpenBtn.addEventListener(
+  "click",
+  openAuthModal
+);
+
+
+closeModalBtn.addEventListener(
+  "click",
+  closeAuthModal
+);
+
+
+authModal.addEventListener(
+  "click",
+  event => {
+
+    if(
+      event.target === authModal
+    ){
+
+      closeAuthModal();
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   SWITCH LOGIN / REGISTER
+========================================================= */
+
+document
+  .getElementById(
+    "showRegisterBtn"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      loginForm.style.display =
+        "none";
+
+      registerForm.style.display =
+        "block";
+
+    }
+  );
+
+
+document
+  .getElementById(
+    "showLoginBtn"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      registerForm.style.display =
+        "none";
+
+      loginForm.style.display =
+        "block";
+
+    }
+  );
+
+
+/* =========================================================
+   REGISTER
+========================================================= */
+
+document
+  .getElementById(
+    "registerBtn"
+  )
+  .addEventListener(
+    "click",
+    async () => {
+
+      const name =
+        document
+          .getElementById(
+            "registerName"
+          )
+          .value
+          .trim();
+
+
+      const email =
+        document
+          .getElementById(
+            "registerEmail"
+          )
+          .value
+          .trim();
+
+
+      const password =
+        document
+          .getElementById(
+            "registerPassword"
+          )
+          .value;
+
+
+      const message =
+        document
+          .getElementById(
+            "registerMessage"
+          );
+
+
+      if(
+        !name ||
+        !email ||
+        !password
+      ){
+
+        message.style.color =
+          "#c62828";
+
+        message.innerText =
+          "બધી માહિતી ભરો.";
 
         return;
 
       }
 
 
-      let html = "";
+      if(
+        password.length < 6
+      ){
 
+        message.style.color =
+          "#c62828";
 
-      snapshot.forEach(
-        docSnap => {
+        message.innerText =
+          "Password ઓછામાં ઓછો 6 અક્ષરનો હોવો જોઈએ.";
 
-          const data =
-            docSnap.data();
-
-
-          const title =
-            firstValue(
-              data,
-              type === "notice"
-                ? [
-                    "title",
-                    "name",
-                    "heading",
-                    "subject"
-                  ]
-                : [
-                    "title",
-                    "name",
-                    "schemeName",
-                    "scheme",
-                    "heading"
-                  ],
-              type === "notice"
-                ? "મહત્વની નોટિસ"
-                : "સરકારી યોજના"
-            );
-
-
-          const description =
-            firstValue(
-              data,
-              [
-                "description",
-                "message",
-                "details",
-                "content",
-                "text"
-              ],
-              ""
-            );
-
-
-          const date =
-            firstValue(
-              data,
-              [
-                "date",
-                "createdAt",
-                "updatedAt"
-              ],
-              ""
-            );
-
-
-          const link =
-            firstValue(
-              data,
-              [
-                "link",
-                "url",
-                "website",
-                "applyUrl"
-              ],
-              ""
-            );
-
-
-          const dateText =
-            formatLiveDate(
-              date
-            );
-
-
-          const safeLink =
-            validExternalUrl(
-              link
-            );
-
-
-          html += `
-
-            <article class="live-card">
-
-              <h3>
-                ${escapeHtml(title)}
-              </h3>
-
-              ${
-                dateText
-                  ? `
-                    <div class="live-date">
-                      📅 ${escapeHtml(dateText)}
-                    </div>
-                  `
-                  : ""
-              }
-
-              <p>
-                ${escapeHtml(description)}
-              </p>
-
-              ${
-                safeLink
-                  ? `
-                    <a
-                      class="live-btn"
-                      href="${escapeHtml(safeLink)}"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      🔗 વધુ માહિતી
-                    </a>
-                  `
-                  : ""
-              }
-
-            </article>
-
-          `;
-
-        }
-      );
-
-
-      container.innerHTML =
-        html;
-
-    }
-
-
-    /* =========================
-       NOTICES REAL-TIME LISTENER
-    ========================== */
-
-    onSnapshot(
-      collection(
-        db,
-        "notices"
-      ),
-
-      snapshot => {
-
-        console.log(
-          "Notices loaded:",
-          snapshot.size
-        );
-
-
-        renderLiveCollection(
-          snapshot,
-          noticesList,
-          "notice"
-        );
-
-      },
-
-      error => {
-
-        console.error(
-          "Notices error:",
-          error
-        );
-
-
-        noticesList.innerHTML = `
-
-          <div class="live-empty">
-
-            ❌ નોટિસ લોડ થઈ શકી નથી.
-
-            <br><br>
-
-            Firebase Rules અથવા
-            notices collection તપાસો.
-
-          </div>
-
-        `;
+        return;
 
       }
 
-    );
 
+      message.style.color =
+        "#555";
 
-    /* =========================
-       SCHEMES REAL-TIME LISTENER
-    ========================== */
+      message.innerText =
+        "⏳ Account બનાવાઈ રહ્યું છે...";
 
-    onSnapshot(
-      collection(
-        db,
-        "schemes"
-      ),
 
-      snapshot => {
+      try{
 
-        console.log(
-          "Schemes loaded:",
-          snapshot.size
-        );
+        const result =
+          await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
 
 
-        renderLiveCollection(
-          snapshot,
-          schemesList,
-          "scheme"
-        );
-
-      },
-
-      error => {
-
-        console.error(
-          "Schemes error:",
-          error
-        );
-
-
-        schemesList.innerHTML = `
-
-          <div class="live-empty">
-
-            ❌ યોજનાઓ લોડ થઈ શકી નથી.
-
-            <br><br>
-
-            Firebase Rules અથવા
-            schemes collection તપાસો.
-
-          </div>
-
-        `;
-
-      }
-
-    );
-
-
-    /* =========================
-       AUTH MODAL
-    ========================== */
-
-    const authModal =
-      document.getElementById(
-        "authModal"
-      );
-
-
-    const loginOpenBtn =
-      document.getElementById(
-        "loginOpenBtn"
-      );
-
-
-    const closeModalBtn =
-      document.getElementById(
-        "closeModalBtn"
-      );
-
-
-    const loginForm =
-      document.getElementById(
-        "loginForm"
-      );
-
-
-    const registerForm =
-      document.getElementById(
-        "registerForm"
-      );
-
-
-    function openAuthModal() {
-
-      authModal.classList.add(
-        "show"
-      );
-
-    }
-
-
-    function closeAuthModal() {
-
-      authModal.classList.remove(
-        "show"
-      );
-
-    }
-
-
-    loginOpenBtn.addEventListener(
-      "click",
-      openAuthModal
-    );
-
-
-    closeModalBtn.addEventListener(
-      "click",
-      closeAuthModal
-    );
-
-
-    authModal.addEventListener(
-      "click",
-      event => {
-
-        if (
-          event.target ===
-          authModal
-        ) {
-
-          closeAuthModal();
-
-        }
-
-      }
-    );
-
-
-    document
-      .getElementById(
-        "showRegisterBtn"
-      )
-      .addEventListener(
-        "click",
-        () => {
-
-          loginForm.style.display =
-            "none";
-
-          registerForm.style.display =
-            "block";
-
-        }
-      );
-
-
-    document
-      .getElementById(
-        "showLoginBtn"
-      )
-      .addEventListener(
-        "click",
-        () => {
-
-          registerForm.style.display =
-            "none";
-
-          loginForm.style.display =
-            "block";
-
-        }
-      );
-
-
-    /* =========================
-       REGISTER
-    ========================== */
-
-    document
-      .getElementById(
-        "registerBtn"
-      )
-      .addEventListener(
-        "click",
-        async () => {
-
-          const name =
-            document
-              .getElementById(
-                "registerName"
-              )
-              .value
-              .trim();
-
-
-          const email =
-            document
-              .getElementById(
-                "registerEmail"
-              )
-              .value
-              .trim();
-
-
-          const password =
-            document
-              .getElementById(
-                "registerPassword"
-              )
-              .value;
-
-
-          const message =
-            document
-              .getElementById(
-                "registerMessage"
-              );
-
-
-          if (
-            !name ||
-            !email ||
-            !password
-          ) {
-
-            message.style.color =
-              "#c62828";
-
-            message.innerText =
-              "બધી માહિતી ભરો.";
-
-            return;
-
+        await updateProfile(
+          result.user,
+          {
+            displayName:name
           }
+        );
 
 
-          if (
-            password.length < 6
-          ) {
+        message.style.color =
+          "#16743a";
 
-            message.style.color =
-              "#c62828";
-
-            message.innerText =
-              "Password ઓછામાં ઓછો 6 અક્ષરનો હોવો જોઈએ.";
-
-            return;
-
-          }
+        message.innerText =
+          "✅ Account સફળતાપૂર્વક બની ગયું.";
 
 
-          message.style.color =
-            "#555";
+        setTimeout(
+          closeAuthModal,
+          1000
+        );
+
+      }
+
+      catch(error){
+
+        console.error(error);
+
+
+        message.style.color =
+          "#c62828";
+
+
+        if(
+          error.code ===
+          "auth/email-already-in-use"
+        ){
 
           message.innerText =
-            "⏳ Account બનાવાઈ રહ્યું છે...";
-
-
-          try {
-
-            const result =
-              await createUserWithEmailAndPassword(
-                auth,
-                email,
-                password
-              );
-
-
-            await updateProfile(
-              result.user,
-              {
-                displayName: name
-              }
-            );
-
-
-            message.style.color =
-              "#16743a";
-
-            message.innerText =
-              "✅ Account સફળતાપૂર્વક બની ગયું.";
-
-
-            setTimeout(
-              () => {
-
-                closeAuthModal();
-
-              },
-              1000
-            );
-
-          }
-
-
-          catch (error) {
-
-            console.error(
-              error
-            );
-
-
-            message.style.color =
-              "#c62828";
-
-
-            if (
-              error.code ===
-              "auth/email-already-in-use"
-            ) {
-
-              message.innerText =
-                "આ Emailથી Account પહેલેથી છે.";
-
-            }
-
-            else if (
-              error.code ===
-              "auth/invalid-email"
-            ) {
-
-              message.innerText =
-                "Email ખોટો છે.";
-
-            }
-
-            else if (
-              error.code ===
-              "auth/weak-password"
-            ) {
-
-              message.innerText =
-                "Password વધુ મજબૂત રાખો.";
-
-            }
-
-            else {
-
-              message.innerText =
-                "Account બનાવી શકાયું નથી.";
-
-            }
-
-          }
+            "આ Emailથી Account પહેલેથી છે.";
 
         }
-      );
 
-
-    /* =========================
-       LOGIN
-    ========================== */
-
-    document
-      .getElementById(
-        "loginBtn"
-      )
-      .addEventListener(
-        "click",
-        async () => {
-
-          const email =
-            document
-              .getElementById(
-                "loginEmail"
-              )
-              .value
-              .trim();
-
-
-          const password =
-            document
-              .getElementById(
-                "loginPassword"
-              )
-              .value;
-
-
-          const message =
-            document
-              .getElementById(
-                "loginMessage"
-              );
-
-
-          if (
-            !email ||
-            !password
-          ) {
-
-            message.style.color =
-              "#c62828";
-
-            message.innerText =
-              "Email અને Password ભરો.";
-
-            return;
-
-          }
-
-
-          message.style.color =
-            "#555";
+        else if(
+          error.code ===
+          "auth/invalid-email"
+        ){
 
           message.innerText =
-            "⏳ Login થઈ રહ્યું છે...";
-
-
-          try {
-
-            await signInWithEmailAndPassword(
-              auth,
-              email,
-              password
-            );
-
-
-            message.style.color =
-              "#16743a";
-
-            message.innerText =
-              "✅ Login સફળ.";
-
-
-            setTimeout(
-              () => {
-
-                closeAuthModal();
-
-              },
-              700
-            );
-
-          }
-
-
-          catch (error) {
-
-            console.error(
-              error
-            );
-
-
-            message.style.color =
-              "#c62828";
-
-
-            if (
-              error.code ===
-              "auth/invalid-credential"
-            ) {
-
-              message.innerText =
-                "Email અથવા Password ખોટો છે.";
-
-            }
-
-            else {
-
-              message.innerText =
-                "Login થઈ શક્યું નથી.";
-
-            }
-
-          }
+            "Email ખોટો છે.";
 
         }
-      );
 
+        else if(
+          error.code ===
+          "auth/weak-password"
+        ){
 
-    /* =========================
-       FORGOT PASSWORD
-    ========================== */
-
-    document
-      .getElementById(
-        "forgotBtn"
-      )
-      .addEventListener(
-        "click",
-        async () => {
-
-          const email =
-            document
-              .getElementById(
-                "loginEmail"
-              )
-              .value
-              .trim();
-
-
-          const message =
-            document
-              .getElementById(
-                "loginMessage"
-              );
-
-
-          if (!email) {
-
-            message.style.color =
-              "#c62828";
-
-            message.innerText =
-              "પહેલા Email લખો.";
-
-            return;
-
-          }
-
-
-          try {
-
-            await sendPasswordResetEmail(
-              auth,
-              email
-            );
-
-
-            message.style.color =
-              "#16743a";
-
-            message.innerText =
-              "✅ Password reset email મોકલવામાં આવ્યો.";
-
-          }
-
-
-          catch (error) {
-
-            console.error(
-              error
-            );
-
-
-            message.style.color =
-              "#c62828";
-
-            message.innerText =
-              "Password reset email મોકલી શકાયો નથી.";
-
-          }
-
-        }
-      );
-
-
-    /* =========================
-       AUTH STATE
-    ========================== */
-
-    onAuthStateChanged(
-      auth,
-      async user => {
-
-        if (user) {
-
-          try {
-
-            await user.reload();
-
-          }
-
-          catch (error) {
-
-            console.warn(
-              "User reload error:",
-              error
-            );
-
-          }
-
-
-          const currentUser =
-            auth.currentUser;
-
-
-          const name =
-            currentUser?.displayName ||
-            currentUser?.email ||
-            "User";
-
-
-          loginOpenBtn.innerText =
-            `👤 ${name}`;
-
-
-          loginOpenBtn.onclick =
-            async () => {
-
-              const confirmLogout =
-                confirm(
-                  `તમે ${name} તરીકે Login છો.\n\nLogout કરવું છે?`
-                );
-
-
-              if (
-                confirmLogout
-              ) {
-
-                await signOut(
-                  auth
-                );
-
-              }
-
-            };
+          message.innerText =
+            "Password વધુ મજબૂત રાખો.";
 
         }
 
+        else{
 
-        else {
-
-          loginOpenBtn.innerText =
-            "🔐 Login";
-
-
-          loginOpenBtn.onclick =
-            openAuthModal;
+          message.innerText =
+            "Account બનાવી શકાયું નથી.";
 
         }
 
       }
-    );
 
-  </script>
+    }
+  );
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+document
+  .getElementById(
+    "loginBtn"
+  )
+  .addEventListener(
+    "click",
+    async () => {
+
+      const email =
+        document
+          .getElementById(
+            "loginEmail"
+          )
+          .value
+          .trim();
+
+
+      const password =
+        document
+          .getElementById(
+            "loginPassword"
+          )
+          .value;
+
+
+      const message =
+        document
+          .getElementById(
+            "loginMessage"
+          );
+
+
+      if(
+        !email ||
+        !password
+      ){
+
+        message.style.color =
+          "#c62828";
+
+        message.innerText =
+          "Email અને Password ભરો.";
+
+        return;
+
+      }
+
+
+      message.style.color =
+        "#555";
+
+      message.innerText =
+        "⏳ Login થઈ રહ્યું છે...";
+
+
+      try{
+
+        await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+
+
+        message.style.color =
+          "#16743a";
+
+        message.innerText =
+          "✅ Login સફળ.";
+
+
+        setTimeout(
+          closeAuthModal,
+          700
+        );
+
+      }
+
+      catch(error){
+
+        console.error(error);
+
+
+        message.style.color =
+          "#c62828";
+
+
+        if(
+          error.code ===
+          "auth/invalid-credential"
+        ){
+
+          message.innerText =
+            "Email અથવા Password ખોટો છે.";
+
+        }
+
+        else{
+
+          message.innerText =
+            "Login થઈ શક્યું નથી.";
+
+        }
+
+      }
+
+    }
+  );
+
+
+/* =========================================================
+   FORGOT PASSWORD
+========================================================= */
+
+document
+  .getElementById(
+    "forgotBtn"
+  )
+  .addEventListener(
+    "click",
+    async () => {
+
+      const email =
+        document
+          .getElementById(
+            "loginEmail"
+          )
+          .value
+          .trim();
+
+
+      const message =
+        document
+          .getElementById(
+            "loginMessage"
+          );
+
+
+      if(!email){
+
+        message.style.color =
+          "#c62828";
+
+        message.innerText =
+          "પહેલા Email લખો.";
+
+        return;
+
+      }
+
+
+      try{
+
+        await sendPasswordResetEmail(
+          auth,
+          email
+        );
+
+
+        message.style.color =
+          "#16743a";
+
+        message.innerText =
+          "✅ Password reset email મોકલવામાં આવ્યો.";
+
+      }
+
+      catch(error){
+
+        console.error(error);
+
+
+        message.style.color =
+          "#c62828";
+
+        message.innerText =
+          "Password reset email મોકલી શકાયો નથી.";
+
+      }
+
+    }
+  );
+
+
+/* =========================================================
+   AUTH STATE
+========================================================= */
+
+onAuthStateChanged(
+  auth,
+  user => {
+
+    if(user){
+
+      const name =
+        user.displayName ||
+        user.email ||
+        "User";
+
+
+      loginOpenBtn.innerText =
+        `👤 ${name}`;
+
+
+      loginOpenBtn.onclick =
+        async () => {
+
+          const confirmLogout =
+            confirm(
+              `તમે ${name} તરીકે Login છો.\n\nLogout કરવું છે?`
+            );
+
+
+          if(confirmLogout){
+
+            await signOut(
+              auth
+            );
+
+          }
+
+        };
+
+    }
+
+    else{
+
+      loginOpenBtn.innerText =
+        "🔐 Login";
+
+
+      loginOpenBtn.onclick =
+        openAuthModal;
+
+    }
+
+  }
+);
+
+</script>
 
 </body>
 </html>
