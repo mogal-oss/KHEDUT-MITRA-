@@ -1,390 +1,1161 @@
 <!DOCTYPE html>
 <html lang="gu">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Khedut Mitra | Admin Panel</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,"Noto Sans Gujarati",sans-serif;background:#f1f5f9;color:#172033}
-header{background:linear-gradient(135deg,#087f3e,#12a05a);color:#fff;padding:22px 16px}
-.wrap{max-width:1050px;margin:auto}
-h1{margin:0 0 6px;font-size:28px}
-.sub{opacity:.9}
-.top{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
-button{border:0;border-radius:10px;padding:12px 16px;font-weight:700;cursor:pointer}
-.logout{background:#fff;color:#087f3e}
-main{padding:25px 16px}
-.grid{display:grid;grid-template-columns:330px 1fr;gap:20px}
-.card{background:#fff;border-radius:16px;padding:20px;box-shadow:0 8px 25px #00000012}
-.card h2{margin-top:0}
-.list button{display:block;width:100%;text-align:left;margin:8px 0;background:#f1f5f9;color:#172033}
-.list button.active{background:#dff7e9;color:#087f3e}
-label{display:block;font-weight:700;margin:13px 0 6px}
-input{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:10px;font-size:16px}
-.save{margin-top:18px;background:#087f3e;color:#fff;width:100%;font-size:17px}
-.msg{margin-top:12px;padding:12px;border-radius:10px;background:#f1f5f9}
-.info{background:#eff6ff;border-left:4px solid #2563eb;padding:14px;border-radius:10px;line-height:1.6}
-.price-preview{margin-top:15px;padding:15px;border-radius:12px;background:#f8fafc}
-.increase{color:#087f3e;font-weight:800}
-.decrease{color:#c62828;font-weight:800}
-.same{color:#64748b;font-weight:800}
-.hidden{display:none}
-@media(max-width:760px){.grid{grid-template-columns:1fr}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Khedut Mitra - Admin Panel</title>
+  <meta name="theme-color" content="#0f7a3a">
+
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:Arial,"Noto Sans Gujarati",sans-serif;
+      background:#f4f7f5;color:#17251c;
+    }
+    button,input,textarea,select{font:inherit}
+    button{cursor:pointer}
+    .hidden{display:none!important}
+
+    /* Login */
+    #loginScreen{
+      min-height:100vh;display:flex;align-items:center;justify-content:center;
+      padding:20px;background:linear-gradient(135deg,#0b5d2a,#159447);
+    }
+    .login-card{
+      width:100%;max-width:430px;background:#fff;border-radius:24px;
+      padding:32px;box-shadow:0 25px 70px rgba(0,0,0,.22)
+    }
+    .logo{
+      width:68px;height:68px;border-radius:20px;background:#e9f8ee;
+      display:flex;align-items:center;justify-content:center;font-size:34px;margin-bottom:16px
+    }
+    .login-card h1{font-size:28px;margin-bottom:7px}
+    .login-card p{color:#65746b;margin-bottom:24px}
+    .field{margin-bottom:15px}
+    .field label{display:block;font-weight:700;font-size:14px;margin-bottom:7px}
+    .field input,.field textarea,.field select{
+      width:100%;border:1px solid #d5dfd8;border-radius:12px;padding:12px 13px;
+      outline:none;background:#fff
+    }
+    .field input:focus,.field textarea:focus,.field select:focus{
+      border-color:#159447;box-shadow:0 0 0 3px rgba(21,148,71,.1)
+    }
+    .btn{
+      border:0;border-radius:12px;padding:11px 16px;font-weight:700;
+      transition:.2s
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn-primary{background:#0f7a3a;color:white}
+    .btn-secondary{background:#eaf4ed;color:#0f6a32}
+    .btn-danger{background:#feecec;color:#b42318}
+    .btn-dark{background:#17251c;color:#fff}
+    .btn-full{width:100%;padding:13px}
+    .login-msg{margin-top:13px;font-size:14px;color:#b42318;min-height:20px}
+
+    /* App */
+    #app{min-height:100vh}
+    .topbar{
+      height:70px;background:#fff;border-bottom:1px solid #e1e8e3;
+      display:flex;align-items:center;justify-content:space-between;padding:0 24px;
+      position:sticky;top:0;z-index:20
+    }
+    .brand{display:flex;align-items:center;gap:11px;font-weight:800}
+    .brand-icon{
+      width:42px;height:42px;border-radius:13px;background:#e9f8ee;
+      display:flex;align-items:center;justify-content:center;font-size:22px
+    }
+    .top-actions{display:flex;align-items:center;gap:10px}
+    .admin-email{font-size:13px;color:#66736b;max-width:250px;overflow:hidden;text-overflow:ellipsis}
+    .layout{display:flex;min-height:calc(100vh - 70px)}
+    .sidebar{
+      width:240px;background:#123d25;color:white;padding:18px 13px;flex-shrink:0
+    }
+    .side-title{font-size:11px;opacity:.65;padding:8px 12px;text-transform:uppercase;letter-spacing:1px}
+    .nav-btn{
+      width:100%;border:0;background:transparent;color:#e8f5ec;text-align:left;
+      padding:12px 13px;border-radius:11px;margin-bottom:5px;font-weight:700
+    }
+    .nav-btn:hover,.nav-btn.active{background:rgba(255,255,255,.13)}
+    .main{flex:1;padding:25px;min-width:0}
+    .page{display:none}
+    .page.active{display:block}
+    .page-head{
+      display:flex;justify-content:space-between;align-items:center;gap:15px;
+      margin-bottom:20px;flex-wrap:wrap
+    }
+    .page-head h2{font-size:26px}
+    .page-head p{color:#6b776f;margin-top:4px;font-size:14px}
+    .head-actions{display:flex;gap:8px;flex-wrap:wrap}
+
+    /* Cards */
+    .stats{
+      display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin-bottom:20px
+    }
+    .stat{
+      background:#fff;border:1px solid #e1e8e3;border-radius:17px;padding:18px;
+      box-shadow:0 4px 15px rgba(20,50,30,.04)
+    }
+    .stat-label{font-size:13px;color:#6b776f;margin-bottom:8px}
+    .stat-value{font-size:28px;font-weight:800}
+    .stat-icon{float:right;font-size:26px}
+
+    .card{
+      background:#fff;border:1px solid #e1e8e3;border-radius:17px;padding:20px;
+      box-shadow:0 4px 15px rgba(20,50,30,.04);margin-bottom:18px
+    }
+    .card-title{font-size:18px;font-weight:800;margin-bottom:15px}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+    .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+
+    /* Market table */
+    .table-wrap{overflow:auto}
+    table{width:100%;border-collapse:collapse;min-width:760px}
+    th,td{text-align:left;padding:13px 12px;border-bottom:1px solid #edf1ee;font-size:14px}
+    th{background:#f7faf8;color:#5d6a62;font-size:12px;text-transform:uppercase}
+    .crop-name{font-weight:800}
+    .muted{color:#7a867e}
+    .status{display:inline-flex;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:800}
+    .up{background:#e9f8ee;color:#087a36}
+    .down{background:#ffeded;color:#bd251b}
+    .same{background:#f0f2f1;color:#66716a}
+    .actions{display:flex;gap:6px;flex-wrap:wrap}
+    .mini{padding:7px 10px;font-size:12px;border-radius:9px}
+
+    /* Forms */
+    .form-actions{display:flex;gap:8px;margin-top:5px;flex-wrap:wrap}
+    textarea{min-height:100px;resize:vertical}
+    .help{
+      padding:12px 14px;background:#f1f8f3;border-left:4px solid #159447;
+      border-radius:8px;color:#385444;font-size:13px;margin-bottom:15px
+    }
+
+    /* Toast */
+    #toast{
+      position:fixed;right:20px;bottom:20px;z-index:100;
+      background:#17251c;color:white;padding:13px 16px;border-radius:12px;
+      box-shadow:0 12px 35px rgba(0,0,0,.2);display:none;max-width:360px
+    }
+    #toast.show{display:block}
+    #toast.ok{background:#087a36}
+    #toast.err{background:#b42318}
+
+    .empty{padding:35px;text-align:center;color:#7b877f}
+    .loading{padding:20px;text-align:center;color:#66736b}
+
+    @media(max-width:1000px){
+      .stats{grid-template-columns:repeat(2,1fr)}
+      .grid4{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:760px){
+      .sidebar{width:70px;padding:12px 8px}
+      .side-title,.nav-text{display:none}
+      .nav-btn{text-align:center;font-size:20px;padding:12px 5px}
+      .main{padding:15px}
+      .topbar{padding:0 13px}
+      .admin-email{display:none}
+      .stats{grid-template-columns:1fr 1fr}
+      .grid2,.grid3{grid-template-columns:1fr}
+      .grid4{grid-template-columns:1fr}
+      .page-head h2{font-size:22px}
+    }
+    @media(max-width:450px){
+      .stats{grid-template-columns:1fr}
+      .login-card{padding:24px}
+    }
+  </style>
 </head>
+
 <body>
 
-<header>
-  <div class="wrap top">
-    <div>
-      <h1>🌾 ખેડૂત મિત્ર — Admin Panel</h1>
-      <div class="sub">બજાર ભાવ મેનેજમેન્ટ</div>
+  <!-- LOGIN -->
+  <section id="loginScreen">
+    <div class="login-card">
+      <div class="logo">🌾</div>
+      <h1>ખેડૂત મિત્ર</h1>
+      <p>Admin Panel માં પ્રવેશ કરવા Admin Email અને Password દાખલ કરો.</p>
+
+      <div class="field">
+        <label>Email</label>
+        <input id="loginEmail" type="email" placeholder="admin@example.com" autocomplete="username">
+      </div>
+
+      <div class="field">
+        <label>Password</label>
+        <input id="loginPassword" type="password" placeholder="Password" autocomplete="current-password">
+      </div>
+
+      <button id="loginBtn" class="btn btn-primary btn-full">🔐 Admin Login</button>
+      <div id="loginMsg" class="login-msg"></div>
     </div>
-    <button class="logout" id="logoutBtn">Logout</button>
-  </div>
-</header>
+  </section>
 
-<main class="wrap">
-  <div id="loading" class="card">⏳ Admin ચેક થઈ રહ્યું છે...</div>
-
-  <div id="adminArea" class="grid hidden">
-
-    <section class="card">
-      <h2>📋 પાક પસંદ કરો</h2>
-      <div id="marketList" class="list">⏳ ભાવ લોડ થઈ રહ્યા છે...</div>
-    </section>
-
-    <section class="card">
-      <h2>✏️ બજાર ભાવ બદલો</h2>
-
-      <div class="info">
-        <b>Automatic Previous Price</b><br>
-        તમે ફક્ત નવો <b>સરેરાશ ભાવ</b> નાખશો. Save કરતાં પહેલાંનો
-        <b>avgPrice</b> આપમેળે <b>previousAvgPrice</b> બની જશે.
-        એટલે website પર દરેક વ્યક્તિને સાચો વધારો/ઘટાડો દેખાશે.
+  <!-- APP -->
+  <section id="app" class="hidden">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-icon">🌾</div>
+        <div>
+          <div>ખેડૂત મિત્ર</div>
+          <small style="color:#6b776f;font-weight:500">Admin Panel</small>
+        </div>
       </div>
-
-      <div id="selectedInfo" class="msg">પહેલા ડાબી બાજુથી પાક પસંદ કરો.</div>
-
-      <div id="editForm" class="hidden">
-        <label>પાક</label>
-        <input id="crop" readonly>
-
-        <label>બજાર</label>
-        <input id="market">
-
-        <label>ન્યૂનતમ ભાવ</label>
-        <input id="minPrice" type="number" min="0">
-
-        <label>મહત્તમ ભાવ</label>
-        <input id="maxPrice" type="number" min="0">
-
-        <label>સરેરાશ ભાવ (નવો ભાવ)</label>
-        <input id="avgPrice" type="number" min="0">
-
-        <label>આવક</label>
-        <input id="arrival">
-
-        <div id="preview" class="price-preview">નવો ભાવ નાખો.</div>
-
-        <button class="save" id="saveBtn">💾 ભાવ Save કરો</button>
-        <div id="saveMsg"></div>
+      <div class="top-actions">
+        <span id="adminEmail" class="admin-email"></span>
+        <button id="logoutBtn" class="btn btn-danger">Logout</button>
       </div>
-    </section>
+    </header>
 
-  </div>
-</main>
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="side-title">Management</div>
+        <button class="nav-btn active" data-page="dashboard"><span>📊</span> <span class="nav-text">Dashboard</span></button>
+        <button class="nav-btn" data-page="market"><span>💰</span> <span class="nav-text">Market Prices</span></button>
+        <button class="nav-btn" data-page="notices"><span>📢</span> <span class="nav-text">Notices</span></button>
+        <button class="nav-btn" data-page="schemes"><span>🏛️</span> <span class="nav-text">Schemes</span></button>
+      </aside>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-import {
-  getFirestore,
-  collection,
-  getDocs,
-  doc,
-  getDoc,
-  runTransaction,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
-import {
-  getAuth,
-  onAuthStateChanged,
-  signOut
-} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+      <main class="main">
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCoRcAEmMV0i-WVgnA5uzZjcDzBGtsqcDE",
-  authDomain: "khedut-mitra-d6808.firebaseapp.com",
-  projectId: "khedut-mitra-d6808",
-  storageBucket: "khedut-mitra-d6808.firebasestorage.app",
-  messagingSenderId: "368250177516",
-  appId: "1:368250177516:web:d23db936f7c5a4e53c62c9",
-  measurementId: "G-RZC2MFE0BW"
-};
+        <!-- DASHBOARD -->
+        <div id="page-dashboard" class="page active">
+          <div class="page-head">
+            <div>
+              <h2>Dashboard</h2>
+              <p>ખેડૂત મિત્ર Admin Panel માં આપનું સ્વાગત છે.</p>
+            </div>
+            <div class="head-actions">
+              <button class="btn btn-secondary" id="refreshAll">🔄 Refresh</button>
+            </div>
+          </div>
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const auth = getAuth(app);
+          <div class="stats">
+            <div class="stat">
+              <span class="stat-icon">💰</span>
+              <div class="stat-label">Market Prices</div>
+              <div id="statMarket" class="stat-value">0</div>
+            </div>
+            <div class="stat">
+              <span class="stat-icon">📢</span>
+              <div class="stat-label">Notices</div>
+              <div id="statNotices" class="stat-value">0</div>
+            </div>
+            <div class="stat">
+              <span class="stat-icon">🏛️</span>
+              <div class="stat-label">Schemes</div>
+              <div id="statSchemes" class="stat-value">0</div>
+            </div>
+            <div class="stat">
+              <span class="stat-icon">👤</span>
+              <div class="stat-label">Admin</div>
+              <div id="statAdmin" class="stat-value">✓</div>
+            </div>
+          </div>
 
-const loading = document.getElementById("loading");
-const adminArea = document.getElementById("adminArea");
-const marketList = document.getElementById("marketList");
-const selectedInfo = document.getElementById("selectedInfo");
-const editForm = document.getElementById("editForm");
-const saveBtn = document.getElementById("saveBtn");
-const saveMsg = document.getElementById("saveMsg");
-const preview = document.getElementById("preview");
+          <div class="card">
+            <div class="card-title">⚡ Quick Actions</div>
+            <div class="grid3">
+              <button class="btn btn-secondary" onclick="showPage('market'); openNewMarket()">➕ Market Price ઉમેરો</button>
+              <button class="btn btn-secondary" onclick="showPage('notices'); resetNoticeForm()">📢 Notice ઉમેરો</button>
+              <button class="btn btn-secondary" onclick="showPage('schemes'); resetSchemeForm()">🏛️ Scheme ઉમેરો</button>
+            </div>
+          </div>
 
-let currentUser = null;
-let selectedId = null;
-let selectedButton = null;
+          <div class="card">
+            <div class="card-title">ℹ️ Automatic Price Status</div>
+            <div class="help">
+              જ્યારે Market Price નું <b>avgPrice</b> બદલશો ત્યારે આ Admin Panel જૂનો avgPrice આપમેળે
+              <b>previousAvgPrice</b> માં સાચવશે. ત્યારબાદ Website પર દરેક visitor ને
+              <b>↑ વધારો</b> અથવા <b>↓ ઘટાડો</b> દેખાશે.
+            </div>
+            <div id="dashboardRecent" class="loading">Market data લોડ થઈ રહ્યો છે...</div>
+          </div>
+        </div>
 
-function money(v){
-  const n = Number(v || 0);
-  return "₹" + n.toLocaleString("en-IN");
-}
+        <!-- MARKET -->
+        <div id="page-market" class="page">
+          <div class="page-head">
+            <div>
+              <h2>💰 Market Prices</h2>
+              <p>બજાર ભાવ ઉમેરો, સુધારો અને મેનેજ કરો.</p>
+            </div>
+            <div class="head-actions">
+              <button class="btn btn-secondary" id="reloadMarket">🔄 Refresh</button>
+              <button class="btn btn-primary" id="newMarketBtn">➕ New Price</button>
+            </div>
+          </div>
 
-function getStatus(current, previous){
-  current = Number(current || 0);
-  previous = Number(previous || 0);
+          <div class="card">
+            <div class="help">
+              <b>Automatic:</b> Avg Price બદલતાં જ જૂનો Avg Price <b>previousAvgPrice</b> માં જશે.
+              ઉદાહરણ: ₹5800 → ₹6100 = <b>↑ ₹300 વધારો</b>.
+            </div>
+            <div id="marketTable" class="loading">Market Prices લોડ થઈ રહ્યા છે...</div>
+          </div>
 
-  if(!previous){
-    return {text:"ભાવ સરખામણી ઉપલબ્ધ નથી", cls:"same"};
-  }
+          <div id="marketEditor" class="card hidden">
+            <div class="card-title" id="marketEditorTitle">➕ New Market Price</div>
 
-  if(current > previous){
-    return {
-      text:`↑ ${money(current-previous)} વધારો`,
-      cls:"increase"
+            <input id="marketId" type="hidden">
+
+            <div class="grid2">
+              <div class="field">
+                <label>Crop / પાક *</label>
+                <input id="mCrop" placeholder="જેમ કે મગફળી">
+              </div>
+              <div class="field">
+                <label>Market / બજાર *</label>
+                <input id="mMarket" placeholder="જેમ કે Botad Market">
+              </div>
+              <div class="field">
+                <label>Minimum Price *</label>
+                <input id="mMin" type="number" min="0" placeholder="5200">
+              </div>
+              <div class="field">
+                <label>Maximum Price *</label>
+                <input id="mMax" type="number" min="0" placeholder="6150">
+              </div>
+              <div class="field">
+                <label>Average Price *</label>
+                <input id="mAvg" type="number" min="0" placeholder="5720">
+              </div>
+              <div class="field">
+                <label>Arrival / આવક</label>
+                <input id="mArrival" placeholder="1250 ક્વિન્ટલ">
+              </div>
+            </div>
+
+            <div id="pricePreview" class="help hidden"></div>
+
+            <div class="form-actions">
+              <button id="saveMarketBtn" class="btn btn-primary">💾 Save Market Price</button>
+              <button id="cancelMarketBtn" class="btn btn-secondary">Cancel</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- NOTICES -->
+        <div id="page-notices" class="page">
+          <div class="page-head">
+            <div>
+              <h2>📢 Notices</h2>
+              <p>Website પર જાહેર જાહેરાત / માહિતી મેનેજ કરો.</p>
+            </div>
+            <button class="btn btn-primary" id="newNoticeBtn">➕ New Notice</button>
+          </div>
+
+          <div id="noticeEditor" class="card">
+            <div class="card-title" id="noticeEditorTitle">➕ Notice ઉમેરો</div>
+            <input id="noticeId" type="hidden">
+            <div class="grid2">
+              <div class="field">
+                <label>Title *</label>
+                <input id="nTitle" placeholder="જેમ કે મહત્વની જાહેરાત">
+              </div>
+              <div class="field">
+                <label>Type</label>
+                <select id="nType">
+                  <option value="info">માહિતી</option>
+                  <option value="important">મહત્વપૂર્ણ</option>
+                  <option value="offer">ઓફર</option>
+                  <option value="warning">ચેતવણી</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <label>Message *</label>
+              <textarea id="nMessage" placeholder="અહીં જાહેરાત લખો..."></textarea>
+            </div>
+            <div class="form-actions">
+              <button id="saveNoticeBtn" class="btn btn-primary">💾 Save Notice</button>
+              <button id="cancelNoticeBtn" class="btn btn-secondary">Clear</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">📋 Published Notices</div>
+            <div id="noticeList" class="loading">Notices લોડ થઈ રહ્યા છે...</div>
+          </div>
+        </div>
+
+        <!-- SCHEMES -->
+        <div id="page-schemes" class="page">
+          <div class="page-head">
+            <div>
+              <h2>🏛️ Government Schemes</h2>
+              <p>ખેડૂત યોજનાઓની માહિતી મેનેજ કરો.</p>
+            </div>
+            <button class="btn btn-primary" id="newSchemeBtn">➕ New Scheme</button>
+          </div>
+
+          <div id="schemeEditor" class="card">
+            <div class="card-title" id="schemeEditorTitle">➕ Scheme ઉમેરો</div>
+            <input id="schemeId" type="hidden">
+            <div class="grid2">
+              <div class="field">
+                <label>Scheme Name *</label>
+                <input id="sName" placeholder="જેમ કે PM-KISAN">
+              </div>
+              <div class="field">
+                <label>Category</label>
+                <input id="sCategory" placeholder="જેમ કે ખેતીવાડી">
+              </div>
+              <div class="field">
+                <label>Official Link</label>
+                <input id="sLink" type="url" placeholder="https://...">
+              </div>
+              <div class="field">
+                <label>Status</label>
+                <select id="sStatus">
+                  <option value="active">Active</option>
+                  <option value="closed">Closed</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <label>Description *</label>
+              <textarea id="sDescription" placeholder="યોજનાની માહિતી..."></textarea>
+            </div>
+            <div class="form-actions">
+              <button id="saveSchemeBtn" class="btn btn-primary">💾 Save Scheme</button>
+              <button id="cancelSchemeBtn" class="btn btn-secondary">Clear</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">📋 Schemes List</div>
+            <div id="schemeList" class="loading">Schemes લોડ થઈ રહી છે...</div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </section>
+
+  <div id="toast"></div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+    import {
+      getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut
+    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+    import {
+      getFirestore, collection, getDocs, getDoc, doc, setDoc, deleteDoc,
+      runTransaction, serverTimestamp, query, orderBy
+    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCoRcAEmMV0i-WVgnA5uzZjcDzBGtsqcDE",
+      authDomain: "khedut-mitra-d6808.firebaseapp.com",
+      projectId: "khedut-mitra-d6808",
+      storageBucket: "khedut-mitra-d6808.firebasestorage.app",
+      messagingSenderId: "368250177516",
+      appId: "1:368250177516:web:d23db936f7c5a4e53c62c9",
+      measurementId: "G-RZC2MFE0BW"
     };
-  }
 
-  if(current < previous){
-    return {
-      text:`↓ ${money(previous-current)} ઘટાડો`,
-      cls:"decrease"
-    };
-  }
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
 
-  return {text:"— સ્થિર", cls:"same"};
-}
+    let currentUser = null;
+    let marketCache = [];
+    let noticeCache = [];
+    let schemeCache = [];
 
-async function isAdmin(uid){
-  const snap = await getDoc(doc(db,"admins",uid));
-  return snap.exists();
-}
+    const $ = (id) => document.getElementById(id);
 
-async function loadMarkets(){
-  marketList.textContent = "⏳ ભાવ લોડ થઈ રહ્યા છે...";
-
-  try{
-    const snap = await getDocs(collection(db,"marketPrices"));
-
-    if(snap.empty){
-      marketList.textContent = "હજુ marketPrices માં કોઈ ભાવ નથી.";
-      return;
+    function toast(message, type="ok"){
+      const el = $("toast");
+      el.textContent = message;
+      el.className = "show " + (type === "err" ? "err" : "ok");
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => el.className = "", 3500);
     }
 
-    marketList.innerHTML = "";
+    function money(n){
+      const x = Number(n || 0);
+      return "₹" + x.toLocaleString("en-IN");
+    }
 
-    snap.forEach(d => {
-      const data = d.data();
+    function escapeHtml(value){
+      return String(value ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
 
-      const button = document.createElement("button");
-      button.textContent =
-        `${data.crop || d.id} — ${data.market || "બજાર"}`;
+    function statusHtml(avg, previous){
+      avg = Number(avg || 0);
+      previous = Number(previous || 0);
 
-      button.addEventListener("click", () => selectMarket(d.id, data, button));
-      marketList.appendChild(button);
+      if(!previous){
+        return '<span class="status same">— સરખામણી નથી</span>';
+      }
+      if(avg > previous){
+        return `<span class="status up">↑ ${money(avg-previous)} વધારો</span>`;
+      }
+      if(avg < previous){
+        return `<span class="status down">↓ ${money(previous-avg)} ઘટાડો</span>`;
+      }
+      return '<span class="status same">— સ્થિર</span>';
+    }
+
+    function showPage(name){
+      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+      document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+
+      const page = $("page-" + name);
+      if(page) page.classList.add("active");
+
+      const btn = document.querySelector(`.nav-btn[data-page="${name}"]`);
+      if(btn) btn.classList.add("active");
+
+      if(name === "market") loadMarketPrices();
+      if(name === "notices") loadNotices();
+      if(name === "schemes") loadSchemes();
+    }
+    window.showPage = showPage;
+
+    document.querySelectorAll(".nav-btn").forEach(btn => {
+      btn.addEventListener("click", () => showPage(btn.dataset.page));
     });
 
-  }catch(error){
-    console.error(error);
-    marketList.innerHTML =
-      "❌ ભાવ લોડ થયા નથી.<br><br>" + error.message;
-  }
-}
+    // ---------- AUTH ----------
+    $("loginBtn").addEventListener("click", async () => {
+      const email = $("loginEmail").value.trim();
+      const password = $("loginPassword").value;
 
-function selectMarket(id,data,button){
-  selectedId = id;
+      $("loginMsg").textContent = "";
 
-  if(selectedButton) selectedButton.classList.remove("active");
-  selectedButton = button;
-  selectedButton.classList.add("active");
-
-  document.getElementById("crop").value = data.crop || "";
-  document.getElementById("market").value = data.market || "";
-  document.getElementById("minPrice").value = data.minPrice ?? "";
-  document.getElementById("maxPrice").value = data.maxPrice ?? "";
-  document.getElementById("avgPrice").value = data.avgPrice ?? "";
-  document.getElementById("arrival").value = data.arrival || "";
-
-  const previous = Number(data.previousAvgPrice || 0);
-  const current = Number(data.avgPrice || 0);
-  const status = getStatus(current, previous);
-
-  selectedInfo.innerHTML =
-    `<b>${data.crop || id}</b><br>
-     હાલનો સરેરાશ ભાવ: ${money(current)}<br>
-     અગાઉનો સરેરાશ ભાવ: ${previous ? money(previous) : "હજુ નથી"}<br>
-     હાલનું status: <span class="${status.cls}">${status.text}</span>`;
-
-  editForm.classList.remove("hidden");
-  saveMsg.textContent = "";
-  updatePreview();
-}
-
-function updatePreview(){
-  const current = Number(document.getElementById("avgPrice").value || 0);
-  const previousText = selectedInfo.textContent.match(/અગાઉનો સરેરાશ ભાવ:\s*₹?([\d,]+)/);
-
-  let previous = 0;
-
-  if(previousText){
-    previous = Number(previousText[1].replace(/,/g,""));
-  }
-
-  const status = getStatus(current,previous);
-
-  preview.innerHTML =
-    `નવો સરેરાશ ભાવ: <b>${money(current)}</b><br>
-     અગાઉનો ભાવ: <b>${previous ? money(previous) : "હજુ નથી"}</b><br>
-     Result: <span class="${status.cls}">${status.text}</span>`;
-}
-
-document.getElementById("avgPrice").addEventListener("input", updatePreview);
-
-saveBtn.addEventListener("click", async () => {
-  if(!selectedId){
-    alert("પહેલા પાક પસંદ કરો.");
-    return;
-  }
-
-  const newAvg = Number(document.getElementById("avgPrice").value);
-
-  if(!Number.isFinite(newAvg) || newAvg < 0){
-    alert("સાચો સરેરાશ ભાવ નાખો.");
-    return;
-  }
-
-  saveBtn.disabled = true;
-  saveBtn.textContent = "⏳ Save થઈ રહ્યું છે...";
-  saveMsg.innerHTML = "";
-
-  try{
-    const ref = doc(db,"marketPrices",selectedId);
-
-    /*
-      IMPORTANT:
-      Transaction પહેલા Firebaseમાંથી current avgPrice વાંચે છે.
-      પછી એ current avgPrice ને previousAvgPrice તરીકે સાચવે છે.
-      ત્યારબાદ નવો avgPrice save કરે છે.
-
-      એટલે Admin Panelમાં previousAvgPrice જાતે નાખવાની જરૂર નથી.
-    */
-    await runTransaction(db, async (transaction) => {
-      const snap = await transaction.get(ref);
-
-      if(!snap.exists()){
-        throw new Error("આ market price document મળ્યું નથી.");
+      if(!email || !password){
+        $("loginMsg").textContent = "Email અને Password બંને નાખો.";
+        return;
       }
 
-      const oldData = snap.data();
-      const oldAvg = Number(oldData.avgPrice || 0);
+      $("loginBtn").disabled = true;
+      $("loginBtn").textContent = "Login થઈ રહ્યું છે...";
 
-      const newData = {
-        crop: document.getElementById("crop").value.trim(),
-        market: document.getElementById("market").value.trim(),
-        minPrice: Number(document.getElementById("minPrice").value || 0),
-        maxPrice: Number(document.getElementById("maxPrice").value || 0),
-        avgPrice: newAvg,
-        arrival: document.getElementById("arrival").value.trim(),
-        updatedAt: serverTimestamp()
-      };
+      try{
+        await signInWithEmailAndPassword(auth, email, password);
+      }catch(err){
+        console.error(err);
+        $("loginMsg").textContent = "Login failed: " + friendlyAuthError(err);
+      }finally{
+        $("loginBtn").disabled = false;
+        $("loginBtn").textContent = "🔐 Admin Login";
+      }
+    });
 
-      // ફક્ત સાચો ભાવ બદલાય ત્યારે previousAvgPrice update થશે.
-      if(oldAvg !== newAvg){
-        newData.previousAvgPrice = oldAvg;
+    $("loginPassword").addEventListener("keydown", e => {
+      if(e.key === "Enter") $("loginBtn").click();
+    });
+
+    function friendlyAuthError(err){
+      const code = err?.code || "";
+      if(code.includes("invalid-credential")) return "Email અથવા Password ખોટો છે.";
+      if(code.includes("user-not-found")) return "આ Email નું user મળ્યું નથી.";
+      if(code.includes("wrong-password")) return "Password ખોટો છે.";
+      if(code.includes("too-many-requests")) return "ઘણા પ્રયાસ થયા. થોડા સમય પછી ફરી પ્રયાસ કરો.";
+      return err?.message || "Unknown error";
+    }
+
+    $("logoutBtn").addEventListener("click", async () => {
+      await signOut(auth);
+    });
+
+    onAuthStateChanged(auth, async (user) => {
+      if(!user){
+        currentUser = null;
+        $("app").classList.add("hidden");
+        $("loginScreen").classList.remove("hidden");
+        return;
+      }
+
+      try{
+        // Admin whitelist: admins/{uid} must exist.
+        const adminSnap = await getDoc(doc(db, "admins", user.uid));
+
+        if(!adminSnap.exists()){
+          await signOut(auth);
+          $("loginMsg").textContent =
+            "આ Firebase user Admin નથી. Firestore → admins → તમારી UID નો document બનાવો.";
+          return;
+        }
+
+        currentUser = user;
+        $("loginScreen").classList.add("hidden");
+        $("app").classList.remove("hidden");
+        $("adminEmail").textContent = user.email || "";
+        await refreshAll();
+      }catch(err){
+        console.error(err);
+        await signOut(auth);
+        $("loginMsg").textContent =
+          "Admin verification થઈ શક્યું નથી. Firestore rules અને admins UID તપાસો.";
+      }
+    });
+
+    // ---------- REFRESH ----------
+    async function refreshAll(){
+      await Promise.allSettled([
+        loadMarketPrices(),
+        loadNotices(),
+        loadSchemes()
+      ]);
+      updateStats();
+    }
+
+    $("refreshAll").addEventListener("click", refreshAll);
+
+    // ---------- MARKET ----------
+    async function loadMarketPrices(){
+      $("marketTable").innerHTML = '<div class="loading">Market Prices લોડ થઈ રહ્યા છે...</div>';
+
+      try{
+        const snap = await getDocs(collection(db, "marketPrices"));
+        marketCache = snap.docs.map(d => ({id:d.id, ...d.data()}));
+
+        marketCache.sort((a,b) =>
+          String(a.crop || "").localeCompare(String(b.crop || ""), "gu")
+        );
+
+        renderMarket();
+        updateStats();
+        renderDashboardRecent();
+      }catch(err){
+        console.error(err);
+        $("marketTable").innerHTML =
+          '<div class="empty">Market Prices લોડ થઈ શક્યા નથી.</div>';
+        toast("Market Prices લોડ કરવામાં error આવ્યો.", "err");
+      }
+    }
+
+    function renderMarket(){
+      if(!marketCache.length){
+        $("marketTable").innerHTML =
+          '<div class="empty">હજુ કોઈ Market Price નથી. ઉપરથી ➕ New Price કરો.</div>';
+        return;
+      }
+
+      let html = `
+        <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>પાક</th>
+              <th>બજાર</th>
+              <th>Min</th>
+              <th>Max</th>
+              <th>Avg</th>
+              <th>Previous Avg</th>
+              <th>Status</th>
+              <th>Arrival</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      for(const item of marketCache){
+        html += `
+          <tr>
+            <td class="crop-name">${escapeHtml(item.crop || "-")}</td>
+            <td>${escapeHtml(item.market || "-")}</td>
+            <td>${money(item.minPrice)}</td>
+            <td>${money(item.maxPrice)}</td>
+            <td><b>${money(item.avgPrice)}</b></td>
+            <td>${item.previousAvgPrice ? money(item.previousAvgPrice) : '<span class="muted">—</span>'}</td>
+            <td>${statusHtml(item.avgPrice,item.previousAvgPrice)}</td>
+            <td>${escapeHtml(item.arrival || "-")}</td>
+            <td>
+              <div class="actions">
+                <button class="btn btn-secondary mini" data-edit-market="${escapeHtml(item.id)}">✏️ Edit</button>
+                <button class="btn btn-danger mini" data-delete-market="${escapeHtml(item.id)}">🗑️ Delete</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }
+
+      html += "</tbody></table></div>";
+      $("marketTable").innerHTML = html;
+
+      document.querySelectorAll("[data-edit-market]").forEach(btn => {
+        btn.addEventListener("click", () => editMarket(btn.dataset.editMarket));
+      });
+
+      document.querySelectorAll("[data-delete-market]").forEach(btn => {
+        btn.addEventListener("click", () => deleteMarket(btn.dataset.deleteMarket));
+      });
+    }
+
+    function openNewMarket(){
+      $("marketEditor").classList.remove("hidden");
+      $("marketEditorTitle").textContent = "➕ New Market Price";
+      $("marketId").value = "";
+      $("mCrop").value = "";
+      $("mMarket").value = "";
+      $("mMin").value = "";
+      $("mMax").value = "";
+      $("mAvg").value = "";
+      $("mArrival").value = "";
+      $("pricePreview").classList.add("hidden");
+      $("marketEditor").scrollIntoView({behavior:"smooth",block:"start"});
+    }
+    window.openNewMarket = openNewMarket;
+
+    $("newMarketBtn").addEventListener("click", openNewMarket);
+    $("cancelMarketBtn").addEventListener("click", () => $("marketEditor").classList.add("hidden"));
+    $("reloadMarket").addEventListener("click", loadMarketPrices);
+
+    function editMarket(id){
+      const item = marketCache.find(x => x.id === id);
+      if(!item) return;
+
+      $("marketEditor").classList.remove("hidden");
+      $("marketEditorTitle").textContent = "✏️ Market Price Edit";
+      $("marketId").value = id;
+      $("mCrop").value = item.crop || "";
+      $("mMarket").value = item.market || "";
+      $("mMin").value = item.minPrice ?? "";
+      $("mMax").value = item.maxPrice ?? "";
+      $("mAvg").value = item.avgPrice ?? "";
+      $("mArrival").value = item.arrival || "";
+      updatePricePreview(item.avgPrice, item.previousAvgPrice);
+      $("marketEditor").scrollIntoView({behavior:"smooth",block:"start"});
+    }
+
+    function updatePricePreview(avgValue, oldAvgValue){
+      const avg = Number(avgValue || 0);
+      const old = Number(oldAvgValue || 0);
+      const box = $("pricePreview");
+
+      if(!old){
+        box.innerHTML = "ℹ️ આ પાક માટે અગાઉનો Avg Price ઉપલબ્ધ નથી.";
+        box.classList.remove("hidden");
+        return;
+      }
+
+      if(avg > old){
+        box.innerHTML = `📈 Current ${money(avg)} | Previous ${money(old)} → <b>${money(avg-old)} વધારો</b>`;
+      }else if(avg < old){
+        box.innerHTML = `📉 Current ${money(avg)} | Previous ${money(old)} → <b>${money(old-avg)} ઘટાડો</b>`;
       }else{
-        newData.previousAvgPrice =
-          Number(oldData.previousAvgPrice || 0);
+        box.innerHTML = `➖ Current ${money(avg)} | Previous ${money(old)} → <b>સ્થિર</b>`;
       }
-
-      transaction.update(ref,newData);
-    });
-
-    const fresh = await getDoc(doc(db,"marketPrices",selectedId));
-    const data = fresh.data();
-
-    const status = getStatus(
-      data.avgPrice,
-      data.previousAvgPrice
-    );
-
-    selectedInfo.innerHTML =
-      `<b>${data.crop || selectedId}</b><br>
-       હાલનો સરેરાશ ભાવ: ${money(data.avgPrice)}<br>
-       અગાઉનો સરેરાશ ભાવ: ${data.previousAvgPrice ? money(data.previousAvgPrice) : "હજુ નથી"}<br>
-       હાલનું status: <span class="${status.cls}">${status.text}</span>`;
-
-    saveMsg.innerHTML =
-      `<div class="msg">
-        ✅ ભાવ સફળતાપૂર્વક Save થયો.<br>
-        હવે website પર બધાને:
-        <b>${status.text}</b>
-      </div>`;
-
-    await loadMarkets();
-
-  }catch(error){
-    console.error(error);
-
-    saveMsg.innerHTML =
-      `<div class="msg" style="color:#c62828">
-        ❌ Save થયું નથી.<br>${error.message}
-      </div>`;
-  }
-
-  saveBtn.disabled = false;
-  saveBtn.textContent = "💾 ભાવ Save કરો";
-});
-
-document.getElementById("logoutBtn").addEventListener("click", async () => {
-  await signOut(auth);
-  location.href = "index.html";
-});
-
-onAuthStateChanged(auth, async (user) => {
-  if(!user){
-    location.href = "index.html";
-    return;
-  }
-
-  currentUser = user;
-
-  try{
-    const admin = await isAdmin(user.uid);
-
-    if(!admin){
-      loading.innerHTML =
-        "❌ આ Account ને Admin permission નથી.<br><br>" +
-        "Firebase Firestore → admins → તમારા Firebase Auth UID નામે document બનાવો.";
-      return;
+      box.classList.remove("hidden");
     }
 
-    loading.classList.add("hidden");
-    adminArea.classList.remove("hidden");
+    $("mAvg").addEventListener("input", () => {
+      const id = $("marketId").value;
+      const item = marketCache.find(x => x.id === id);
+      updatePricePreview($("mAvg").value, item?.avgPrice || 0);
+    });
 
-    await loadMarkets();
+    $("saveMarketBtn").addEventListener("click", async () => {
+      const id = $("marketId").value.trim();
+      const crop = $("mCrop").value.trim();
+      const market = $("mMarket").value.trim();
+      const minPrice = Number($("mMin").value);
+      const maxPrice = Number($("mMax").value);
+      const newAvg = Number($("mAvg").value);
+      const arrival = $("mArrival").value.trim();
 
-  }catch(error){
-    console.error(error);
-    loading.innerHTML =
-      "❌ Admin permission check error:<br>" + error.message;
-  }
-});
-</script>
+      if(!crop || !market || !Number.isFinite(minPrice) || !Number.isFinite(maxPrice) || !Number.isFinite(newAvg)){
+        toast("Crop, Market, Min, Max અને Avg Price યોગ્ય રીતે भरो.", "err");
+        return;
+      }
 
+      if(minPrice > maxPrice){
+        toast("Minimum Price, Maximum Price કરતાં વધારે ન હોઈ શકે.", "err");
+        return;
+      }
+
+      $("saveMarketBtn").disabled = true;
+      $("saveMarketBtn").textContent = "Saving...";
+
+      try{
+        if(id){
+          const ref = doc(db, "marketPrices", id);
+
+          await runTransaction(db, async transaction => {
+            const snap = await transaction.get(ref);
+            if(!snap.exists()) throw new Error("Market document મળ્યો નથી.");
+
+            const old = snap.data();
+            const oldAvg = Number(old.avgPrice || 0);
+
+            const data = {
+              crop,
+              market,
+              minPrice,
+              maxPrice,
+              avgPrice: newAvg,
+              arrival,
+              updatedAt: serverTimestamp()
+            };
+
+            // મુખ્ય automatic logic:
+            // Avg બદલાય ત્યારે જૂનો Avg → previousAvgPrice
+            if(oldAvg !== newAvg){
+              data.previousAvgPrice = oldAvg;
+            }else{
+              data.previousAvgPrice = Number(old.previousAvgPrice || 0);
+            }
+
+            transaction.update(ref, data);
+          });
+
+          toast("Market Price update થઈ ગયો. Previous Avg આપમેળે સાચવાયો. ✅");
+        }else{
+          const newRef = doc(collection(db, "marketPrices"));
+
+          await setDoc(newRef, {
+            crop,
+            market,
+            minPrice,
+            maxPrice,
+            avgPrice: newAvg,
+            previousAvgPrice: 0,
+            arrival,
+            createdAt: serverTimestamp(),
+            updatedAt: serverTimestamp()
+          });
+
+          toast("નવો Market Price ઉમેરાયો. ✅");
+        }
+
+        $("marketEditor").classList.add("hidden");
+        await loadMarketPrices();
+        updateStats();
+      }catch(err){
+        console.error(err);
+        toast("Save failed: " + (err.message || err), "err");
+      }finally{
+        $("saveMarketBtn").disabled = false;
+        $("saveMarketBtn").textContent = "💾 Save Market Price";
+      }
+    });
+
+    async function deleteMarket(id){
+      const item = marketCache.find(x => x.id === id);
+      if(!item) return;
+
+      if(!confirm(`"${item.crop || "આ પાક"}" નો Market Price delete કરવો છે?`)) return;
+
+      try{
+        await deleteDoc(doc(db, "marketPrices", id));
+        toast("Market Price delete થયો.");
+        await loadMarketPrices();
+        updateStats();
+      }catch(err){
+        console.error(err);
+        toast("Delete failed: " + (err.message || err), "err");
+      }
+    }
+
+    // ---------- NOTICES ----------
+    async function loadNotices(){
+      $("noticeList").innerHTML = '<div class="loading">Notices લોડ થઈ રહ્યા છે...</div>';
+
+      try{
+        const snap = await getDocs(collection(db, "notices"));
+        noticeCache = snap.docs.map(d => ({id:d.id,...d.data()}));
+        noticeCache.sort((a,b) => String(b.createdAt || "").localeCompare(String(a.createdAt || "")));
+        renderNotices();
+        updateStats();
+      }catch(err){
+        console.error(err);
+        $("noticeList").innerHTML =
+          '<div class="empty">Notices લોડ થઈ શક્યા નથી. Collection empty હોય તો આ સામાન્ય હોઈ શકે.</div>';
+      }
+    }
+
+    function renderNotices(){
+      if(!noticeCache.length){
+        $("noticeList").innerHTML = '<div class="empty">હજુ કોઈ notice નથી.</div>';
+        return;
+      }
+
+      let html = `
+        <div class="table-wrap">
+        <table>
+          <thead><tr><th>Title</th><th>Type</th><th>Message</th><th>Action</th></tr></thead>
+          <tbody>
+      `;
+
+      for(const n of noticeCache){
+        html += `
+          <tr>
+            <td><b>${escapeHtml(n.title || "")}</b></td>
+            <td>${escapeHtml(n.type || "info")}</td>
+            <td>${escapeHtml(n.message || "")}</td>
+            <td>
+              <div class="actions">
+                <button class="btn btn-secondary mini" data-edit-notice="${escapeHtml(n.id)}">✏️ Edit</button>
+                <button class="btn btn-danger mini" data-delete-notice="${escapeHtml(n.id)}">🗑️ Delete</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }
+      html += "</tbody></table></div>";
+      $("noticeList").innerHTML = html;
+
+      document.querySelectorAll("[data-edit-notice]").forEach(b =>
+        b.addEventListener("click", () => editNotice(b.dataset.editNotice))
+      );
+      document.querySelectorAll("[data-delete-notice]").forEach(b =>
+        b.addEventListener("click", () => deleteNotice(b.dataset.deleteNotice))
+      );
+    }
+
+    function resetNoticeForm(){
+      $("noticeId").value = "";
+      $("nTitle").value = "";
+      $("nMessage").value = "";
+      $("nType").value = "info";
+      $("noticeEditorTitle").textContent = "➕ Notice ઉમેરો";
+    }
+    window.resetNoticeForm = resetNoticeForm;
+
+    $("newNoticeBtn").addEventListener("click", () => {
+      resetNoticeForm();
+      $("noticeEditor").scrollIntoView({behavior:"smooth"});
+    });
+    $("cancelNoticeBtn").addEventListener("click", resetNoticeForm);
+
+    $("saveNoticeBtn").addEventListener("click", async () => {
+      const id = $("noticeId").value.trim();
+      const title = $("nTitle").value.trim();
+      const message = $("nMessage").value.trim();
+      const type = $("nType").value;
+
+      if(!title || !message){
+        toast("Notice Title અને Message જરૂરી છે.", "err");
+        return;
+      }
+
+      $("saveNoticeBtn").disabled = true;
+
+      try{
+        const ref = id ? doc(db,"notices",id) : doc(collection(db,"notices"));
+        await setDoc(ref, {
+          title, message, type,
+          updatedAt: serverTimestamp(),
+          ...(id ? {} : {createdAt: serverTimestamp()})
+        }, {merge:true});
+
+        toast(id ? "Notice update થયો. ✅" : "Notice publish થયો. ✅");
+        resetNoticeForm();
+        await loadNotices();
+      }catch(err){
+        console.error(err);
+        toast("Notice save failed: " + (err.message || err), "err");
+      }finally{
+        $("saveNoticeBtn").disabled = false;
+      }
+    });
+
+    function editNotice(id){
+      const n = noticeCache.find(x => x.id === id);
+      if(!n) return;
+      $("noticeId").value = id;
+      $("nTitle").value = n.title || "";
+      $("nMessage").value = n.message || "";
+      $("nType").value = n.type || "info";
+      $("noticeEditorTitle").textContent = "✏️ Notice Edit";
+      $("noticeEditor").scrollIntoView({behavior:"smooth"});
+    }
+
+    async function deleteNotice(id){
+      if(!confirm("આ notice delete કરવી છે?")) return;
+      try{
+        await deleteDoc(doc(db,"notices",id));
+        toast("Notice delete થયો.");
+        await loadNotices();
+      }catch(err){
+        console.error(err);
+        toast("Delete failed: " + (err.message || err), "err");
+      }
+    }
+
+    // ---------- SCHEMES ----------
+    async function loadSchemes(){
+      $("schemeList").innerHTML = '<div class="loading">Schemes લોડ થઈ રહી છે...</div>';
+
+      try{
+        const snap = await getDocs(collection(db,"schemes"));
+        schemeCache = snap.docs.map(d => ({id:d.id,...d.data()}));
+        schemeCache.sort((a,b) => String(a.name||"").localeCompare(String(b.name||""),"gu"));
+        renderSchemes();
+        updateStats();
+      }catch(err){
+        console.error(err);
+        $("schemeList").innerHTML =
+          '<div class="empty">Schemes લોડ થઈ શકી નથી. Collection empty હોય તો પણ આ message આવી શકે.</div>';
+      }
+    }
+
+    function renderSchemes(){
+      if(!schemeCache.length){
+        $("schemeList").innerHTML = '<div class="empty">હજુ કોઈ scheme નથી.</div>';
+        return;
+      }
+
+      let html = `
+        <div class="table-wrap">
+        <table>
+          <thead><tr><th>Scheme</th><th>Category</th><th>Description</th><th>Status</th><th>Action</th></tr></thead>
+          <tbody>
+      `;
+
+      for(const s of schemeCache){
+        html += `
+          <tr>
+            <td><b>${escapeHtml(s.name || "")}</b></td>
+            <td>${escapeHtml(s.category || "-")}</td>
+            <td>${escapeHtml(s.description || "")}</td>
+            <td>${escapeHtml(s.status || "active")}</td>
+            <td>
+              <div class="actions">
+                ${s.link ? `<a class="btn btn-secondary mini" href="${escapeHtml(s.link)}" target="_blank" rel="noopener">🔗 Open</a>` : ""}
+                <button class="btn btn-secondary mini" data-edit-scheme="${escapeHtml(s.id)}">✏️ Edit</button>
+                <button class="btn btn-danger mini" data-delete-scheme="${escapeHtml(s.id)}">🗑️ Delete</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }
+      html += "</tbody></table></div>";
+      $("schemeList").innerHTML = html;
+
+      document.querySelectorAll("[data-edit-scheme]").forEach(b =>
+        b.addEventListener("click", () => editScheme(b.dataset.editScheme))
+      );
+      document.querySelectorAll("[data-delete-scheme]").forEach(b =>
+        b.addEventListener("click", () => deleteScheme(b.dataset.deleteScheme))
+      );
+    }
+
+    function resetSchemeForm(){
+      $("schemeId").value = "";
+      $("sName").value = "";
+      $("sCategory").value = "";
+      $("sLink").value = "";
+      $("sDescription").value = "";
+      $("sStatus").value = "active";
+      $("schemeEditorTitle").textContent = "➕ Scheme ઉમેરો";
+    }
+    window.resetSchemeForm = resetSchemeForm;
+
+    $("newSchemeBtn").addEventListener("click", () => {
+      resetSchemeForm();
+      $("schemeEditor").scrollIntoView({behavior:"smooth"});
+    });
+    $("cancelSchemeBtn").addEventListener("click", resetSchemeForm);
+
+    $("saveSchemeBtn").addEventListener("click", async () => {
+      const id = $("schemeId").value.trim();
+      const name = $("sName").value.trim();
+      const category = $("sCategory").value.trim();
+      const link = $("sLink").value.trim();
+      const description = $("sDescription").value.trim();
+      const status = $("sStatus").value;
+
+      if(!name || !description){
+        toast("Scheme Name અને Description જરૂરી છે.", "err");
+        return;
+      }
+
+      $("saveSchemeBtn").disabled = true;
+
+      try{
+        const ref = id ? doc(db,"schemes",id) : doc(collection(db,"schemes"));
+        await setDoc(ref, {
+          name, category, link, description, status,
+          updatedAt: serverTimestamp(),
+          ...(id ? {} : {createdAt: serverTimestamp()})
+        }, {merge:true});
+
+        toast(id ? "Scheme update થઈ. ✅" : "Scheme ઉમેરાઈ. ✅");
+        resetSchemeForm();
+        await loadSchemes();
+      }catch(err){
+        console.error(err);
+        toast("Scheme save failed: " + (err.message || err), "err");
+      }finally{
+        $("saveSchemeBtn").disabled = false;
+      }
+    });
+
+    function editScheme(id){
+      const s = schemeCache.find(x => x.id === id);
+      if(!s) return;
+      $("schemeId").value = id;
+      $("sName").value = s.name || "";
+      $("sCategory").value = s.category || "";
+      $("sLink").value = s.link || "";
+      $("sDescription").value = s.description || "";
+      $("sStatus").value = s.status || "active";
+      $("schemeEditorTitle").textContent = "✏️ Scheme Edit";
+      $("schemeEditor").scrollIntoView({behavior:"smooth"});
+    }
+
+    async function deleteScheme(id){
+      if(!confirm("આ scheme delete કરવી છે?")) return;
+      try{
+        await deleteDoc(doc(db,"schemes",id));
+        toast("Scheme delete થઈ.");
+        await loadSchemes();
+      }catch(err){
+        console.error(err);
+        toast("Delete failed: " + (err.message || err), "err");
+      }
+    }
+
+    // ---------- DASHBOARD ----------
+    function updateStats(){
+      $("statMarket").textContent = marketCache.length;
+      $("statNotices").textContent = noticeCache.length;
+      $("statSchemes").textContent = schemeCache.length;
+    }
+
+    function renderDashboardRecent(){
+      if(!marketCache.length){
+        $("dashboardRecent").innerHTML = '<div class="empty">Market data ઉપલબ્ધ નથી.</div>';
+        return;
+      }
+
+      const top = marketCache.slice(0,5);
+      let html = `
+        <div class="table-wrap">
+        <table>
+          <thead><tr><th>પાક</th><th>Avg Price</th><th>Previous</th><th>Status</th></tr></thead>
+          <tbody>
+      `;
+      for(const x of top){
+        html += `
+          <tr>
+            <td><b>${escapeHtml(x.crop || "-")}</b></td>
+            <td>${money(x.avgPrice)}</td>
+            <td>${x.previousAvgPrice ? money(x.previousAvgPrice) : "—"}</td>
+            <td>${statusHtml(x.avgPrice,x.previousAvgPrice)}</td>
+          </tr>
+        `;
+      }
+      html += "</tbody></table></div>";
+      $("dashboardRecent").innerHTML = html;
+    }
+
+    // Expose a few helpers for inline quick-action buttons.
+    window.editMarket = editMarket;
+
+    // Initial empty dashboard state until auth completes.
+    updateStats();
+  </script>
 </body>
 </html>
