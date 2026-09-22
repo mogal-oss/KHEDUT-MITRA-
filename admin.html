@@ -779,35 +779,54 @@
 
       try{
         if(id){
-          const ref = doc(db, "marketPrices", id);
+          // Robust edit: પહેલા live Firestore document વાંચીએ.
+          // જૂનું/stale ID હોય તો crop + market પરથી ફરી સાચી document ID શોધીએ.
+          let ref = doc(db, "marketPrices", id);
+          let snap = await getDoc(ref);
 
-          await runTransaction(db, async transaction => {
-            const snap = await transaction.get(ref);
-            if(!snap.exists()) throw new Error("Market document મળ્યો નથી.");
+          if(!snap.exists()){
+            const liveSnap = await getDocs(collection(db, "marketPrices"));
+            const candidates = liveSnap.docs.map(d => ({ id:d.id, ...d.data() }));
 
-            const old = snap.data();
-            const oldAvg = Number(old.avgPrice || 0);
+            const exact = candidates.find(x =>
+              String(x.crop || "").trim() === crop &&
+              String(x.market || "").trim() === market
+            );
 
-            const data = {
-              crop,
-              market,
-              minPrice,
-              maxPrice,
-              avgPrice: newAvg,
-              arrival,
-              updatedAt: serverTimestamp()
-            };
-
-            // મુખ્ય automatic logic:
-            // Avg બદલાય ત્યારે જૂનો Avg → previousAvgPrice
-            if(oldAvg !== newAvg){
-              data.previousAvgPrice = oldAvg;
-            }else{
-              data.previousAvgPrice = Number(old.previousAvgPrice || 0);
+            if(exact){
+              ref = doc(db, "marketPrices", exact.id);
+              snap = await getDoc(ref);
             }
+          }
 
-            transaction.update(ref, data);
-          });
+          if(!snap.exists()){
+            throw new Error("Market document મળ્યો નથી. Market Prices ને Refresh કરીને ફરી Edit કરો.");
+          }
+
+          const old = snap.data();
+          const oldAvg = Number(old.avgPrice || 0);
+
+          const data = {
+            crop,
+            market,
+            minPrice,
+            maxPrice,
+            avgPrice: newAvg,
+            arrival,
+            updatedAt: serverTimestamp()
+          };
+
+          // મુખ્ય automatic logic:
+          // Avg બદલાય ત્યારે જૂનો Avg → previousAvgPrice
+          if(oldAvg !== newAvg){
+            data.previousAvgPrice = oldAvg;
+          }else{
+            data.previousAvgPrice = Number(old.previousAvgPrice || 0);
+          }
+
+          // setDoc + merge થી document ID સાચી હોય તો update થશે અને
+          // stale ID હોય તો ઉપરની live lookup પછી સાચા document પર update થશે.
+          await setDoc(ref, data, {merge:true});
 
           toast("Market Price update થઈ ગયો. Previous Avg આપમેળે સાચવાયો. ✅");
         }else{
