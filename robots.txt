@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mogal-oss.github.io/KHEDUT-MITRA-/sitemap.xml
