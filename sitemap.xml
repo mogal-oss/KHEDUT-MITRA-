@@ -3,6 +3,8 @@
 
   <url>
     <loc>https://mogal-oss.github.io/KHEDUT-MITRA-/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
   </url>
 
 </urlset>
